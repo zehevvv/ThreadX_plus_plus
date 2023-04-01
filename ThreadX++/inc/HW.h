@@ -1,0 +1,30 @@
+/*
+ * HW.h
+ *
+ *  Created on: Mar 31, 2023
+ *      Author: zehevvv
+ */
+
+#ifndef HW_H_
+#define HW_H_
+
+
+#define FLASH_MANAGMENT_LOGICAL_BLOCK_SIZE_BYTES	(512)
+
+
+#define INTERNAL_FLASH_FLASHWORD 		(8)
+#define INTERNAL_FLASH_SECTOR_SIZE		(0x20000)
+
+
+#define INTERNAL_REGISTRY_START_ADDRESS			(0x081C0000)
+#define INTERNAL_REGISTRY_NUM_SECOTR			(2)
+#define INTERNAL_REGISTRY_LOGICAL_BLOCK_SIZE	(512)
+
+
+#define WATCHDOG_TIMEOUT_MS		(100)
+#define WATCHDOG_PET_MS 		(90)
+
+
+#define MEMORY_MANAGER_POOL_SIZE		(64000)
+
+#endif /* HW_H_ */
