@@ -3,9 +3,9 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="description" content="None" /><link rel="canonical" href="https://example.com/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="description" content="None" />
       <link rel="shortcut icon" href="img/favicon.ico" />
-    <title>MkLorum</title>
+    <title>ThreadX++</title>
     <link rel="stylesheet" href="css/theme.css" />
     <link rel="stylesheet" href="css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
@@ -14,7 +14,7 @@
         // Current page data
         var mkdocs_page_name = "Home";
         var mkdocs_page_input_path = "index.md";
-        var mkdocs_page_url = "/";
+        var mkdocs_page_url = null;
       </script>
     
     <script src="js/jquery-3.6.0.min.js" defer></script>
@@ -31,7 +31,7 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
     <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
-          <a href="." class="icon icon-home"> MkLorum
+          <a href="." class="icon icon-home"> ThreadX++
         </a><div role="search">
   <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
       <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
@@ -43,11 +43,17 @@
               <ul class="current">
                 <li class="toctree-l1 current"><a class="reference internal current" href=".">Home</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#commands">Commands</a>
+    <li class="toctree-l2"><a class="reference internal" href="#introduction">Introduction</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#project-layout">Project layout</a>
+    <li class="toctree-l2"><a class="reference internal" href="#abilities">Abilities</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#where-to-start">Where to start</a>
     </li>
     </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="install_st/">Install ThreadX on ST</a>
                 </li>
               </ul>
               <ul>
@@ -61,7 +67,7 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
       <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href=".">MkLorum</a>
+          <a href=".">ThreadX++</a>
         
       </nav>
       <div class="wy-nav-content">
@@ -77,26 +83,44 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="mklorum">MkLorum</h1>
-<p>For full documentation visit <a href="https://www.mkdocs.org">mkdocs.org</a>.</p>
-<h2 id="commands">Commands</h2>
+                <h1 id="threadx">ThreadX++</h1>
+<h2 id="introduction">Introduction</h2>
+<p>Hi all
+This is my little project, it's a big wrapper for ThreadX (AZURE RTOS) to work as c++, here some important pointes about the project:</p>
 <ul>
-<li><code>mkdocs new [dir-name]</code> - Create a new project.</li>
-<li><code>mkdocs serve</code> - Start the live-reloading docs server.</li>
-<li><code>mkdocs build</code> - Build the documentation site.</li>
-<li><code>mkdocs -h</code> - Print help message and exit.</li>
+<li>The main target of the project is one: SIMPLE, it's meaning that i do it much tiny that it can be, the price of course is that in way we lost abilities of the ThreadX</li>
+<li>I not cover all the API of ThreadX,</li>
+<li>I build this project on STM32H743, So if you using other processor of STM32 family i guess it will work, but if you have other MCU some of the abilities of my project will not available (like a watchdog) but you still can get most of the core function (you will need to change the code).</li>
 </ul>
-<h2 id="project-layout">Project layout</h2>
-<pre><code>mkdocs.yml    # The configuration file.
-docs/
-    index.md  # The documentation homepage.
-    ...       # Other markdown pages, images and other files.
-</code></pre>
+<h2 id="abilities">Abilities</h2>
+<p>The abilities of ThreadX++</p>
+<ul>
+<li><strong>Events-oriented:</strong> I added the events like delegate, so you can create event in one thread and register it from other thread.</li>
+<li><strong>Object-oriented:</strong> most of the API of the ThreadX get warper of as class, hte list of the API<ul>
+<li><strong>Thread:</strong></li>
+<li><strong>Event:</strong> Event that one thread will create and other can register and wakeup one it invoke</li>
+<li><strong>Mutex:</strong></li>
+<li><strong>Queue:</strong> Safe queue to send data between thread</li>
+<li><strong>Semaphore:</strong></li>
+<li><strong>TimeEvent:</strong> Event that thread creating and the event will wake up the thread every amount time.</li>
+</ul>
+</li>
+<li><strong>MemoryPool:</strong> Easy way to create pool of memory (overriding "new" and "delete").</li>
+<li><strong>STM32 easy use:</strong> I also do some wrapper to very useful peripherals of ST:<ul>
+<li><strong>Watchdog:</strong> Simple watchdog </li>
+<li><strong>Measure US:</strong> I used the "DWT" for create debug class that can easily measure time in microsecond</li>
+<li><strong>Internal registry :</strong> Registry (like dictionary) that use to save data in the internal flash on the ST.</li>
+<li><strong>Printf :</strong>  Use the SWT port for printing much more effective.</li>
+</ul>
+</li>
+</ul>
+<h2 id="where-to-start">Where to start</h2>
+<p>First you will need to install the ThreadX on your MCU, i made a tutorial for ST chips, if you have other MCU i also recommend to read it because it contain some configuration of the ThreadX that necessary.</p>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="about/" class="btn btn-neutral float-right" title="About">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="install_st/" class="btn btn-neutral float-right" title="Install ThreadX on ST">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -120,7 +144,7 @@ docs/
     
     
     
-      <span><a href="about/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="install_st/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>
@@ -139,5 +163,5 @@ docs/
 
 <!--
 MkDocs version : 1.4.2
-Build Date UTC : 2023-04-01 13:57:47.197742+00:00
+Build Date UTC : 2023-04-01 15:14:12.467792+00:00
 -->
