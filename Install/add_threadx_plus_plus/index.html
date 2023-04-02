@@ -54,6 +54,8 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#add-threadx_1">Add ThreadX++</a>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#next-step">Next step</a>
+    </li>
     </ul>
                   </li>
               </ul>
@@ -62,10 +64,6 @@
                   <li class="toctree-l1"><a class="reference internal" href="../../How_to_use/introduction/">Introduction</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../../How_to_use/task/">Task (Thread)</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../How_to_use/events/">Events</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../How_to_use/time_events/">Timer events</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Add STM32 API</span></p>
@@ -112,6 +110,8 @@
 <li>Now we need to add ThreadX++ to include path and source path (this step is explain in CUBE IDE, if you work on other IDE you need to figure this step yourself... good luck),   In CUBE IDE go to "Project-&gt;Properties", new window will open, in the left side of the window go to "C/C++ Build-&gt;Settings", select tab "Tool Settings", go to "MCU G++ Compiler-&gt;Include paths", in the window you will  see list of the included path, Add the path to ThreadX++/inc folder, you also need to do the same in "MCU G++ Compiler-&gt;Include paths".  <img alt="" src="../../img/Add_threadx_plus_plus/add_inc_cpp.png" />  Now return to left side of the window and select "C/C++ General-&gt;Paths and Symbols" than select tab "Source Location" and add the folder ThreadX++/src  <img alt="" src="../../img/Add_threadx_plus_plus/add_src_path.png" /></li>
 <li>In this step we call the function that add the ThreadX++ to system, Go to file "AZURE_RTOS/Ap/app_azure_rtos.c" and add the include "<strong>#include &lt;StartThreadX++.h></strong>"  <img alt="" src="../../img/Add_threadx_plus_plus/add_include_start.png" />  than add the call of the function <strong>StartThreadXPlusPlus(first_unused_memory);</strong> after the call of function <strong>App_ThreadX_Init</strong>  <img alt="" src="../../img/Add_threadx_plus_plus/add_func_call.png" /></li>
 </ol>
+<h2 id="next-step">Next step</h2>
+<p>The next step is to learn the tutorials in section <code>how to use</code>, start with the <a href="../../How_to_use/introduction/">Introduction</a></p>
               
             </div>
           </div><footer>

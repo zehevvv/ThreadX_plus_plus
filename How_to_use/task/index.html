@@ -74,12 +74,14 @@
         </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#send-data-between-tasks">Send data between tasks</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#send-data-by-message">Send data by message</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#send-data-by-event">Send data by event</a>
+    </li>
+        </ul>
     </li>
     </ul>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../events/">Events</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../time_events/">Timer events</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Add STM32 API</span></p>
@@ -218,8 +220,9 @@ public:
 <pre><code>void LedTask::Main_loop()
 {
     TestTaskPointer-&gt;event.Register(&amp;LedTask::Callback, this, this);
+
     while(1)
-        WaitForNewMessage()
+        WaitForNewMessage();
 }
 </code></pre>
 <p><strong>Parameter explain:</strong><br />
@@ -229,10 +232,13 @@ The register function of the event get 3 parameters:<br />
 <strong>Task pointer:</strong> Pointer to class that inherited from task class (in my example is pointer to LedTask)  </p>
 <p><strong>4)</strong> Invoke the event every one second:</p>
 <pre><code>void TestTask::Main_loop()
-{
-    event.Invoke()
+{    
     while(1)
-        WaitForNewMessage(1000)
+    {
+        event.Invoke();
+        WaitForNewMessage(1000);
+    }
+
 }
 </code></pre>
 <p>The result of the code is every second the LedTask will print "Event invoke"</p>
@@ -257,19 +263,103 @@ void LedTask::Main_loop()
 }
 </code></pre>
 <p><strong>Parameter explain:</strong><br />
-The register function of the event get 5 parameters:<br />
+The register function of the time event get 5 parameters:<br />
 <strong>Function:</strong> Pointer to function.<br />
 <strong>Class pointer:</strong> Pointer to class that have the callback (in my example is pointer to LedTask)<br />
 <strong>Task pointer:</strong> Pointer to class that inherited from task class (in my example is pointer to LedTask)<br />
 <strong>Time to execute:</strong> The number of milliseconds until call to callback.<br />
 <strong>Is periodic:</strong> Boolean, false - The callback call once, true - call periodic (forever).</p>
 <h2 id="send-data-between-tasks">Send data between tasks</h2>
+<p>To send data between tasks you have 2 ways:<br />
+1. <a href="#send-data-by-message">Message:</a> Send message from one task to other.<br />
+2. <a href="#send-data-by-event">Event:</a> Create event that every task get register by callback, when invoke the event you can also add data and every callback will get the data.</p>
+<p>As you can see the both method also used to run code by other task.
+Here the example how to implement them:</p>
+<h3 id="send-data-by-message">Send data by message</h3>
+<p>Send message from one task to other.
+For example, let's assume that we have two task: <strong>LedTask</strong> and <strong>TestTask</strong>, we want that TestTask will send to LedTask message every seconds, the message will include counter and the LedTask will print it in order to preform it we will need to do two things:<br />
+<strong>1)</strong> The TestTask need to call to member function <code>bool NotifyMessage(void* pointer)</code> of the LedTask every second, the function return if the message get into queue of message of LedTask successfully,  Example:  </p>
+<pre><code>void TestTask::Main_loop() 
+{
+    int counter = 0;
+    while(1)
+    {        
+        LedTaskPointer-&gt;NotifyMessage((void*)&amp;counter); 
+        WaitForNewMessage(1000);
+        counter++;
+    }
+}
+</code></pre>
+<p><strong>2)</strong> The LedTask need to override the function <code>void ReceiveMsg(void* pointer)</code>, example:</p>
+<pre><code>void LedTask::ReceiveMsg(void* pointer)
+{
+    printf(&quot;Counter %d \n&quot;, *(int*)param);
+}
+</code></pre>
+<p>The result of code above is: every second the LedTask will print "Counter X" where X is the counter.</p>
+<h3 id="send-data-by-event">Send data by event</h3>
+<p>Create event that every task get register by callback, when invoke the event you can also add data and every callback will get the data.
+For the next example let assume that we have 2 task: <strong>LedTask</strong> and <strong>TestTask</strong>, we want that TestTask have event that LedTask can register to it and every one second the TestTask will invoke the Event, and also send counter over the event.<br />
+Todo that we need 4 steps:  </p>
+<p><strong>1)</strong> Create the event object in TestTask:  </p>
+<pre><code>#include &quot;Event.h&quot;
+
+class TestTask : public Task
+{
+public:
+    TestTask();
+    void Main_loop();
+
+    Event event;
+};
+</code></pre>
+<p><strong>2)</strong> Create callback in the LedTask:</p>
+<pre><code>class LedTask : public Task
+{
+public:
+    LedTask();
+    void Main_loop();
+    void Callback(void* param)
+    {
+        printf(&quot;Counter %d \n&quot;, *(int*)param);
+    }
+};
+</code></pre>
+<p><strong>Note:</strong> You can change the name of the callback as you like but it must be in the next pattern <code>void &lt;Function name&gt;(void* pointer)</code> </p>
+<p><strong>3)</strong> Register the LedTask to event of TestTask:</p>
+<pre><code>void LedTask::Main_loop()
+{
+    TestTaskPointer-&gt;event.Register(&amp;LedTask::Callback, this, this);
+
+    while(1)
+        WaitForNewMessage();
+}
+</code></pre>
+<p><strong>Parameter explain:</strong><br />
+The register function of the event get 3 parameters:<br />
+<strong>Function:</strong> Pointer to function.<br />
+<strong>Class pointer:</strong> Pointer to class that have the callback (in my example is pointer to LedTask)<br />
+<strong>Task pointer:</strong> Pointer to class that inherited from task class (in my example is pointer to LedTask)  </p>
+<p><strong>4)</strong> Invoke the event every one second and send the value of the counter:</p>
+<pre><code>void TestTask::Main_loop()
+{    
+    int counter = 0;
+
+    while(1)
+    {
+        event.Invoke((void*)&amp;counter);
+        WaitForNewMessage(1000);
+        counter++;
+    }        
+}
+</code></pre>
+<p>The result of the code is every second the LedTask will print "Counter X" where X is the counter</p>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
         <a href="../introduction/" class="btn btn-neutral float-left" title="Introduction"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../events/" class="btn btn-neutral float-right" title="Events">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../../Add_stm32_api/config_printf/" class="btn btn-neutral float-right" title="Config printf">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -295,7 +385,7 @@ The register function of the event get 5 parameters:<br />
       <span><a href="../introduction/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../events/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../../Add_stm32_api/config_printf/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>
