@@ -71,38 +71,32 @@
 <h2 id="introduction">Introduction</h2>
 <p>In this tutorial we will install ThreadX by using the CUBE IDE, first you need to install CUBE IDE than open project, after that you can install the ThreadX.
 I write tutorial but you not must to use them, you can find a lot of tutorials in google.</p>
-<h2 id="install-cube-ide">Install CUBE IDE</h2>
-<p>You can download the CUBE IDE from here: <a href="https://www.st.com/en/development-tools/stm32cubeide.html">Link</a><br />
-You also need to download CUBE MX: <a href="https://www.st.com/en/development-tools/stm32cubemx.html">Link</a></p>
-<h2 id="open-project">Open project</h2>
-<ol>
-<li>Open Cube IDE </li>
-<li>Go to "File-&gt;New-&gt;STM32 project"</li>
-<li>
-<p>New window will open, in field "Commercial Part Number" you need to add your STM32 model ("for example my is STM32H743ZIT6"),  <img alt="" src="../../img/Install_ThreadX_on_st/TargetSelection.png" /><br />
-in the right bottom of the screen you will see list of STM32 modules, select your model from the list, on bottom of screen press on the "Next &gt;"</p>
-</li>
-<li>
-<p>New window will open, in the field "Targeted Language" select "C++", and in the field "Project Name:" Write the name of the your project, press on the "Finish" button.</p>
-</li>
-<li>
-<p>New window Eil ask if you want memory Protection, use your brain and press "Yes".</p>
-</li>
-<li>
-<p>Now wait, it can take sometimes, in the end you will get the next screen  <img alt="" src="../../img/Install_ThreadX_on_st/End_of_create_project.png" />  </p>
-</li>
-</ol>
-<h2 id="add-threadx">Add ThreadX</h2>
-<ol>
-<li>In the screen you need to select the tab "Pinout &amp; configuration" and select "Software Packs", than select "Manage software packs"  <img alt="" src="../../img/Install_ThreadX_on_st/manage_software_pack.png" />  </li>
-<li>New window will open, select tab "STMicroelectronics", in this tab you need to find "X-CUBE-AZRTOS-XX" ("XX" is the name of your family model, for example my is "H7"), than select it and it open list of package, you need to check the " Azure RTOS STM32Cube expansion package for STM32XX series" (again "XX" is the name of your family model), than press install  <img alt="" src="../../img/Install_ThreadX_on_st/select_package.png" /></li>
-<li>After the download finish, Now you need to return to main screen and again select the tab "Pinout &amp; configuration" and select "Software Packs", but now select the "Select Components"</li>
-<li>New window will open, you will see list of all the pack you and add to your project, you need to select "STMicroelectronics.X-CUBE-AZRTOS-XX"(again "XX" is the name of your family model)-&gt; RTOS ThreadX-&gt; ThreadX, than select the checkbox of "Core"  <img alt="" src="../../img/Install_ThreadX_on_st/Add_rtos_packet.png" />,  <strong>Note:</strong> If "STMicroelectronics.X-CUBE-AZRTOS-XX" is gray press on install, after the install select it.</li>
-<li>On the main screen on the left side you see list of option, select "Middleware and Software Packs", it open a list, than select "X-CUBE-AZRTOS-XX", it open new screen, check the box of field "RTOS ThreadX" <img alt="" src="../../img/Install_ThreadX_on_st/Config_memory.png" />,</li>
-<li>Save the file (go to File-&gt;Save), the IDE will generate the code, the first time will take sometime.</li>
-</ol>
-<h2 id="next-step">Next step</h2>
-<p>Now you ready to start with the real thing! <a href="../add_threadx_plus_plus/">Add ThreadX++</a>.</p>
+<!-- ## Install CUBE IDE
+You can download the CUBE IDE from here: [Link](https://www.st.com/en/development-tools/stm32cubeide.html)  
+You also need to download CUBE MX: [Link](https://www.st.com/en/development-tools/stm32cubemx.html)
+
+## Open project
+1. Open Cube IDE 
+2. Go to "File->New->STM32 project"
+3. New window will open, in field "Commercial Part Number" you need to add your STM32 model ("for example my is STM32H743ZIT6"),  ![](../img/Install_ThreadX_on_st/TargetSelection.png)  
+in the right bottom of the screen you will see list of STM32 modules, select your model from the list, on bottom of screen press on the "Next >"
+
+4. New window will open, in the field "Targeted Language" select "C++", and in the field "Project Name:" Write the name of the your project, press on the "Finish" button.
+5. New window Eil ask if you want memory Protection, use your brain and press "Yes".
+
+6. Now wait, it can take sometimes, in the end you will get the next screen  ![](../img/Install_ThreadX_on_st/End_of_create_project.png)  
+
+## Add ThreadX
+1. In the screen you need to select the tab "Pinout & configuration" and select "Software Packs", than select "Manage software packs"  ![](../img/Install_ThreadX_on_st/manage_software_pack.png)  
+2. New window will open, select tab "STMicroelectronics", in this tab you need to find "X-CUBE-AZRTOS-XX" ("XX" is the name of your family model, for example my is "H7"), than select it and it open list of package, you need to check the " Azure RTOS STM32Cube expansion package for STM32XX series" (again "XX" is the name of your family model), than press install  ![](../img/Install_ThreadX_on_st/select_package.png)
+3. After the download finish, Now you need to return to main screen and again select the tab "Pinout & configuration" and select "Software Packs", but now select the "Select Components"
+4. New window will open, you will see list of all the pack you and add to your project, you need to select "STMicroelectronics.X-CUBE-AZRTOS-XX"(again "XX" is the name of your family model)-> RTOS ThreadX-> ThreadX, than select the checkbox of "Core"  ![](../img/Install_ThreadX_on_st/Add_rtos_packet.png),  **Note:** If "STMicroelectronics.X-CUBE-AZRTOS-XX" is gray press on install, after the install select it.
+5. On the main screen on the left side you see list of option, select "Middleware and Software Packs", it open a list, than select "X-CUBE-AZRTOS-XX", it open new screen, check the box of field "RTOS ThreadX" ![](../img/Install_ThreadX_on_st/Config_memory.png),
+6. Save the file (go to File->Save), the IDE will generate the code, the first time will take sometime.
+
+
+## Next step
+Now you ready to start with the real thing! [Add ThreadX++](add_threadx_plus_plus.md). -->
               
             </div>
           </div><footer>
