@@ -81,6 +81,16 @@
     </li>
         </ul>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#sleep-suspend">Sleep (Suspend)</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#sleep-function">Sleep function</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#wait-for-message">Wait for message</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#threadx-api">ThreadX API</a>
+    </li>
+        </ul>
+    </li>
     </ul>
                   </li>
               </ul>
@@ -354,6 +364,41 @@ The register function of the event get 3 parameters:<br />
 }
 </code></pre>
 <p>The result of the code is every second the LedTask will print "Counter X" where X is the counter</p>
+<h2 id="sleep-suspend">Sleep (Suspend)</h2>
+<p>Most of the time we want that the task will be suspend so the others task can run, in ThreadX++ you have serval way to set the task to sleep.<br />
+1. <a href="#sleep-function">Sleep function:</a> Call the function <code>Sleep_ms</code> of class Task.<br />
+2. <a href="#wait-for-message">Wait for message:</a> When you wait to new message to arrive the task is sleep.<br />
+3. <a href="#threadx-api">ThreadX API:</a> mutex, semaphore, queue.</p>
+<h3 id="sleep-function">Sleep function</h3>
+<p>Call the function <code>Sleep_ms</code> of class Task.</p>
+<pre><code>void LedTask::Main_loop()
+{
+    while(1)
+    {
+        Sleep_ms(1000);
+        WaitForNewMessage(QUEUE_NO_WAIT);
+    }        
+}
+</code></pre>
+<p>Because we override the <code>Main_loop()</code> function we must call to function <code>WaitForNewMessage()</code>, if we not call it -&gt; we don't get message from other task and the event will not invoke the callback of this task.</p>
+<h3 id="wait-for-message">Wait for message</h3>
+<p>When you wait to new message to arrive the task is sleep.</p>
+<pre><code>void LedTask::Main_loop()
+{
+    while(1)
+    {        
+        WaitForNewMessage();
+    }        
+}
+</code></pre>
+<p>When we call to function <code>WaitForNewMessage()</code> the task will sleep until it get message or invoke by event, the function also can get parameter of timeout in millisecond and when the timeout occur the task will resume.  </p>
+<h3 id="threadx-api">ThreadX API</h3>
+<p>When using the API locking mechanism of ThreadX the task will go to sleep:  </p>
+<ul>
+<li><strong>Mutex:</strong> If we have two task, task1 lock the mutex, than the task2 try to lock, the task2 will sleep until the task1 will unlock the mutex.  </li>
+<li><strong>Semaphore:</strong> When we have two task, task1 Put the semaphore, the task1 will sleep until the task2 Get the semaphore.</li>
+<li><strong>Queue</strong> When pull from queue the task go to sleep</li>
+</ul>
               
             </div>
           </div><footer>
