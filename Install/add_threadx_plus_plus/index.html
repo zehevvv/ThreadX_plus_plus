@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Add ThreadX++ - ThreadX++</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Add ThreadX++";
+        var mkdocs_page_input_path = "Install\\add_threadx_plus_plus.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <script src="../../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> ThreadX++
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Install</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../install_st/">Install ThreadX on ST</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">Add ThreadX++</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#introduction">Introduction</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#add-threadx_1">Add ThreadX++</a>
+    </li>
+    </ul>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../config_printf/">Config printf</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../about/">About</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">ThreadX++</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+          <li>Install &raquo;</li>
+      <li>Add ThreadX++</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="add-threadx">Add ThreadX++</h1>
+<h2 id="introduction">Introduction</h2>
+<p>In this tutorial we add the ThreadX++ to project</p>
+<h2 id="add-threadx_1">Add ThreadX++</h2>
+<ol>
+<li>Clone the ThreadX++ <a href="https://github.com/zehevvv/ThreadX_plus_plus">Link</a></li>
+<li>Copy the folder "ThreadX++" to your project.</li>
+<li>Now we need to add ThreadX++ to include path and source path (this step is explain in CUBE IDE, if you work on other IDE you need to figure this step yourself... good luck),   In CUBE IDE go to "Project-&gt;Properties", new window will open, in the left side of the window go to "C/C++ Build-&gt;Settings", select tab "Tool Settings", go to "MCU G++ Compiler-&gt;Include paths", in the window you will  see list of the included path, Add the path to ThreadX++/inc folder, you also need to do the same in "MCU G++ Compiler-&gt;Include paths".  <img alt="" src="../../img/Add_threadx_plus_plus/add_inc_cpp.png" />  Now return to left side of the window and select "C/C++ General-&gt;Paths and Symbols" than select tab "Source Location" and add the folder ThreadX++/src  <img alt="" src="../../img/Add_threadx_plus_plus/add_src_path.png" /></li>
+<li>In this step we call the function that add the ThreadX++ to system, Go to file "AZURE_RTOS/Ap/app_azure_rtos.c" and add the include "<strong>#include &lt;StartThreadX++.h></strong>"  <img alt="" src="../../img/Add_threadx_plus_plus/add_include_start.png" />  than add the call of the function <strong>StartThreadXPlusPlus(first_unused_memory);</strong> after the call of function <strong>App_ThreadX_Init</strong>  <img alt="" src="../../img/Add_threadx_plus_plus/add_func_call.png" /></li>
+</ol>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../install_st/" class="btn btn-neutral float-left" title="Install ThreadX on ST"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../../config_printf/" class="btn btn-neutral float-right" title="Config printf">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../install_st/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../../config_printf/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme_extra.js" defer></script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

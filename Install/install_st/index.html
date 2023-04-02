@@ -4,22 +4,22 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <link rel="shortcut icon" href="../img/favicon.ico" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
     <title>Install ThreadX on ST - ThreadX++</title>
-    <link rel="stylesheet" href="../css/theme.css" />
-    <link rel="stylesheet" href="../css/theme_extra.css" />
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
     
       <script>
         // Current page data
         var mkdocs_page_name = "Install ThreadX on ST";
-        var mkdocs_page_input_path = "install_st.md";
+        var mkdocs_page_input_path = "Install\\install_st.md";
         var mkdocs_page_url = null;
       </script>
     
-    <script src="../js/jquery-3.6.0.min.js" defer></script>
+    <script src="../../js/jquery-3.6.0.min.js" defer></script>
     <!--[if lt IE 9]>
-      <script src="../js/html5shiv.min.js"></script>
+      <script src="../../js/html5shiv.min.js"></script>
     <![endif]-->
       <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
       <script>hljs.initHighlightingOnLoad();</script> 
@@ -31,9 +31,9 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
     <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
-          <a href=".." class="icon icon-home"> ThreadX++
+          <a href="../.." class="icon icon-home"> ThreadX++
         </a><div role="search">
-  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
       <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
   </form>
 </div>
@@ -41,11 +41,12 @@
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
                 </li>
               </ul>
+              <p class="caption"><span class="caption-text">Install</span></p>
               <ul class="current">
-                <li class="toctree-l1 current"><a class="reference internal current" href="./">Install ThreadX on ST</a>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">Install ThreadX on ST</a>
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#introduction">Introduction</a>
     </li>
@@ -55,11 +56,19 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#add-threadx">Add ThreadX</a>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#next-step">Next step</a>
+    </li>
     </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../add_threadx_plus_plus/">Add ThreadX++</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../config_printf/">Config printf</a>
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../about/">About</a>
+                <li class="toctree-l1"><a class="reference internal" href="../../about/">About</a>
                 </li>
               </ul>
       </div>
@@ -69,13 +78,14 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
       <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="..">ThreadX++</a>
+          <a href="../..">ThreadX++</a>
         
       </nav>
       <div class="wy-nav-content">
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
-    <li><a href=".." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+    <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+          <li>Install &raquo;</li>
       <li>Install ThreadX on ST</li>
     <li class="wy-breadcrumbs-aside">
     </li>
@@ -87,7 +97,8 @@
               
                 <h1 id="install-threadx-on-st">Install ThreadX on ST</h1>
 <h2 id="introduction">Introduction</h2>
-<p>In this tutorial we will install ThreadX by using the CUBE IDE, first you need to install CUBE IDE than open project, after that you can install the ThreadX.</p>
+<p>In this tutorial we will install ThreadX by using the CUBE IDE, first you need to install CUBE IDE than open project, after that you can install the ThreadX.
+I write tutorial but you not must to use them, you can find a lot of tutorials in google.</p>
 <h2 id="install-cube-ide">Install CUBE IDE</h2>
 <p>You can download the CUBE IDE from here: <a href="https://www.st.com/en/development-tools/stm32cubeide.html">Link</a><br />
 You also need to download CUBE MX: <a href="https://www.st.com/en/development-tools/stm32cubemx.html">Link</a></p>
@@ -96,7 +107,7 @@ You also need to download CUBE MX: <a href="https://www.st.com/en/development-to
 <li>Open Cube IDE </li>
 <li>Go to "File-&gt;New-&gt;STM32 project"</li>
 <li>
-<p>New window will open, in field "Commercial Part Number" you need to add your STM32 model ("for example my is STM32H743ZIT6"),  <img alt="" src="../img/Install_ThreadX_on_st/TargetSelection.png" /><br />
+<p>New window will open, in field "Commercial Part Number" you need to add your STM32 model ("for example my is STM32H743ZIT6"),  <img alt="" src="../../img/Install_ThreadX_on_st/TargetSelection.png" /><br />
 in the right bottom of the screen you will see list of STM32 modules, select your model from the list, on bottom of screen press on the "Next &gt;"</p>
 </li>
 <li>
@@ -106,24 +117,26 @@ in the right bottom of the screen you will see list of STM32 modules, select you
 <p>New window Eil ask if you want memory Protection, use your brain and press "Yes".</p>
 </li>
 <li>
-<p>Now wait, it can take sometimes, in the end you will get the next screen  <img alt="" src="../img/Install_ThreadX_on_st/End_of_create_project.png" />  </p>
+<p>Now wait, it can take sometimes, in the end you will get the next screen  <img alt="" src="../../img/Install_ThreadX_on_st/End_of_create_project.png" />  </p>
 </li>
 </ol>
 <h2 id="add-threadx">Add ThreadX</h2>
 <ol>
-<li>In the screen you need to select the tab "Pinout &amp; configuration" and select "Software Packs", than select "Manage software packs"  <img alt="" src="../img/Install_ThreadX_on_st/manage_software_pack.png" />  </li>
-<li>New window will open, select tab "STMicroelectronics", in this tab you need to find "X-CUBE-AZRTOS-XX" ("XX" is the name of your family model, for example my is "H7"), than select it and it open list of package, you need to check the " Azure RTOS STM32Cube expansion package for STM32XX series" (again "XX" is the name of your family model), than press install  <img alt="" src="../img/Install_ThreadX_on_st/select_package.png" /></li>
+<li>In the screen you need to select the tab "Pinout &amp; configuration" and select "Software Packs", than select "Manage software packs"  <img alt="" src="../../img/Install_ThreadX_on_st/manage_software_pack.png" />  </li>
+<li>New window will open, select tab "STMicroelectronics", in this tab you need to find "X-CUBE-AZRTOS-XX" ("XX" is the name of your family model, for example my is "H7"), than select it and it open list of package, you need to check the " Azure RTOS STM32Cube expansion package for STM32XX series" (again "XX" is the name of your family model), than press install  <img alt="" src="../../img/Install_ThreadX_on_st/select_package.png" /></li>
 <li>After the download finish, Now you need to return to main screen and again select the tab "Pinout &amp; configuration" and select "Software Packs", but now select the "Select Components"</li>
-<li>New window will open, you will see list of all the pack you and add to your project, you need to select "STMicroelectronics.X-CUBE-AZRTOS-XX"(again "XX" is the name of your family model)-&gt; RTOS ThreadX-&gt; ThreadX, than select the checkbox of "Core"  <img alt="" src="../img/Install_ThreadX_on_st/Add_rtos_packet.png" />,  <strong>Note:</strong> If "STMicroelectronics.X-CUBE-AZRTOS-XX" is gray press on install, after the install select it.</li>
-<li>On the main screen on the left side you see list of option, select "Middleware and Software Packs", it open a list, than select "X-CUBE-AZRTOS-XX", it open new screen, check the box of field "RTOS ThreadX", it will open bottom view, go there and change the field "Memory Allocation" to "Use Dynamic Allocation".  <img alt="" src="../img/Install_ThreadX_on_st/Config_memory.png" />,</li>
+<li>New window will open, you will see list of all the pack you and add to your project, you need to select "STMicroelectronics.X-CUBE-AZRTOS-XX"(again "XX" is the name of your family model)-&gt; RTOS ThreadX-&gt; ThreadX, than select the checkbox of "Core"  <img alt="" src="../../img/Install_ThreadX_on_st/Add_rtos_packet.png" />,  <strong>Note:</strong> If "STMicroelectronics.X-CUBE-AZRTOS-XX" is gray press on install, after the install select it.</li>
+<li>On the main screen on the left side you see list of option, select "Middleware and Software Packs", it open a list, than select "X-CUBE-AZRTOS-XX", it open new screen, check the box of field "RTOS ThreadX" <img alt="" src="../../img/Install_ThreadX_on_st/Config_memory.png" />,</li>
 <li>Save the file (go to File-&gt;Save), the IDE will generate the code, the first time will take sometime.</li>
 </ol>
+<h2 id="next-step">Next step</h2>
+<p>Now you ready to start with the real thing! <a href="../add_threadx_plus_plus/">Add ThreadX++</a>.</p>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href=".." class="btn btn-neutral float-left" title="Home"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../about/" class="btn btn-neutral float-right" title="About">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../.." class="btn btn-neutral float-left" title="Home"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../add_threadx_plus_plus/" class="btn btn-neutral float-right" title="Add ThreadX++">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -146,17 +159,17 @@ in the right bottom of the screen you will see list of STM32 modules, select you
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href=".." style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../.." style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../about/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../add_threadx_plus_plus/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>
-    <script>var base_url = '..';</script>
-    <script src="../js/theme_extra.js" defer></script>
-    <script src="../js/theme.js" defer></script>
-      <script src="../search/main.js" defer></script>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme_extra.js" defer></script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../search/main.js" defer></script>
     <script defer>
         window.onload = function () {
             SphinxRtdTheme.Navigation.enable(true);
