@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="description" content="None" />
+      <link rel="shortcut icon" href="img/favicon.ico" />
+    <title>ThreadX++</title>
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Home";
+        var mkdocs_page_input_path = "index.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <script src="js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="." class="icon icon-home"> ThreadX++
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href=".">Home</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#introduction">Introduction</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href=".">ThreadX++</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+      <li>Home</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="threadx">ThreadX++</h1>
+<h2 id="introduction">Introduction</h2>
+<p>Hi all</p>
+<!-- This is my little project, it's a big wrapper for ThreadX (AZURE RTOS) to work as c++, here some important pointes about the project:
+
+- The main target of the project is one: SIMPLE, it's meaning that i do it much tiny that it can be, the price of course is that in way we lost abilities of the ThreadX
+- I not cover all the API of ThreadX,
+- I build this project on STM32H743, So if you using other processor of STM32 family i guess it will work, but if you have other MCU some of the abilities of my project will not available (like a watchdog) but you still can get most of the core function (you will need to change the code).
+
+## Abilities 
+The abilities of ThreadX++
+
+- **Events-oriented:** I added the events like delegate, so you can create event in one thread and register it from other thread.
+- **Object-oriented:** most of the API of the ThreadX get warper of as class, hte list of the API
+    * **Thread:**
+    * **Event:** Event that one thread will create and other can register and wakeup one it invoke
+    * **Mutex:**
+    * **Queue:** Safe queue to send data between thread
+    * **Semaphore:**
+    * **TimeEvent:** Event that thread creating and the event will wake up the thread every amount time.
+- **MemoryPool:** Easy way to create pool of memory (overriding "new" and "delete").
+- **STM32 easy use:** I also do some wrapper to very useful peripherals of ST:
+    * **Watchdog:** Simple watchdog 
+    * **Measure US:** I used the "DWT" for create debug class that can easily measure time in microsecond
+    * **Internal registry :** Registry (like dictionary) that use to save data in the internal flash on the ST.
+    * **Printf :**  Use the SWT port for printing much more effective.
+
+## Where to start
+First you will need to install the ThreadX on your MCU, i made a tutorial for ST chips, if you have other MCU i also recommend to read it because it contain some configuration of the ThreadX that necessary.
+The main tutorials:
+
+* [Install ThreadX on ST](Install/install_st.md) -->
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+    
+  </span>
+</div>
+    <script>var base_url = '.';</script>
+    <script src="js/theme_extra.js" defer></script>
+    <script src="js/theme.js" defer></script>
+      <script src="search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
+
+<!--
+MkDocs version : 1.4.2
+Build Date UTC : 2023-04-02 21:50:17.614774+00:00
+-->
