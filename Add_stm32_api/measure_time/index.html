@@ -66,6 +66,8 @@
               <ul class="current">
                   <li class="toctree-l1"><a class="reference internal" href="../config_printf/">Config printf</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../watchdog/">Watchdog</a>
+                  </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="./">Measure time</a>
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#create">Create</a>
@@ -118,11 +120,12 @@ SomeFunction();
 uint32_t result = my_measure_time.End();
 printf(&quot;The delta is %lu \n&quot;, result);
 </code></pre>
+<p><strong>Note:</strong> You need to know that measure time is get is data from counter that work on 32 bit register, so it may cause to wraparound.</p>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../config_printf/" class="btn btn-neutral float-left" title="Config printf"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../watchdog/" class="btn btn-neutral float-left" title="Watchdog"><span class="icon icon-circle-arrow-left"></span> Previous</a>
         <a href="../../about/" class="btn btn-neutral float-right" title="About">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
@@ -146,7 +149,7 @@ printf(&quot;The delta is %lu \n&quot;, result);
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../config_printf/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../watchdog/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
       <span><a href="../../about/" style="color: #fcfcfc">Next &raquo;</a></span>

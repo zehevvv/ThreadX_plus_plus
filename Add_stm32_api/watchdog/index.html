@@ -5,15 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>Add ThreadX++ - ThreadX++</title>
+    <title>Watchdog - ThreadX++</title>
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Add ThreadX++";
-        var mkdocs_page_input_path = "Install\\add_threadx_plus_plus.md";
+        var mkdocs_page_name = "Watchdog";
+        var mkdocs_page_input_path = "Add_stm32_api\\watchdog.md";
         var mkdocs_page_url = null;
       </script>
     
@@ -45,18 +45,10 @@
                 </li>
               </ul>
               <p class="caption"><span class="caption-text">Install</span></p>
-              <ul class="current">
-                  <li class="toctree-l1"><a class="reference internal" href="../install_st/">Install ThreadX on ST</a>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Install/install_st/">Install ThreadX on ST</a>
                   </li>
-                  <li class="toctree-l1 current"><a class="reference internal current" href="./">Add ThreadX++</a>
-    <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#introduction">Introduction</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#add-threadx_1">Add ThreadX++</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#next-step">Next step</a>
-    </li>
-    </ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Install/add_threadx_plus_plus/">Add ThreadX++</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">How to use</span></p>
@@ -71,12 +63,20 @@
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Add STM32 API</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../../Add_stm32_api/config_printf/">Config printf</a>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../config_printf/">Config printf</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../Add_stm32_api/watchdog/">Watchdog</a>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">Watchdog</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#add-the-watchdog">Add the watchdog</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#note">note</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../Add_stm32_api/measure_time/">Measure time</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../measure_time/">Measure time</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">About</span></p>
@@ -98,8 +98,8 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li>
-          <li>Install &raquo;</li>
-      <li>Add ThreadX++</li>
+          <li>Add STM32 API &raquo;</li>
+      <li>Watchdog</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -108,24 +108,38 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="add-threadx">Add ThreadX++</h1>
-<h2 id="introduction">Introduction</h2>
-<p>In this tutorial we add the ThreadX++ to project</p>
-<h2 id="add-threadx_1">Add ThreadX++</h2>
-<ol>
-<li>Clone the ThreadX++ <a href="https://github.com/zehevvv/ThreadX_plus_plus">Link</a></li>
-<li>Copy the folder "ThreadX++" to your project.</li>
-<li>Now we need to add ThreadX++ to include path and source path (this step is explain in CUBE IDE, if you work on other IDE you need to figure this step yourself... good luck),   In CUBE IDE go to "Project-&gt;Properties", new window will open, in the left side of the window go to "C/C++ Build-&gt;Settings", select tab "Tool Settings", go to "MCU G++ Compiler-&gt;Include paths", in the window you will  see list of the included path, Add the path to ThreadX++/inc folder, you also need to do the same in "MCU G++ Compiler-&gt;Include paths".  <img alt="" src="../../img/Add_threadx_plus_plus/add_inc_cpp.png" />  Now return to left side of the window and select "C/C++ General-&gt;Paths and Symbols" than select tab "Source Location" and add the folder ThreadX++/src  <img alt="" src="../../img/Add_threadx_plus_plus/add_src_path.png" /></li>
-<li>In this step we call the function that add the ThreadX++ to system, Go to file "AZURE_RTOS/Ap/app_azure_rtos.c" and add the include "<strong>#include &lt;StartThreadX++.h></strong>"  <img alt="" src="../../img/Add_threadx_plus_plus/add_include_start.png" />  than add the call of the function <strong>StartThreadXPlusPlus(first_unused_memory);</strong> after the call of function <strong>App_ThreadX_Init</strong>  <img alt="" src="../../img/Add_threadx_plus_plus/add_func_call.png" /></li>
-</ol>
-<h2 id="next-step">Next step</h2>
-<p>The next step is to learn the tutorials in section <code>how to use</code>, start with the <a href="../../How_to_use/introduction/">Introduction</a></p>
+                <h1 id="watchdog">Watchdog</h1>
+<p>I create class of watchdog that work on <code>IWDG1</code> internal watchdog, this watchdog need to pet every amount of time that config at init, </p>
+<h2 id="add-the-watchdog">Add the watchdog</h2>
+<p><strong>1)</strong> Go to <code>HW.h</code> file and add you need to add two define:  </p>
+<ul>
+<li><strong>WATCHDOG_TIMEOUT_MS :</strong> The max amount of time (milliseconds) that if the watchdog not pet (reload) -&gt; the watchdog will restart the MCU,  </li>
+<li><strong>WATCHDOG_PET_MS :</strong> The time between pet (reload).  </li>
+</ul>
+<p>Example: if we want that watchdog will reset the MCU if it not pet more than 100ms,  also we want that our watchdog service will pet the watchdog every 90ms, so the define should be like this:</p>
+<pre><code>#define WATCHDOG_TIMEOUT_MS     (100)
+#define WATCHDOG_PET_MS         (90)
+</code></pre>
+<p><strong>2)</strong> Go to file <code>TasksManager.cpp</code>, in the function <code>Tasks_manager_start()</code> add the watchdog:</p>
+<pre><code>#include &quot;Watchdog.h&quot;
+
+void Tasks_manager_start()
+{
+    Watchdog::Instance()-&gt;StartTask();
+
+</code></pre>
+<h3 id="note">note</h3>
+<ul>
+<li>The watchdog priority is should be the lowest that possible but you need to careful to not be in same or low priority of task that will take more time than define <code>WATCHDOG_TIMEOUT_MS</code></li>
+<li>The watchdog must not enable when you want to debug your system and stop the run, the watchdog will kill you.</li>
+<li>When you set the system to sleep, you must somehow to pet the watchdog because it work on the LSI clock and not on the main clock.</li>
+</ul>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../install_st/" class="btn btn-neutral float-left" title="Install ThreadX on ST"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../../How_to_use/introduction/" class="btn btn-neutral float-right" title="Introduction">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../config_printf/" class="btn btn-neutral float-left" title="Config printf"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../measure_time/" class="btn btn-neutral float-right" title="Measure time">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -148,10 +162,10 @@
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../install_st/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../config_printf/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../../How_to_use/introduction/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../measure_time/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>
