@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>ThreadX API (Mutex, Semaphore, Queue) - ThreadX++</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "ThreadX API (Mutex, Semaphore, Queue)";
+        var mkdocs_page_input_path = "How_to_use\\threadx_api.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <script src="../../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> ThreadX++
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Install</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Install/install_st/">Install ThreadX on ST</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Install/add_threadx_plus_plus/">Add ThreadX++</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">How to use</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../introduction/">Introduction</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../task/">Task (Thread)</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">ThreadX API (Mutex, Semaphore, Queue)</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#mutex">Mutex</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#create">Create</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#how-to-use">How to use</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#lock">Lock</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#unlock">Unlock:</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#semaphore">Semaphore</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#create_1">Create</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#how-to-use_1">How to use</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#get">Get</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#put">Put</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#queue">Queue</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#create_2">Create</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#how-to-use_2">How to use</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#push">Push</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#pull">Pull</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Add STM32 API</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Add_stm32_api/config_printf/">Config printf</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">About</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../about/">About</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">ThreadX++</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+          <li>How to use &raquo;</li>
+      <li>ThreadX API (Mutex, Semaphore, Queue)</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="threadx-api">ThreadX API</h1>
+<p>In this section you get explain how to create and use the Mutex, Semaphore, Queue.</p>
+<h2 id="mutex">Mutex</h2>
+<h3 id="create">Create</h3>
+<pre><code>#include &quot;Mutex.h&quot;
+Mutex my_mutex;
+</code></pre>
+<h3 id="how-to-use">How to use</h3>
+<p>The mutex have two function: <strong>Lock</strong>, <strong>Unlock</strong></p>
+<h4 id="lock">Lock</h4>
+<pre><code>bool Lock(uint32_t timeout_MS = TX_WAIT_FOREVER);
+</code></pre>
+<ul>
+<li><strong>Timeout:</strong> Timeout in milliseconds, If the mutex is already lock the task will wait until the mutex unlock or timeout occur, if you want to wait forever you can use define MUTEX_WAIT_FOREVER, if you want to not wait at all you can use define MUTEX_NO_WAIT</li>
+<li><strong>Return value:</strong> Boolean, True - lock success (not timeout). </li>
+</ul>
+<p>In next example, we lock and wait forever.</p>
+<pre><code>my_mutex.Lock();
+</code></pre>
+<p>In the next example we will set timeout of 100ms:</p>
+<pre><code>my_mutex.Lock(100);
+</code></pre>
+<h4 id="unlock">Unlock:</h4>
+<pre><code>void Unlock();
+</code></pre>
+<p>The unlock you just need to call to unlock function:</p>
+<pre><code>my_mutex.Unlock();
+</code></pre>
+<h2 id="semaphore">Semaphore</h2>
+<h3 id="create_1">Create</h3>
+<pre><code>#include &quot;Semaphore.h&quot;
+Semaphore my_semaphore;
+</code></pre>
+<p>The default value of the "initial count" is 0, if you want to change it you can send the number you like to Ctor of the semaphore, in next example the semaphore set the "initial count" to 5:</p>
+<pre><code>#include &quot;Semaphore.h&quot;
+Semaphore my_semaphore(5);
+</code></pre>
+<h3 id="how-to-use_1">How to use</h3>
+<p>The semaphore have only two function: <strong>Get</strong>, <strong>Put</strong>,  </p>
+<h4 id="get">Get</h4>
+<pre><code>bool Get(uint32_t timeout_MS = SEMAPHORE_WAIT_FOREVER);
+</code></pre>
+<ul>
+<li><strong>Timeout:</strong> Timeout in milliseconds, The get function can call without parameter and wait until other task will "Put" the semaphore or timeout occur, if you want to wait forever you can use define SEMAPHORE_WAIT_FOREVER, if you want to not wait at all you can use define SEMAPHORE_NO_WAIT</li>
+<li><strong>Return value:</strong> Boolean, True - Get success (not timeout).  </li>
+</ul>
+<p>In the next example we call <code>Get()</code> function and wait forever: </p>
+<pre><code>my_semaphore.Get();
+</code></pre>
+<p>in next example the timeout is 200ms</p>
+<pre><code>my_semaphore.Get(200);
+</code></pre>
+<h4 id="put">Put</h4>
+<pre><code>void Put();
+</code></pre>
+<p>To Put the semaphore you need to call to function <code>Put()</code>:</p>
+<pre><code>my_semaphore.Put();
+</code></pre>
+<h2 id="queue">Queue</h2>
+<h3 id="create_2">Create</h3>
+<p>My implementation of the queue is "template" so when you create the queue you need to choose what type of values you want the queue will hold, in the next explain the queue will hold <code>int</code> types that can hold 10 <code>int</code> values:</p>
+<pre><code>#include &quot;Queue.h&quot;
+Queue&lt;int&gt;  my_queue(10);
+</code></pre>
+<p>If this was not clear: the queue Ctor get one parameter that set the number of the values that hold in the queue.</p>
+<h3 id="how-to-use_2">How to use</h3>
+<p>The queue have 2 functions: <strong>Push</strong>, <strong>Pull</strong>  </p>
+<h4 id="push">Push</h4>
+<pre><code>bool Push(T&amp; value, uint32_t timeout_MS = QUEUE_NO_WAIT)
+</code></pre>
+<ul>
+<li><strong>Value:</strong> The value you want to push to queue, the parameter is reference.  </li>
+<li><strong>Timeout:</strong> Timeout in milliseconds, if the queue is full the task will wait until it can push the value, if you want to wait forever you can use define QUEUE_WAIT_FOREVER, if you want to not wait at all you can use define QUEUE_NO_WAIT</li>
+<li><strong>Return value:</strong> Boolean, True - push success.  </li>
+</ul>
+<p>In the next example we push "int" without waiting to timeout.</p>
+<pre><code>int val = 5;
+my_queue.Push(val);
+</code></pre>
+<p>In the next example we push "int" with timeout of 50ms.</p>
+<pre><code>int val = 5;
+my_queue.Push(val, 50);
+</code></pre>
+<h4 id="pull">Pull</h4>
+<pre><code>bool Pull(T&amp; value, uint32_t timeout_MS = 10)
+</code></pre>
+<ul>
+<li><strong>Value:</strong> The value you want to pull from queue, the parameter is reference.  </li>
+<li><strong>Timeout:</strong> Timeout in milliseconds, if the queue is empty the task will wait until it can pull the value, if you want to wait forever you can use define QUEUE_WAIT_FOREVER, if you want to not wait at all you can use define QUEUE_NO_WAIT</li>
+<li><strong>Return value:</strong> Boolean, True - pull success.  </li>
+</ul>
+<p>In the next example we pull from queue without timeout</p>
+<pre><code>int val;
+my_queue.Pull(val, TX_NO_WAIT);
+</code></pre>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../task/" class="btn btn-neutral float-left" title="Task (Thread)"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../../Add_stm32_api/config_printf/" class="btn btn-neutral float-right" title="Config printf">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../task/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../../Add_stm32_api/config_printf/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme_extra.js" defer></script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
