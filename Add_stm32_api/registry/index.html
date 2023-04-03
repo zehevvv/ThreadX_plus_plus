@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Registry - ThreadX++</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Registry";
+        var mkdocs_page_input_path = "Add_stm32_api\\registry.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <script src="../../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> ThreadX++
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Install</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Install/install_st/">Install ThreadX on ST</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Install/add_threadx_plus_plus/">Add ThreadX++</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">How to use</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../How_to_use/introduction/">Introduction</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../How_to_use/task/">Task (Thread)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../How_to_use/threadx_api/">ThreadX API (Mutex, Semaphore, Queue)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../How_to_use/memory_manager/">Memory manager</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Add STM32 API</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../config_printf/">Config printf</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../watchdog/">Watchdog</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">Registry</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#properties">Properties</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#enable-the-registry">Enable the registry</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#how-to-use">How to use</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#write">Write</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#write-buffer">Write buffer</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#read">Read</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#read-buffer">Read buffer</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#is-exist">Is exist</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#print-all">Print all</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../measure_time/">Measure time</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">About</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../about/">About</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">ThreadX++</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+          <li>Add STM32 API &raquo;</li>
+      <li>Registry</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="registry">Registry</h1>
+<p>This is a object that can save data on the internal flash</p>
+<h2 id="properties">Properties</h2>
+<ul>
+<li><strong>Logic block:</strong> The registry get sector of flash and divide it to "logic blocks" and every time we want to save data it write it to next empty block.</li>
+<li><strong>Fault protected:</strong> The register is protected from unexpected shut down and can recognize corrupted block.</li>
+<li><strong>Performance:</strong> The registry was build with caching, because of that when task get write and read it's not go to flash and it take no time, the registry have task to work in the shadow for update the flash.</li>
+<li><strong>Memory:</strong> Because of the caching the repository hold buffers so it's not cheap, but because of the caching the registry not need to allocate new memory for every write of the registry.</li>
+<li><strong>Minimum size:</strong> The registry need minimum number of 2 sector.</li>
+<li><strong>Memory efficiency:</strong> The block size reduce by header of 16 bytes.</li>
+<li><strong>Erase value:</strong> Currently the registry can't erase values... ):</li>
+<li><strong>Write buffer:</strong> The registry support of writing buffer but the size of the buffer must be constant.</li>
+</ul>
+<h2 id="enable-the-registry">Enable the registry</h2>
+<p><strong>1)</strong> Go to <code>HW.h</code> file and you need to add number of defines:</p>
+<ul>
+<li><strong>FLASH_MANAGMENT_LOGICAL_BLOCK_SIZE_BYTES:</strong> </li>
+<li><strong>INTERNAL_FLASH_FLASHWORD:</strong> This uint is the number of bytes that flash write every step.</li>
+<li><strong>INTERNAL_FLASH_SECTOR_SIZE:</strong> The size of sector of flash</li>
+<li><strong>INTERNAL_REGISTRY_START_ADDRESS:</strong> The start of the registry, you need to get attention to two things, one is that you not overwrite the code of the MCU so the address will be of sector that not in use, second is you need to check if you have enough space, the calculation is (start address + num sector * size sector).</li>
+<li><strong>INTERNAL_REGISTRY_NUM_SECTOR</strong> The num of the sectors, the minimum size is 2.</li>
+<li><strong>INTERNAL_REGISTRY_LOGICAL_BLOCK_SIZE:</strong> The block size need to be divide "INTERNAL_FLASH_SECTOR_SIZE" into blocks, is must divide without remainder.  </li>
+</ul>
+<p>Example: lets assume that we work on the internal flash of STM32H743 so the FLASHWORD is 8 and the sector size is 0x20000 (131,072) bytes, lets assume that we want only 2 sectors, and we want to use the lasts sectors, and we want the block size of 512 bytes (so the actual size for writing will be 512 - 16 = 496), so the number of logics blocks is 0x20000 * 2 / 512 = 512 blocks, so the defines will be:</p>
+<pre><code>#define INTERNAL_FLASH_FLASHWORD                (8)
+#define INTERNAL_FLASH_SECTOR_SIZE              (0x20000)
+#define INTERNAL_REGISTRY_START_ADDRESS         (0x081C0000)
+#define INTERNAL_REGISTRY_NUM_SECOTR            (2)
+#define INTERNAL_REGISTRY_LOGICAL_BLOCK_SIZE    (512)
+</code></pre>
+<p><strong>2)</strong> Go to file <code>TasksManager.cpp</code>, in the function <code>Tasks_manager_start()</code> add the registry:</p>
+<pre><code>#include &quot;InternalRegistry.h&quot;
+
+void Tasks_manager_start()
+{
+    InternalRegistry::Instance()-&gt;StartTask();
+
+</code></pre>
+<h2 id="how-to-use">How to use</h2>
+<p>The registry function:</p>
+<h3 id="write">Write</h3>
+<p><strong>Defamation:</strong></p>
+<pre><code>template &lt;typename T&gt;
+void Write(char* name, uint8_t name_size, T value)
+</code></pre>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong>name:</strong> The key, string of name of the value.  </li>
+<li><strong>name_size:</strong> The size of the string.  </li>
+<li><strong>value:</strong> The value that want to save to flash, the value is template so it can be any type.<br />
+<strong>Example:</strong> Write type <code>int</code> with value 7 with key name <code>val_1</code></li>
+</ul>
+<pre><code>int value = 7;
+InternalRegistry::Instance()-&gt;Write((char*)&quot;val_1&quot;, 5, value);
+</code></pre>
+<h3 id="write-buffer">Write buffer</h3>
+<p><strong>Defamation:</strong></p>
+<pre><code>void WriteBuffer(char* name, uint8_t name_size, uint8_t* buffer, uint8_t buffer_size);
+</code></pre>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong>name:</strong> The key, string of name of the value.  </li>
+<li><strong>name_size:</strong> The size of the string.  </li>
+<li><strong>buffer:</strong> Pointer to buffer that you want to write.  </li>
+<li><strong>buffer_size:</strong> Size of the buffer.
+<strong>Example:</strong> Write buffer of {1, 2, 3} with key name <code>buf_12</code></li>
+</ul>
+<pre><code>uint8_t buffer[3] = {1, 2, 3}
+InternalRegistry::Instance()-&gt;WriteBuffer((char*)&quot;buf_12&quot;, 6, buffer, 3);
+</code></pre>
+<h3 id="read">Read</h3>
+<p><strong>Defamation:</strong></p>
+<pre><code>template &lt;typename T&gt;
+bool Read(char* name, uint8_t name_size, T&amp; value)
+</code></pre>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong>name:</strong> The key, string of name of the value.  </li>
+<li><strong>name_size:</strong> The size of the string.  </li>
+<li><strong>value:</strong> [out] The value that want to read from the flash, the value is template so it can be any type.  </li>
+<li><strong>return value:</strong> Boolean, true - read success.  </li>
+</ul>
+<p><strong>Example:</strong> Read type <code>int</code> with key name <code>val_1</code>, the value will store in variable <code>value</code>:</p>
+<pre><code>int value;
+InternalRegistry::Instance()-&gt;Read((char*)&quot;val_1&quot;, 5, value);
+</code></pre>
+<h3 id="read-buffer">Read buffer</h3>
+<p><strong>Defamation:</strong></p>
+<pre><code>bool ReadBuffer(char* name, uint8_t name_size, uint8_t* buffer, uint8_t buffer_size);
+</code></pre>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong>name:</strong> The key, string of name of the value.  </li>
+<li><strong>name_size:</strong> The size of the string.  </li>
+<li><strong>buffer:</strong> Pointer to buffer that store the data from.  </li>
+<li><strong>buffer_size:</strong> Size of the buffer.  </li>
+<li><strong>return value:</strong> Boolean, true - read success.</li>
+</ul>
+<p><strong>Example:</strong> Read buffer of 3 bytes, with key name <code>buf_12</code></p>
+<pre><code>uint8_t buffer[3];
+InternalRegistry::Instance()-&gt;WriteBuffer((char*)&quot;buf_12&quot;, 6, buffer, 3);
+</code></pre>
+<h3 id="is-exist">Is exist</h3>
+<p>Return if the name of the value (and the value) exist in the flash.</p>
+<p><strong>Defamation:</strong></p>
+<pre><code>bool IsExist(char* name, uint8_t name_size);
+</code></pre>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong>name:</strong> The key, string of name of the value.  </li>
+<li><strong>name_size:</strong> The size of the string.  </li>
+<li><strong>return value:</strong> Boolean, true - the name exist.  </li>
+</ul>
+<p><strong>Example:</strong> Check if exist value with name <code>buf_12</code></p>
+<pre><code>bool is_exist = InternalRegistry::Instance()-&gt;IsExist((char*)&quot;buf_12&quot;, 6);
+</code></pre>
+<h3 id="print-all">Print all</h3>
+<p>Print all the values that store in flash</p>
+<p><strong>Defamation:</strong></p>
+<pre><code>bool IsExist(char* name, uint8_t name_size);
+</code></pre>
+<p><strong>Example:</strong> </p>
+<pre><code>InternalRegistry::Instance()-&gt;PrintAll();
+</code></pre>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../watchdog/" class="btn btn-neutral float-left" title="Watchdog"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../measure_time/" class="btn btn-neutral float-right" title="Measure time">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../watchdog/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../measure_time/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme_extra.js" defer></script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
