@@ -134,8 +134,9 @@
 <h2 id="introduction">Introduction</h2>
 <p>In ThreadX++ the <code>thread</code> are <code>task</code>, so when you create task you actually create thread of ThreadX and how run code by task and send data between data and of course sleep.</p>
 <h2 id="create-task">Create Task</h2>
-<p>In this example we will create LedTask that blink the led every 1 second.</p>
-<p><strong>1)</strong> Add the include </p>
+<p>In this example we will create LedTask that blink the led every 1 second.
+e
+<strong>1)</strong> Add the include </p>
 <pre><code>#include &quot;Task.h&quot;
 </code></pre>
 <p><strong>2)</strong> Create a class that inherits from a Task class:</p>
@@ -147,6 +148,14 @@
 <strong>stack size:</strong> The size of the stack of the task.<br />
 In the next example we will create task with priority <strong>10</strong> and stack size <strong>1024</strong>:</p>
 <pre><code>LedTask::LedTask() : Task(&quot;LedTask&quot;, 10, 1024) { }
+</code></pre>
+<p><strong>4)</strong> Add the LedTask to <code>TaskManager.cpp</code> to function <code>Tasks_manager_start()</code>:</p>
+<pre><code>void Tasks_manager_start()
+{
+    printf(&quot;ThreadX++ start run \n&quot;);
+
+    LedTaskPointer-&gt;StartTask();
+}
 </code></pre>
 <h2 id="run-code-by-task">Run code by task</h2>
 <p>We have 4 way to run code from the created task:<br />
