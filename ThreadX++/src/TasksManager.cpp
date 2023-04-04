@@ -5,7 +5,9 @@
  *      Author: zehevvv
  */
 
+#include <stdio.h>
 #include "TasksManager.h"
+
 
 void Tasks_manager_start()
 {
