@@ -5,11 +5,13 @@
  *      Author: zehevvv
  */
 
+#include "TestTask.h"
+
 #include <InternalRegistry.h>
-#include <TestTask.h>
-#include "LedTask.h"
 #include "TimeEvent.h"
 #include "Debug.h"
+#include "tx_api.h"
+#include "LedTask.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -88,7 +90,12 @@ void TestTask::Main_loop()
 	LedTask::Instance()->event.Register(&TestTask::TestEvent, this, this);
 	while(1)
 	{
-		WaitForNewMessage();
+//		Debug::MeasureTime measureTime;
+		printf("time - %lu \n",tx_time_get());
+//		measureTime.Start();
+		Sleep_ms(1000);
+//		measureTime.End();
+//		Sleep();
 	}
 
 //////////////////////////////////////////////////////////////////////////////
