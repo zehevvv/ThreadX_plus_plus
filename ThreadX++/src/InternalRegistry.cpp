@@ -103,14 +103,15 @@ void InternalRegistry::WriteNewObjectToBuffer(char* name, uint8_t name_size, voi
 	index += value_size;
 }
 
-void InternalRegistry::ReadBuffer(char* name, uint8_t name_size,  uint8_t* buffer, uint8_t buffer_size)
+bool InternalRegistry::ReadBuffer(char* name, uint8_t name_size,  uint8_t* buffer, uint8_t buffer_size)
 {
-	Read(name, name_size, (void*)buffer, buffer_size);
+	return Read(name, name_size, (void*)buffer, buffer_size);
 }
 
-void InternalRegistry::Read(char* name, uint8_t name_size, void* value, uint8_t value_size)
+bool InternalRegistry::Read(char* name, uint8_t name_size, void* value, uint8_t value_size)
 {
 	m_mutex.Lock();
+	bool result = true;
 
 	RegisteryObject* object = GetObject(name, name_size);
 	if ((object != NULL) &&
@@ -121,9 +122,12 @@ void InternalRegistry::Read(char* name, uint8_t name_size, void* value, uint8_t 
 	else
 	{
 		printf("Registry not found the object - %s \n", name);
+		result = false;
 	}
 
 	m_mutex.Unlock();
+
+	return result;
 }
 
 bool InternalRegistry::IsExist(char* name, uint8_t name_size)

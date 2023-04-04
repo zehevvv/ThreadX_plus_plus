@@ -28,13 +28,13 @@ public:
 	}
 
 	template <typename T>
-	void Read(char* name, uint8_t name_size, T& value)
+	bool Read(char* name, uint8_t name_size, T& value)
 	{
-		Read(name, name_size, (void*)&value, (uint8_t)sizeof(T));
+		return Read(name, name_size, (void*)&value, (uint8_t)sizeof(T));
 	}
 
 	void WriteBuffer(char* name, uint8_t name_size, uint8_t* buffer, uint8_t buffer_size);
-	void ReadBuffer(char* name, uint8_t name_size,  uint8_t* buffer, uint8_t buffer_size);
+	bool ReadBuffer(char* name, uint8_t name_size,  uint8_t* buffer, uint8_t buffer_size);
 
 	bool IsExist(char* name, uint8_t name_size);
 
@@ -47,7 +47,7 @@ private:
 	virtual ~InternalRegistry();
 
 	void Write(char* name, uint8_t name_size, void* value, uint8_t value_size);
-	void Read(char* name, uint8_t name_size, void* value, uint8_t value_size);
+	bool Read(char* name, uint8_t name_size, void* value, uint8_t value_size);
 	RegisteryObject* GetObject(char* name, uint8_t name_size);
 	void UpdateListObject();
 	void UpdateFlash();
