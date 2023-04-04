@@ -5,6 +5,7 @@ Hi all
 This is my little project, it's a big wrapper for ThreadX (AZURE RTOS) to work as c++, here some important pointes about the project:
 
 - The main target of the project is one: SIMPLE, it's meaning that i do it much tiny that it can be, the price of course is that in way we lost abilities of the ThreadX
+- I create a lot of toturial and explain every thing how to work with
 - I not cover all the API of ThreadX,
 - I build this project on STM32H743, So if you using other processor of STM32 family i guess it will work, but if you have other MCU some of the abilities of my project will not available (like a watchdog) but you still can get most of the core function (you will need to change the code).
 
@@ -26,5 +27,5 @@ The abilities of ThreadX++
     * **Internal registry :** Registry (like dictionary) that use to save data in the internal flash on the ST.
     * **Printf :**  Use the SWT port for printing much more effective.
 
-## The full documentaion
+## The tutorials and documentaion
 Go to https://zehevvv.github.io/ThreadX_plus_plus/
