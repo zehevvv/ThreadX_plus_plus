@@ -40,7 +40,6 @@ public:
 
 	void PrintAll();
 protected:
-//	void Main_loop();
 	void OnStart();
 
 private:
