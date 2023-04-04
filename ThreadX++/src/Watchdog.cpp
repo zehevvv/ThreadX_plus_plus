@@ -8,6 +8,8 @@
 #include <Watchdog.h>
 #include "HW.h"
 
+#ifdef WATCHDOG_ENABLE
+
 #define IWDG_KEY_RELOAD                 0x0000AAAAu  /*!< IWDG Reload Counter Enable   */
 #define IWDG_KEY_ENABLE                 0x0000CCCCu  /*!< IWDG Peripheral Enable       */
 #define IWDG_KEY_WRITE_ACCESS_ENABLE    0x00005555u  /*!< IWDG KR Write Access Enable  */
@@ -79,3 +81,5 @@ void Watchdog::Refresh(void* pointer)
 	/* Reload IWDG counter with value defined in the reload register */
 	WRITE_REG(IWDG1->KR, IWDG_KEY_RELOAD);
 }
+
+#endif
