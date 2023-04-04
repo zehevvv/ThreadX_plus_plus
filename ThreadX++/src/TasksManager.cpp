@@ -15,18 +15,4 @@
 void Tasks_manager_start()
 {
 	printf("ThreadX++ start run \n");
-
-	// Start the watchdog
-	Watchdog::Instance();
-	Watchdog::Instance()->StartTask();
-
-	// Init the tasks
-	InternalRegistry::Instance();
-	LedTask::Instance();
-	TestTask::Instance();
-
-	// Start the task
-	InternalRegistry::Instance()->StartTask();
-	LedTask::Instance()->StartTask();
-	TestTask::Instance()->StartTask();
 }
