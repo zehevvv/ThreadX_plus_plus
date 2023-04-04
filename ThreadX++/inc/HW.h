@@ -25,6 +25,7 @@
 #define WATCHDOG_PET_MS 		(90)
 
 
+//#define MEMORY_MANAGER_ENABLE
 #define MEMORY_MANAGER_POOL_SIZE		(64000)
 
 #endif /* HW_H_ */

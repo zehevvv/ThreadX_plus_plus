@@ -3,6 +3,8 @@
 #include "HW.h"
 #include <stdio.h>
 
+#ifdef MEMORY_MANAGER_ENABLE
+
 static TX_BYTE_POOL m_my_pool;
 
 void Memory_manager(VOID *first_unused_memory)
@@ -66,3 +68,4 @@ void operator delete[](void * memory_ptr)
 	}
 }
 
+#endif
