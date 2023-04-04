@@ -12,6 +12,7 @@
 #include "Types.h"
 
 #define SEMAPHORE_WAIT_FOREVER	(TX_WAIT_FOREVER)
+#define SEMAPHORE_NO_WAIT		(TX_NO_WAIT)
 
 class Semaphore {
 public:

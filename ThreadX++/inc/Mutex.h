@@ -12,6 +12,7 @@
 #include "Types.h"
 
 #define MUTEX_WAIT_FOREVER	(TX_WAIT_FOREVER)
+#define MUTEX_NO_WAIT		(TX_NO_WAIT)
 
 class Mutex
 {
