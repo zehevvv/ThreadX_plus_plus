@@ -11,7 +11,10 @@
 
 #define MIN(a,b)	((a < b) ? a : b)
 #define MAX(a,b)    ((a > b) ? a : b)
+
 #define ALIGN_TO_4(a)	(((a % 4) == 0) ? a : (a + 4 - (a % 4)))
+
+#define CONVERT_MS_TO_TICKS(ms)		(ms / (1000 / TX_TIMER_TICKS_PER_SECOND))
 
 
 #endif /* INC_MACROS_H_ */

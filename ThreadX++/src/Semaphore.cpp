@@ -7,7 +7,7 @@
 
 #include <Semaphore.h>
 #include <stdio.h>
-#include "Utility.h"
+#include "Macros.h"
 
 Semaphore::Semaphore(uint32_t initial_count)
 {

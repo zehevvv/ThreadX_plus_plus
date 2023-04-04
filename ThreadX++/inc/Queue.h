@@ -1,9 +1,10 @@
 
 #pragma once
 
-#include "tx_api.h"
-#include "Utility.h"
 #include <stdio.h>
+#include "tx_api.h"
+#include "Macros.h"
+
 
 #define QUEUE_WAIT_FOREVER 	(TX_WAIT_FOREVER)
 #define QUEUE_NO_WAIT 		(TX_NO_WAIT)
