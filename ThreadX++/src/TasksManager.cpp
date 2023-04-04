@@ -6,11 +6,6 @@
  */
 
 #include "TasksManager.h"
-#include "LedTask.h"
-#include "TestTask.h"
-#include "Watchdog.h"
-#include "InternalRegistry.h"
-
 
 void Tasks_manager_start()
 {
