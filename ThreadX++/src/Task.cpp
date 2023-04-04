@@ -2,7 +2,6 @@
 #include "tx_api.h"
 #include "Queue.h"
 #include "Event.h"
-#include "DWT_Utility.h"
 #include "Macros.h"
 
 
@@ -83,11 +82,6 @@ void Task::Sleep_ms(uint64_t time)
 
 		current_time = tx_time_get();
 	}
-}
-
-void Task::Delay_us(uint64_t time)
-{
-	DWT_Utility::Instance()->Delay_us(time);
 }
 
 void Task::ReceiveMsg(void* pointer)

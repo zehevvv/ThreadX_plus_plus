@@ -24,7 +24,6 @@ protected:
 	~Task();
 
 	void Sleep_ms(uint64_t time = TX_WAIT_FOREVER);
-	void Delay_us(uint64_t time);
 	virtual void ReceiveMsg(void* pointer);
 	virtual void Main_loop();
 
