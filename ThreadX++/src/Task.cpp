@@ -68,6 +68,11 @@ void Task::Sleep_ms(uint64_t time)
 	}
 }
 
+void Task::Delay_us(uint64_t time)
+{
+	DWT_Utility::Instance()->Delay_us(time);
+}
+
 void Task::WaitForNewMessage(uint64_t timeout)
 {
 	MESSAGE msg;
@@ -82,11 +87,6 @@ void Task::WaitForNewMessage(uint64_t timeout)
 			((Class_invoker_base*)(msg.pointer))->Invoke();
 		}
 	}
-}
-
-void Task::Sleep_us(uint64_t time)
-{
-	DWT_Utility::Instance()->Delay_us(time);
 }
 
 void Task::ReceiveMsg(void* pointer)
