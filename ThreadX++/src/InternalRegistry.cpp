@@ -11,7 +11,7 @@
 #include "TimeEvent.h"
 #include "HW.h"
 
-
+#ifdef INTERNAL_REGISTRY_ENABLE
 
 typedef struct RegisteryObject
 {
@@ -222,3 +222,5 @@ void InternalRegistry::PrintAll()
 
 	m_mutex.Unlock();
 }
+
+#endif

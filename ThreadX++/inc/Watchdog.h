@@ -10,7 +10,6 @@
 
 #include "Task.h"
 #include "Singleton.h"
-#include "stm32h7xx_hal.h"
 #include "TimeEvent.h"
 
 class Watchdog : public Singleton<Watchdog>, public Task

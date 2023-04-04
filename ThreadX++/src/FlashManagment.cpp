@@ -10,6 +10,9 @@
 #include <FlashManagment.h>
 #include "InternalFlashDriver.h"
 #include "Macros.h"
+#include "HW.h"
+
+#ifdef INTERNAL_REGISTRY_ENABLE
 
 
 typedef struct BlockHeaderStart
@@ -308,3 +311,5 @@ void TestFlashManagment()
 //	TestFlashManagmentWrite(flash);
 //	TestFlashManagmentRead(flash);
 }
+
+#endif

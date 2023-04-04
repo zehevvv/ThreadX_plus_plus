@@ -10,6 +10,9 @@
 
 #ifdef WATCHDOG_ENABLE
 
+#include "stm32h7xx_hal.h"
+
+
 #define IWDG_KEY_RELOAD                 0x0000AAAAu  /*!< IWDG Reload Counter Enable   */
 #define IWDG_KEY_ENABLE                 0x0000CCCCu  /*!< IWDG Peripheral Enable       */
 #define IWDG_KEY_WRITE_ACCESS_ENABLE    0x00005555u  /*!< IWDG KR Write Access Enable  */

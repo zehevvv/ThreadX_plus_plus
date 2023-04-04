@@ -7,8 +7,11 @@
 #include <stdio.h>
 #include <cstring>
 #include "InternalFlashDriver.h"
-#include "stm32h7xx_hal.h"
 #include "HW.h"
+
+#ifdef INTERNAL_REGISTRY_ENABLE
+
+#include "stm32h7xx_hal.h"
 
 
 //#define DEBUG_INTERNAL_FLASH
@@ -203,3 +206,4 @@ uint16_t InternalFlashDriver::GetSecotr(uint32_t Address)
 	return sector;
 }
 
+#endif
