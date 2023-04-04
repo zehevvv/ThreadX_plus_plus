@@ -30,7 +30,7 @@ typedef struct MESSAGE
 class MessageHandler
 {
 public:
-	bool NotifyMessage(void* pointer)
+	bool NotifyMessage(void* pointer = NULL)
 	{
 		MESSAGE msg;
 		msg.type = MSG_TYPE_NORMAL;
