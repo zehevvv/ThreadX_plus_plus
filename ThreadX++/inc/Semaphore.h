@@ -16,7 +16,7 @@
 class Semaphore {
 public:
 	Semaphore(uint32_t initial_count = 0);
-	void Get(uint32_t timeout_MS = SEMAPHORE_WAIT_FOREVER);
+	bool Get(uint32_t timeout_MS = SEMAPHORE_WAIT_FOREVER);
 	void Put();
 
 private:

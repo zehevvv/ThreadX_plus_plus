@@ -18,7 +18,7 @@ Semaphore::Semaphore(uint32_t initial_count)
 	}
 }
 
-void Semaphore::Get(uint32_t timeout_MS)
+bool Semaphore::Get(uint32_t timeout_MS)
 {
 	if (timeout_MS != SEMAPHORE_WAIT_FOREVER)
 		timeout_MS = CONVERT_MS_TO_TICKS(timeout_MS);
@@ -27,6 +27,11 @@ void Semaphore::Get(uint32_t timeout_MS)
 	if (status != TX_SUCCESS)
 	{
 		printf("Error: failed to get semaphore, error - %d \n", status);
+		return false;
+	}
+	else
+	{
+		return  true;
 	}
 }
 
