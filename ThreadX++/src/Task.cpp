@@ -70,11 +70,6 @@ void Task::Sleep_ms(uint64_t time)
 
 void Task::WaitForNewMessage(uint64_t timeout)
 {
-	ReadNewMessage(timeout);
-}
-
-void Task::ReadNewMessage(uint64_t timeout)
-{
 	MESSAGE msg;
 	if (Pull(msg, timeout))
 	{

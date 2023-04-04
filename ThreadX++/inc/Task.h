@@ -26,7 +26,6 @@ protected:
 	void Sleep_ms(uint64_t time);
 	void Sleep_us(uint64_t time);
 	void WaitForNewMessage(uint64_t timeout = QUEUE_WAIT_FOREVER);
-	void ReadNewMessage(uint64_t timeout = QUEUE_NO_WAIT);
 	virtual void ReceiveMsg(void* pointer);
 	virtual void Main_loop();
 
