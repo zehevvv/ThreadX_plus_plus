@@ -19,7 +19,7 @@ Mutex::Mutex() {
 }
 
 
-void Mutex::Lock(uint32_t timeout_MS)
+bool Mutex::Lock(uint32_t timeout_MS)
 {
 	if (timeout_MS != MUTEX_WAIT_FOREVER)
 		timeout_MS = CONVERT_MS_TO_TICKS(timeout_MS);
@@ -28,6 +28,11 @@ void Mutex::Lock(uint32_t timeout_MS)
 	if (status != TX_SUCCESS)
 	{
 		printf("Error: failed to lock mutex, error - %d \n", status);
+		return false;
+	}
+	else
+	{
+		return true;
 	}
 }
 

@@ -17,7 +17,7 @@ class Mutex
 {
 public:
 	Mutex();
-	void Lock(uint32_t timeout_MS = TX_WAIT_FOREVER);
+	bool Lock(uint32_t timeout_MS = TX_WAIT_FOREVER);
 	void Unlock();
 private:
 	TX_MUTEX m_mutex;
