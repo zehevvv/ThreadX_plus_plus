@@ -5,9 +5,9 @@
  *      Author: zehevvv
  */
 #include <stdio.h>
+#include <cstring>
 #include "InternalFlashDriver.h"
 #include "stm32h7xx_hal.h"
-#include "lx_api.h"
 #include "HW.h"
 
 

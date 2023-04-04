@@ -65,6 +65,6 @@ void LedTask::ReceiveMsg(void* pointer)
 
 void LedTask::ToggleLed()
 {
-	HAL_GPIO_TogglePin(LD1_GPIO_Port , LD1_Pin);
+//	HAL_GPIO_TogglePin(LD1_GPIO_Port , LD1_Pin);
 }
 
