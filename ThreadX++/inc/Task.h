@@ -23,9 +23,8 @@ protected:
 	Task(const char* name, uint32_t priority, uint32_t stack_size, uint32_t num_message = 10);
 	~Task();
 
-	void Sleep_ms(uint64_t time);
+	void Sleep_ms(uint64_t time = TX_WAIT_FOREVER);
 	void Delay_us(uint64_t time);
-	void WaitForNewMessage(uint64_t timeout = QUEUE_WAIT_FOREVER);
 	virtual void ReceiveMsg(void* pointer);
 	virtual void Main_loop();
 

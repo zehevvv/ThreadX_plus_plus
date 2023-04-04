@@ -1,8 +1,9 @@
+#include "Task.h"
+#include "tx_api.h"
 #include "Queue.h"
 #include "Event.h"
-#include "tx_api.h"
-#include "Task.h"
-#include <DWT_Utility.h>
+#include "DWT_Utility.h"
+#include "Macros.h"
 
 
 Task::Task(const char* name, uint32_t priority, uint32_t stack_size, uint32_t num_message) :
@@ -60,33 +61,33 @@ void Task::StartTask()
 
 void Task::Sleep_ms(uint64_t time)
 {
-	UINT status = tx_thread_sleep(CONVERT_MS_TO_TICKS(time));
-	if (status != TX_SUCCESS)
+	MESSAGE msg;
+	ULONG end_sleep_time = tx_time_get() + CONVERT_MS_TO_TICKS(time);
+	ULONG current_time = tx_time_get();
+
+	while (current_time < end_sleep_time || time == TX_WAIT_FOREVER)
 	{
-		printf("Error: failed to sleep thread, error - %d \n", status);
-		while(1);
+		ULONG time_to_sleep = end_sleep_time - current_time;
+
+		if (Pull(msg, CONVERT_TICKS_TO_MS(time_to_sleep)))
+		{
+			if (msg.type == MSG_TYPE_NORMAL)
+			{
+				ReceiveMsg(msg.pointer);
+			}
+			else
+			{
+				((Class_invoker_base*)(msg.pointer))->Invoke();
+			}
+		}
+
+		current_time = tx_time_get();
 	}
 }
 
 void Task::Delay_us(uint64_t time)
 {
 	DWT_Utility::Instance()->Delay_us(time);
-}
-
-void Task::WaitForNewMessage(uint64_t timeout)
-{
-	MESSAGE msg;
-	if (Pull(msg, timeout))
-	{
-		if (msg.type == MSG_TYPE_NORMAL)
-		{
-			ReceiveMsg(msg.pointer);
-		}
-		else
-		{
-			((Class_invoker_base*)(msg.pointer))->Invoke();
-		}
-	}
 }
 
 void Task::ReceiveMsg(void* pointer)
@@ -97,7 +98,7 @@ void Task::Main_loop()
 {
 	while(1)
 	{
-		WaitForNewMessage();
+		Sleep_ms();
 	}
 }
 

@@ -14,7 +14,8 @@
 
 #define ALIGN_TO_4(a)	(((a % 4) == 0) ? a : (a + 4 - (a % 4)))
 
-#define CONVERT_MS_TO_TICKS(ms)		(ms / (1000 / TX_TIMER_TICKS_PER_SECOND))
+#define CONVERT_MS_TO_TICKS(ms)			(ms)
+#define CONVERT_TICKS_TO_MS(ticks)		(ticks)
 
 
 #endif /* INC_MACROS_H_ */
