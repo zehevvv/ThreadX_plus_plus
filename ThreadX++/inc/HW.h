@@ -26,4 +26,7 @@
 //#define MEMORY_MANAGER_ENABLE
 #define MEMORY_MANAGER_POOL_SIZE		(64000)
 
+
+//#define DWT_ENABLE
+
 #endif /* HW_H_ */

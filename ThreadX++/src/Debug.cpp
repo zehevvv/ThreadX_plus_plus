@@ -8,6 +8,8 @@
 #include <Debug.h>
 #include <DWT_Utility.h>
 
+#ifdef DWT_ENABLE
+
 using namespace Debug;
 
 MeasureTime::MeasureTime() {
@@ -24,3 +26,4 @@ uint32_t MeasureTime::End()
 	return (DWT_Utility::Instance()->ConvrtTiksToUs(end_time -  m_start_time));
 }
 
+#endif

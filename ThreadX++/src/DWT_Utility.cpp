@@ -6,8 +6,12 @@
  */
 
 #include <DWT_Utility.h>
-#include "stm32h7xx_hal.h"
 #include "tx_api.h"
+#include "HW.h"
+
+#ifdef DWT_ENABLE
+
+#include "stm32h7xx_hal.h"
 
 
 DWT_Utility::DWT_Utility()
@@ -64,3 +68,5 @@ bool DWT_Utility::Init_clock_cycle()
       return true; /*clock cycle counter not started*/
     }
 }
+
+#endif
