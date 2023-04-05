@@ -91,6 +91,14 @@
     </li>
         </ul>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#singleton">Singleton</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#how-to-create">How to create</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#how-to-use">How to use</a>
+    </li>
+        </ul>
+    </li>
     </ul>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../threadx_api/">ThreadX API (Mutex, Semaphore, Queue)</a>
@@ -418,6 +426,45 @@ The register function of the event get 3 parameters:<br />
 <li><strong>Semaphore:</strong> When we have two task, task1 Put the semaphore, the task1 will sleep until the task2 Get the semaphore.</li>
 <li><strong>Queue</strong> When pull from queue the task go to sleep</li>
 </ul>
+<h2 id="singleton">Singleton</h2>
+<p>Singleton is a design pattern, if you don't now what is you can look <a href="https://www.tutorialspoint.com/Explain-Cplusplus-Singleton-design-pattern">here</a>.<br />
+This not really part of <code>task</code> but for my opinion it very helpful because most of task if not all of them you will be want to be only single of them and easy access from every ever,
+So i create class <code>Singleton</code> that can inherited:</p>
+<h3 id="how-to-create">How to create</h3>
+<p>In the class that you want to inherited you need to do 3 thing:
+1. Add <code>#include "Singleton.h"</code>.<br />
+2. Inheriting from singleton class: <code>class &lt;class name&gt; : public Singleton&lt;class name&gt;</code>.<br />
+3. In the class definition add <code>friend Singleton&lt;class name&gt;</code></p>
+<p><strong>Example:</strong> If you want to create task <code>LedTask</code> and you want him to be singleton, the declaration of the class look like that:</p>
+<pre><code>#include &quot;Task.h&quot;
+#include &quot;Singleton.h&quot;
+
+class LedTask : public Task, public Singleton&lt;LedTask&gt;
+{
+friend Singleton&lt;LedTask&gt;;
+private:
+    LedTask();
+    void ToggleLed();
+
+    static const uint16_t   TASK_PRIORITY   = NORMAL_PRIORITY;
+    static const uint16_t   STACK_SIZE      = 1024;
+protected:
+    virtual void ReceiveMsg(void* pointer);
+};
+
+</code></pre>
+<h3 id="how-to-use">How to use</h3>
+<p>When you want to call to class that also singleton you need to do only 2 steps:
+1. Add the include of the class.<br />
+2. Call to class like that <code>&lt;class name&gt;::Instance-&gt;&lt;someFunction&gt;</code>.</p>
+<p><strong>Example:</strong> If we want to call to function <code>NotifyMessage()</code> of the task <code>LedTask</code>:</p>
+<pre><code>#include &quot;LedTask.h&quot;
+
+void Some_function()
+{
+    LedTask::Instance()-&gt;NotifyMessage();
+}
+</code></pre>
               
             </div>
           </div><footer>
