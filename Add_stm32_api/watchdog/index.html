@@ -113,13 +113,15 @@
                 <h1 id="watchdog">Watchdog</h1>
 <p>I create class of watchdog that work on <code>IWDG1</code> internal watchdog, this watchdog need to pet every amount of time that config at init, </p>
 <h2 id="enable-the-watchdog">Enable the watchdog</h2>
-<p><strong>1)</strong> Go to <code>HW.h</code> file and add you need to add two define:  </p>
+<p><strong>1)</strong> Go to <code>HW.h</code> file and set the next 3 defines:  </p>
 <ul>
+<li><strong>WATCHDOG_ENABLE :</strong></li>
 <li><strong>WATCHDOG_TIMEOUT_MS :</strong> The max amount of time (milliseconds) that if the watchdog not pet (reload) -&gt; the watchdog will restart the MCU,  </li>
 <li><strong>WATCHDOG_PET_MS :</strong> The time between pet (reload).  </li>
 </ul>
 <p>Example: if we want that watchdog will reset the MCU if it not pet more than 100ms,  also we want that our watchdog service will pet the watchdog every 90ms, so the define should be like this:</p>
-<pre><code>#define WATCHDOG_TIMEOUT_MS     (100)
+<pre><code>#define WATCHDOG_ENABLE
+#define WATCHDOG_TIMEOUT_MS     (100)
 #define WATCHDOG_PET_MS         (90)
 </code></pre>
 <p><strong>2)</strong> Go to file <code>TasksManager.cpp</code>, in the function <code>Tasks_manager_start()</code> add the watchdog:</p>

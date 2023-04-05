@@ -111,6 +111,10 @@
                 <h1 id="measure-time">Measure time</h1>
 <p>This debug object that allow you to measure time in microseconds units.</p>
 <h2 id="create">Create</h2>
+<p>First you need to enable the "DWT" (this the peripheral that use for measure the time), to do so you need to go to <code>HW.h</code> file and uncomment next define</p>
+<pre><code>#define DWT_ENABLE
+</code></pre>
+<p>Than go to where you want to measure the time and create the measure time object:</p>
 <pre><code>#include &quot;Debug.h&quot;
 Debug::MeasureTime my_measure_time;
 </code></pre>
