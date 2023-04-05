@@ -140,7 +140,7 @@
 <h2 id="enable-the-registry">Enable the registry</h2>
 <p><strong>1)</strong> Go to <code>HW.h</code> file and you need to add number of defines:</p>
 <ul>
-<li><strong>FLASH_MANAGMENT_LOGICAL_BLOCK_SIZE_BYTES:</strong> </li>
+<li><strong>INTERNAL_REGISTRY_ENABLE:</strong></li>
 <li><strong>INTERNAL_FLASH_FLASHWORD:</strong> This uint is the number of bytes that flash write every step.</li>
 <li><strong>INTERNAL_FLASH_SECTOR_SIZE:</strong> The size of sector of flash</li>
 <li><strong>INTERNAL_REGISTRY_START_ADDRESS:</strong> The start of the registry, you need to get attention to two things, one is that you not overwrite the code of the MCU so the address will be of sector that not in use, second is you need to check if you have enough space, the calculation is (start address + num sector * size sector).</li>
@@ -148,11 +148,12 @@
 <li><strong>INTERNAL_REGISTRY_LOGICAL_BLOCK_SIZE:</strong> The block size need to be divide "INTERNAL_FLASH_SECTOR_SIZE" into blocks, is must divide without remainder.  </li>
 </ul>
 <p>Example: lets assume that we work on the internal flash of STM32H743 so the FLASHWORD is 8 and the sector size is 0x20000 (131,072) bytes, lets assume that we want only 2 sectors, and we want to use the lasts sectors, and we want the block size of 512 bytes (so the actual size for writing will be 512 - 16 = 496), so the number of logics blocks is 0x20000 * 2 / 512 = 512 blocks, so the defines will be:</p>
-<pre><code>#define INTERNAL_FLASH_FLASHWORD                (8)
-#define INTERNAL_FLASH_SECTOR_SIZE              (0x20000)
+<pre><code>#define INTERNAL_REGISTRY_ENABLE
 #define INTERNAL_REGISTRY_START_ADDRESS         (0x081C0000)
-#define INTERNAL_REGISTRY_NUM_SECOTR            (2)
+#define INTERNAL_REGISTRY_NUM_SECTOR            (2)
 #define INTERNAL_REGISTRY_LOGICAL_BLOCK_SIZE    (512)
+#define INTERNAL_FLASH_FLASHWORD                (8)
+#define INTERNAL_FLASH_SECTOR_SIZE              (0x20000)
 </code></pre>
 <p><strong>2)</strong> Go to file <code>TasksManager.cpp</code>, in the function <code>Tasks_manager_start()</code> add the registry:</p>
 <pre><code>#include &quot;InternalRegistry.h&quot;
