@@ -66,6 +66,12 @@
               <ul class="current">
                   <li class="toctree-l1 current"><a class="reference internal current" href="./">Config printf</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#introduction">introduction</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#key-features">Key features:</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#config">Config</a>
+    </li>
     </ul>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../watchdog/">Watchdog</a>
@@ -105,10 +111,15 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="config-printf">Config printf</h1>
-<pre><code>git status
-git add
-git commit
-</code></pre>
+<h2 id="introduction">introduction</h2>
+<p>The normal debug print is run over the UART of the debugger, if you want you also can send them over the SWV, the SWV is part of the debugger and it enable number of features, one of them is the <code>port</code>, that line that you send data, in this page you will learn how to config the printf to connect ot <code>port 0</code>.  </p>
+<h2 id="key-features">Key features:</h2>
+<ul>
+<li><strong>Speed:</strong> It's much quicker the the UART, (the default UART is 128kb and the SWV is most of the time same speed  and the system clock). </li>
+<li><strong>Not need UART:</strong> If you use the SWV, you can use the UART for other tasks.  </li>
+<li><strong>Cube integration:</strong> Cube IDE base on eclipse and eclipse have view control for the <code>ports</code> feature of the SWV.</li>
+</ul>
+<h2 id="config">Config</h2>
 <ol>
 <li>In file <code>Core/Src/main.c</code> insert the next code</li>
 </ol>
@@ -128,7 +139,7 @@ PUTCHAR_PROTOTYPE
 <p>after the <code>SystemClock_Config</code> function call <img alt="" src="../../img/Config_printf/Add_function.png" /><br />
 2. Go to <code>Run-&gt;Debug Configuration</code>, new window open, go to tab <code>Debugger</code>, in the frame <code>Serial Wire Viewer (SWv)</code> you will found check box <code>Enable</code>, set it <img alt="" src="../../img/Config_printf/Enable_swv.png" /><br />
 3. Run the debugger and make him stop on breakpoint, than go to <code>Window-&gt;Show View-&gt;Other</code>, in the window that open search <code>SWV ITM Data Console</code>, this will add new view to your screen <code>SWV ITM Data Console</code>, in this view press on the settings <img alt="" src="../../img/Config_printf/open_setting.png" />  New window will open, in the bottom you see frame <code>ITM Stimulus Ports</code>, you need to set the right checkbox that close to <code>0</code> and press <code>OK</code> <img alt="" src="../../img/Config_printf/Enable_port.png" />
-4. in the view <code>SWV ITM Data Console</code> press on the <code>start trace</code> button  <img alt="" src="../../img/Config_printf/Start_trace.png" />  </p>
+4. in the view <code>SWV ITM Data Console</code> press on the <code>start trace</code> button (it's look like the red or gray ball)  <img alt="" src="../../img/Config_printf/Start_trace.png" />  </p>
               
             </div>
           </div><footer>
