@@ -147,7 +147,7 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="threadx-api">ThreadX API</h1>
-<p>In this section you get explain how to create and use the Mutex, Semaphore, Queue.</p>
+<p>In this section, you get a tutorial on how to create and use the Mutex, Semaphore, and Queue.</p>
 <h2 id="mutex">Mutex</h2>
 <h3 id="create">Create</h3>
 <pre><code>#include &quot;Mutex.h&quot;
@@ -159,13 +159,13 @@ Mutex my_mutex;
 <pre><code>bool Lock(uint32_t timeout_MS = TX_WAIT_FOREVER);
 </code></pre>
 <ul>
-<li><strong>Timeout:</strong> Timeout in milliseconds, If the mutex is already lock the task will wait until the mutex unlock or timeout occur, if you want to wait forever you can use define MUTEX_WAIT_FOREVER, if you want to not wait at all you can use define MUTEX_NO_WAIT</li>
-<li><strong>Return value:</strong> Boolean, True - lock success (not timeout). </li>
+<li><strong>Timeout:</strong> Timeout in milliseconds, If the mutex is already locked the task will wait until the mutex unlocks or timeout occurs, if you want to wait forever you can use define MUTEX_WAIT_FOREVER, if you want to not wait at all you can use define MUTEX_NO_WAIT</li>
+<li><strong>Return value:</strong> Boolean, True - lock success (no timeout). </li>
 </ul>
-<p>In next example, we lock and wait forever.</p>
+<p>In the next example, we lock and wait forever.</p>
 <pre><code>my_mutex.Lock();
 </code></pre>
-<p>In the next example we will set timeout of 100ms:</p>
+<p>In the next example we will set a timeout of 100ms:</p>
 <pre><code>my_mutex.Lock(100);
 </code></pre>
 <h4 id="unlock">Unlock:</h4>
@@ -179,7 +179,7 @@ Mutex my_mutex;
 <pre><code>#include &quot;Semaphore.h&quot;
 Semaphore my_semaphore;
 </code></pre>
-<p>The default value of the "initial count" is 0, if you want to change it you can send the number you like to Ctor of the semaphore, in next example the semaphore set the "initial count" to 5:</p>
+<p>The default value of the "initial count" is 0, if you want to change it you can send the number you like to the Ctor of the semaphore, in the next example the semaphore set the "initial count" to 5:</p>
 <pre><code>#include &quot;Semaphore.h&quot;
 Semaphore my_semaphore(5);
 </code></pre>
@@ -189,13 +189,13 @@ Semaphore my_semaphore(5);
 <pre><code>bool Get(uint32_t timeout_MS = SEMAPHORE_WAIT_FOREVER);
 </code></pre>
 <ul>
-<li><strong>Timeout:</strong> Timeout in milliseconds, The get function can call without parameter and wait until other task will "Put" the semaphore or timeout occur, if you want to wait forever you can use define SEMAPHORE_WAIT_FOREVER, if you want to not wait at all you can use define SEMAPHORE_NO_WAIT</li>
-<li><strong>Return value:</strong> Boolean, True - Get success (not timeout).  </li>
+<li><strong>Timeout:</strong> Timeout in milliseconds, The get function can call without a parameter and wait until another task will "Put" the semaphore or timeout occur, if you want to wait forever you can use define SEMAPHORE_WAIT_FOREVER, if you want to not wait at all you can use define SEMAPHORE_NO_WAIT</li>
+<li><strong>Return value:</strong> Boolean, True - Get success (no timeout).  </li>
 </ul>
 <p>In the next example we call <code>Get()</code> function and wait forever: </p>
 <pre><code>my_semaphore.Get();
 </code></pre>
-<p>in next example the timeout is 200ms</p>
+<p>in the next example the timeout is 200ms</p>
 <pre><code>my_semaphore.Get(200);
 </code></pre>
 <h4 id="put">Put</h4>
@@ -206,26 +206,26 @@ Semaphore my_semaphore(5);
 </code></pre>
 <h2 id="queue">Queue</h2>
 <h3 id="create_2">Create</h3>
-<p>My implementation of the queue is "template" so when you create the queue you need to choose what type of values you want the queue will hold, in the next explain the queue will hold <code>int</code> types that can hold 10 <code>int</code> values:</p>
+<p>My implementation of the queue is "template" so when you create the queue you need to choose what type of values you want the queue will hold, in the next explanation the queue will hold <code>int</code> types that can hold 10 <code>int</code> values:</p>
 <pre><code>#include &quot;Queue.h&quot;
 Queue&lt;int&gt;  my_queue(10);
 </code></pre>
-<p>If this was not clear: the queue Ctor get one parameter that set the number of the values that hold in the queue.</p>
+<p>If this was not clear: the queue Ctor gets one parameter that set the number of the values that hold in the queue.</p>
 <h3 id="how-to-use_2">How to use</h3>
 <p>The queue have 2 functions: <strong>Push</strong>, <strong>Pull</strong>  </p>
 <h4 id="push">Push</h4>
 <pre><code>bool Push(T&amp; value, uint32_t timeout_MS = QUEUE_NO_WAIT)
 </code></pre>
 <ul>
-<li><strong>Value:</strong> The value you want to push to queue, the parameter is reference.  </li>
+<li><strong>Value:</strong> The value you want to push to the queue, the parameter is a reference.  </li>
 <li><strong>Timeout:</strong> Timeout in milliseconds, if the queue is full the task will wait until it can push the value, if you want to wait forever you can use define QUEUE_WAIT_FOREVER, if you want to not wait at all you can use define QUEUE_NO_WAIT</li>
 <li><strong>Return value:</strong> Boolean, True - push success.  </li>
 </ul>
-<p>In the next example we push "int" without waiting to timeout.</p>
+<p>In the next example, we push "int" without waiting to timeout.</p>
 <pre><code>int val = 5;
 my_queue.Push(val);
 </code></pre>
-<p>In the next example we push "int" with timeout of 50ms.</p>
+<p>In the next example, we push "int" with a timeout of 50ms.</p>
 <pre><code>int val = 5;
 my_queue.Push(val, 50);
 </code></pre>
@@ -233,11 +233,11 @@ my_queue.Push(val, 50);
 <pre><code>bool Pull(T&amp; value, uint32_t timeout_MS = 10)
 </code></pre>
 <ul>
-<li><strong>Value:</strong> The value you want to pull from queue, the parameter is reference.  </li>
+<li><strong>Value:</strong> The value you want to pull from the queue, the parameter is a reference.  </li>
 <li><strong>Timeout:</strong> Timeout in milliseconds, if the queue is empty the task will wait until it can pull the value, if you want to wait forever you can use define QUEUE_WAIT_FOREVER, if you want to not wait at all you can use define QUEUE_NO_WAIT</li>
-<li><strong>Return value:</strong> Boolean, True - pull success.  </li>
+<li><strong>Return value:</strong> Boolean, True - the pull action success.  </li>
 </ul>
-<p>In the next example we pull from queue without timeout</p>
+<p>In the next example, we pull from a queue without timeout:</p>
 <pre><code>int val;
 my_queue.Pull(val, TX_NO_WAIT);
 </code></pre>
