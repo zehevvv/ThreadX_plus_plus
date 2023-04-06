@@ -109,24 +109,24 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="measure-time">Measure time</h1>
-<p>This debug object that allow you to measure time in microseconds units.</p>
+<p>This debug object gives you the ability to measure time in microseconds units.</p>
 <h2 id="create">Create</h2>
-<p>First you need to enable the "DWT" (this the peripheral that use for measure the time), to do so you need to go to <code>HW.h</code> file and uncomment next define</p>
+<p>First, you need to enable the "DWT" (this is the peripheral that uses to measure time), to do so you need to go to <code>HW.h</code> file and uncomment next define:</p>
 <pre><code>#define DWT_ENABLE
 </code></pre>
-<p>Than go to where you want to measure the time and create the measure time object:</p>
+<p>Then go to where you want to measure the time and create the measure time object:</p>
 <pre><code>#include &quot;Debug.h&quot;
 Debug::MeasureTime my_measure_time;
 </code></pre>
 <h2 id="how-to-use">How to use</h2>
-<p>When you want to start measure you need to call to <code>Start()</code> function, and when you want to end call to <code>End()</code> function, the function <code>End()</code> return the delta in microseconds units,<br />
+<p>When you want to start measuring you need to call to <code>Start()</code> function, and when you want to end call to <code>End()</code> function, the function <code>End()</code> returns the delta in microseconds units,<br />
 Example:  </p>
 <pre><code>my_measure_time.Start();
 SomeFunction();
 uint32_t result = my_measure_time.End();
 printf(&quot;The delta is %lu \n&quot;, result);
 </code></pre>
-<p><strong>Note:</strong> You need to know that measure time is get is data from counter that work on 32 bit register, so it may cause to wraparound.</p>
+<p><strong>Note:</strong> You need to know that the measured time is getting data from the counter that works on 32-bit register, so it may cause to wraparound.</p>
               
             </div>
           </div><footer>
