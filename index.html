@@ -112,36 +112,36 @@
                 <h1 id="threadx">ThreadX++</h1>
 <h2 id="introduction">Introduction</h2>
 <p>Hi all
-This is my little project, it's a big wrapper for ThreadX (AZURE RTOS) to work as c++, here some important pointes about the project:</p>
+This is my little project, it's a big wrapper for ThreadX (AZURE RTOS) to work as C++, here are some important points about the project:</p>
 <ul>
-<li>The main target of the project is one: SIMPLE, it's meaning that i do it much tiny that it can be, the price of course is that in way we lost abilities of the ThreadX</li>
-<li>I not cover all the API of ThreadX,</li>
-<li>I build this project on STM32H743, So if you using other processor of STM32 family i guess it will work, but if you have other MCU some of the abilities of my project will not available (like a watchdog) but you still can get most of the core function (you will need to change the code).</li>
+<li>The main target of the project is one: SIMPLE, it's meaning that I do it much tiny as it can be, the price of course, we lost some of the abilities of the ThreadX</li>
+<li>I do not cover all the API of ThreadX,</li>
+<li>I build this project on STM32H743, So if you using another processor of the STM32 family I guess it will work, but if you have another MCU some of the abilities of my project will not be available (like a watchdog) but you still can get most of the core function (you will need to change the code).</li>
 </ul>
 <h2 id="abilities">Abilities</h2>
 <p>The abilities of ThreadX++</p>
 <ul>
-<li><strong>Events-oriented:</strong> I added the events like delegate, so you can create event in one thread and register it from other thread.</li>
-<li><strong>Object-oriented:</strong> most of the API of the ThreadX get warper of as class, hte list of the API<ul>
+<li><strong>Events-oriented:</strong> I added the events like a delegate, so you can create an event in one thread and register it from another thread.</li>
+<li><strong>Object-oriented:</strong> Most of the APIs of the ThreadX get warper as a class and a list of the STME32 peripherals.<ul>
 <li><strong>Thread:</strong></li>
-<li><strong>Event:</strong> Event that one thread will create and other can register and wakeup one it invoke</li>
+<li><strong>Event:</strong> Event that one thread will create and another can register and wake up when the event invokes.</li>
 <li><strong>Mutex:</strong></li>
-<li><strong>Queue:</strong> Safe queue to send data between thread</li>
+<li><strong>Queue:</strong> Safe queue to send data between threads.</li>
 <li><strong>Semaphore:</strong></li>
-<li><strong>TimeEvent:</strong> Event that thread creating and the event will wake up the thread every amount time.</li>
+<li><strong>TimeEvent:</strong> Event that the thread creates and the event will wake up the thread every amount of time.</li>
 </ul>
 </li>
-<li><strong>MemoryPool:</strong> Easy way to create pool of memory (overriding "new" and "delete").</li>
+<li><strong>MemoryPool:</strong> Easy way to create a pool of memory (overriding "new" and "delete").</li>
 <li><strong>STM32 easy use:</strong> I also do some wrapper to very useful peripherals of ST:<ul>
-<li><strong>Watchdog:</strong> Simple watchdog </li>
-<li><strong>Measure US:</strong> I used the "DWT" for create debug class that can easily measure time in microsecond</li>
-<li><strong>Internal registry :</strong> Registry (like dictionary) that use to save data in the internal flash on the ST.</li>
-<li><strong>Printf :</strong>  Use the SWT port for printing much more effective.</li>
+<li><strong>Watchdog:</strong> Simple watchdog.</li>
+<li><strong>Measure US:</strong> I used the "DWT" to create debug class that can easily measure time in microseconds.</li>
+<li><strong>Internal registry:</strong> Registry (like a dictionary) that use to save data in the internal flash on the ST.</li>
+<li><strong>Printf:</strong>  Use the SWT port for printing much more effectively.</li>
 </ul>
 </li>
 </ul>
 <h2 id="where-to-start">Where to start</h2>
-<p>First you will need to install the ThreadX on your MCU, i made a tutorial for ST chips, if you have other MCU i also recommend to read it because it contain some configuration of the ThreadX that necessary.
+<p>First, you will need to install the ThreadX on your MCU, I made a tutorial for ST chips, if you have another MCU I also recommend reading it because it contains some configurations of the ThreadX that are necessary.
 The main tutorials:</p>
 <ul>
 <li><a href="Install/install_st/">Install ThreadX on ST</a></li>
@@ -193,5 +193,5 @@ The main tutorials:</p>
 
 <!--
 MkDocs version : 1.4.2
-Build Date UTC : 2023-04-06 13:09:53.147648+00:00
+Build Date UTC : 2023-04-06 13:17:31.958081+00:00
 -->
