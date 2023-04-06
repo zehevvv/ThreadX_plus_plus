@@ -118,11 +118,13 @@
 <li><strong>WATCHDOG_ENABLE :</strong></li>
 <li><strong>WATCHDOG_TIMEOUT_MS :</strong> The max amount of time (milliseconds) that if the watchdog not pet (reload) -&gt; the watchdog will restart the MCU,  </li>
 <li><strong>WATCHDOG_PET_MS :</strong> The time between pet (reload).  </li>
+<li><strong>WATCHDOG_TASK_PRIORITY :</strong> The priority of the watchdog task the reload (pet) the watchdog, should be the less prioritize task.</li>
 </ul>
 <p>Example: if we want that watchdog will reset the MCU if it not pet more than 100ms,  also we want that our watchdog service will pet the watchdog every 90ms, so the define should be like this:</p>
 <pre><code>#define WATCHDOG_ENABLE
 #define WATCHDOG_TIMEOUT_MS     (100)
 #define WATCHDOG_PET_MS         (90)
+#define WATCHDOG_TASK_PRIORITY  (14)
 </code></pre>
 <p><strong>2)</strong> Go to file <code>TasksManager.cpp</code>, in the function <code>Tasks_manager_start()</code> add the watchdog:</p>
 <pre><code>#include &quot;Watchdog.h&quot;
