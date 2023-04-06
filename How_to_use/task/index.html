@@ -187,19 +187,19 @@ e
 {
     while(1)
     {
-        WaitForNewMessage();
+        Sleep_ms();
     }
 }
 </code></pre>
 <p>If you want you can override this function by your class that inherited <strong>Task</strong> class,<br />
-<strong>Important note:</strong> If you override, you must call to function <code>WaitForNewMessage()</code>, if you don't call it -&gt; other thread can't send your thread messages, also all the events and time events will not invoke your task, the function <code>WaitForNewMessage()</code> can get parameter of timeout at milliseconds, so every time you want to sleep you can call this function with the time you want to sleep, you can see it in the next example:<br />
+<strong>Important note:</strong> If you override, you must call to function <code>Sleep_ms()</code>, if you don't call it -&gt; other thread can't send your thread messages, also all the events and time events will not invoke your task, the function <code>Sleep_ms()</code> can get parameter of timeout at milliseconds, so every time you want to sleep you can call this function with the time you want to sleep, you can see it in the next example:<br />
 Example: in the next example the class ledTask will toggle the led every 500ms:</p>
 <pre><code>void LedTask::Main_loop() 
 {
     while(1)
     {
         ToggleLed();    
-        WaitForNewMessage(500);
+        Sleep_ms(500);
     }
 }
 </code></pre>
@@ -211,7 +211,7 @@ Example: in the next example the class ledTask will toggle the led every 500ms:<
     while(1)
     {
         LedTaskPointer-&gt;NotifyMessage();    
-        WaitForNewMessage(1000);
+        Sleep_ms(1000);
     }
 }
 </code></pre>
@@ -261,7 +261,7 @@ public:
     TestTaskPointer-&gt;event.Register(&amp;LedTask::Callback, this, this);
 
     while(1)
-        WaitForNewMessage();
+        Sleep_ms();
 }
 </code></pre>
 <p><strong>Parameter explain:</strong><br />
@@ -275,7 +275,7 @@ The register function of the event get 3 parameters:<br />
     while(1)
     {
         event.Invoke();
-        WaitForNewMessage(1000);
+        Sleep_ms(1000);
     }
 
 }
@@ -298,7 +298,7 @@ void LedTask::Main_loop()
 {
     TimeEvent time_event(&amp;LedTask::Callback, this, this, 100, true)
     while(1)
-        WaitForNewMessage();
+        Sleep_ms();
 }
 </code></pre>
 <p><strong>Parameter explain:</strong><br />
@@ -324,7 +324,7 @@ For example, let's assume that we have two task: <strong>LedTask</strong> and <s
     while(1)
     {        
         LedTaskPointer-&gt;NotifyMessage((void*)&amp;counter); 
-        WaitForNewMessage(1000);
+        Sleep_ms(1000);
         counter++;
     }
 }
@@ -371,7 +371,7 @@ public:
     TestTaskPointer-&gt;event.Register(&amp;LedTask::Callback, this, this);
 
     while(1)
-        WaitForNewMessage();
+        Sleep_ms();
 }
 </code></pre>
 <p><strong>Parameter explain:</strong><br />
@@ -387,7 +387,7 @@ The register function of the event get 3 parameters:<br />
     while(1)
     {
         event.Invoke((void*)&amp;counter);
-        WaitForNewMessage(1000);
+        Sleep_ms(1000);
         counter++;
     }        
 }
@@ -405,22 +405,22 @@ The register function of the event get 3 parameters:<br />
     while(1)
     {
         Sleep_ms(1000);
-        WaitForNewMessage(QUEUE_NO_WAIT);
+        Sleep_ms(QUEUE_NO_WAIT);
     }        
 }
 </code></pre>
-<p>Because we override the <code>Main_loop()</code> function we must call to function <code>WaitForNewMessage()</code>, if we not call it -&gt; we don't get message from other task and the event will not invoke the callback of this task.</p>
+<p>Because we override the <code>Main_loop()</code> function we must call to function <code>Sleep_ms()</code>, if we not call it -&gt; we don't get message from other task and the event will not invoke the callback of this task.</p>
 <h3 id="wait-for-message">Wait for message</h3>
 <p>When you wait to new message to arrive the task is sleep.</p>
 <pre><code>void LedTask::Main_loop()
 {
     while(1)
     {        
-        WaitForNewMessage();
+        Sleep_ms();
     }        
 }
 </code></pre>
-<p>When we call to function <code>WaitForNewMessage()</code> the task will sleep until it get message or invoke by event, the function also can get parameter of timeout in millisecond and when the timeout occur the task will resume.  </p>
+<p>When we call to function <code>Sleep_ms()</code> the task will sleep until it get message or invoke by event, the function also can get parameter of timeout in millisecond and when the timeout occur the task will resume.  </p>
 <h3 id="threadx-api">ThreadX API</h3>
 <p>When using the API locking mechanism of ThreadX the task will go to sleep:  </p>
 <ul>
