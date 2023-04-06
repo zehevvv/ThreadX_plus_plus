@@ -111,16 +111,16 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="watchdog">Watchdog</h1>
-<p>I create class of watchdog that work on <code>IWDG1</code> internal watchdog, this watchdog need to pet every amount of time that config at init, </p>
+<p>I create a class of watchdog that works on the <code>IWDG1</code> internal watchdog, this watchdog needs to pet every amount of time that config at init, </p>
 <h2 id="enable-the-watchdog">Enable the watchdog</h2>
 <p><strong>1)</strong> Go to <code>HW.h</code> file and set the next 3 defines:  </p>
 <ul>
 <li><strong>WATCHDOG_ENABLE :</strong></li>
-<li><strong>WATCHDOG_TIMEOUT_MS :</strong> The max amount of time (milliseconds) that if the watchdog not pet (reload) -&gt; the watchdog will restart the MCU,  </li>
+<li><strong>WATCHDOG_TIMEOUT_MS :</strong> The max amount of time (milliseconds) that if the watchdog does not pet (reload) -&gt; the watchdog will restart the MCU,  </li>
 <li><strong>WATCHDOG_PET_MS :</strong> The time between pet (reload).  </li>
-<li><strong>WATCHDOG_TASK_PRIORITY :</strong> The priority of the watchdog task the reload (pet) the watchdog, should be the less prioritize task.</li>
+<li><strong>WATCHDOG_TASK_PRIORITY :</strong> The priority of the watchdog task the reload (pet) of the watchdog, should be the less prioritized task.</li>
 </ul>
-<p>Example: if we want that watchdog will reset the MCU if it not pet more than 100ms,  also we want that our watchdog service will pet the watchdog every 90ms, so the define should be like this:</p>
+<p>Example: if we want that watchdog will reset the MCU if it does not pet more than 100ms,  also we want that our watchdog service will pet the watchdog every 90ms, so the definition should be like this:</p>
 <pre><code>#define WATCHDOG_ENABLE
 #define WATCHDOG_TIMEOUT_MS     (100)
 #define WATCHDOG_PET_MS         (90)
@@ -136,9 +136,9 @@ void Tasks_manager_start()
 </code></pre>
 <h3 id="note">note</h3>
 <ul>
-<li>The watchdog priority is should be the lowest that possible but you need to careful to not be in same or low priority of task that will take more time than define <code>WATCHDOG_TIMEOUT_MS</code></li>
+<li>The watchdog priority is should be the lowest that possible but you need to careful to not be in the same or low priority of the task that will take more time than define <code>WATCHDOG_TIMEOUT_MS</code></li>
 <li>The watchdog must not enable when you want to debug your system and stop the run, the watchdog will kill you.</li>
-<li>When you set the system to sleep, you must somehow to pet the watchdog because it work on the LSI clock and not on the main clock.</li>
+<li>When you set the system to sleep, you must somehow pet the watchdog because it works on the LSI clock and not on the main clock.</li>
 </ul>
               
             </div>
