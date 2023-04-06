@@ -14,6 +14,7 @@
 #include "Mutex.h"
 #include "Task.h"
 #include "TimeEvent.h"
+#include "HW.h"
 
 struct RegisteryObject;
 
@@ -64,7 +65,7 @@ private:
 	uint32_t					m_flash_buffer_size;
 	TimeEvent 					m_event_flahs_update;
 
-	static const uint16_t 	TASK_PRIORITY 	= FLASH_PRIORITY;
+	static const uint16_t 	TASK_PRIORITY 	= INTERNAL_REGISTRY_TASK_PRIORITY;
 	static const uint16_t 	STACK_SIZE 		= 1024;
 };
 

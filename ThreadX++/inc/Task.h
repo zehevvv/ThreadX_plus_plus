@@ -4,16 +4,6 @@
 #include "MessageHandler.h"
 
 
-typedef enum TASK_PRIORITY
-{
-	HIGH_PRIORITY = 1,
-	NORMAL_PRIORITY = 2,
-	LOW_PRIORITY = 3,
-	WATCHDOG_PRIORITY = 4,
-	FLASH_PRIORITY = 5
-} TASK_PRIORITY;
-
-
 class Task : public MessageHandler
 {
 public:

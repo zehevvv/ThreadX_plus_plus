@@ -9,7 +9,6 @@
 #include <InternalRegistry.h>
 #include "InternalFlashDriver.h"
 #include "TimeEvent.h"
-#include "HW.h"
 
 #ifdef INTERNAL_REGISTRY_ENABLE
 

@@ -6,7 +6,6 @@
  */
 
 #include <Watchdog.h>
-#include "HW.h"
 
 #ifdef WATCHDOG_ENABLE
 
