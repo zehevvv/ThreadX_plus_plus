@@ -105,21 +105,21 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="memory-manager">Memory manager</h1>
-<p>This package is optionally.<br />
-It's give you easy way to init the threadX pool of bytes and override the new and the delete function<br />
-<strong>Note:</strong> in order todo that you will need to change the threadX configuration to use "dynamic allocation", and you also need to config the ld file to allocate the ram section for the pool, the step 2 and 3 and 4 in this tutorial is for that but work only for STM32H743, if you have different MCU you will need to figure it out yourself how to do that (again you have a lot tutorial over the internet).</p>
+<p>This package is optional.<br />
+It gives you an easy way to init the ThreadX pool of bytes and override the new and the delete function<br />
+<strong>Note:</strong> To do that you will need to change the ThreadX configuration to use "dynamic allocation", and you also need to config the ".ld" file to allocate the ram section for the pool, steps 2 and 3, and 4 in this tutorial is for that but work only for STM32H743, if you have different MCU you will need to figure it out yourself how to do that (again you have a lot tutorial over the internet).</p>
 <p><strong>1)</strong> Go to <code>HW.h</code> file and add the define '#define MEMORY_MANAGER_ENABLE'<br />
 you also need to define <code>MEMORY_MANAGER_POOL_SIZE</code> with the size of the memory pool,<br />
-for example if we want pool of 64000 bytes, you will need to add next lines to <code>HW.h</code> file:</p>
+for example, if we want a pool of 64000 bytes, you will need to add the next lines to <code>HW.h</code> file:</p>
 <pre><code>#define MEMORY_MANAGER_ENABLE
 #define MEMORY_MANAGER_POOL_SIZE        (64000)
 </code></pre>
 <p><strong>2)</strong> Go To file <code>app_azure_rtos.c</code> to function <code>VOID tx_application_define(VOID *first_unused_memory)</code> and move the function <code>StartThreadXPlusPlus(first_unused_memory);</code> to end of the function: <img alt="" src="../../img/Memory_manager/change_the_start_function.png" /></p>
 <p><strong>3)</strong> Now you need to config the ThreadX to work with dynamic allocation,<br />
-Go to project explorer and double click on the XX.ioc file (XX is the name of you project), This will open the configuration window, and the the right side of the screen select the <code>Middleware and Software Packs</code> than select <code>X-CUBE-AZURES-H7</code>, it will open two screens, In the bottom screen (<code>Configuration</code>) select the tab <code>AzureRTOS Application</code> inside the tab open the list of <code>Memory Configuration</code>, and set the field <code>Memory allocation</code> to <code>Use Dynamic Allocation</code> <img alt="" src="../../img/Memory_manager/set_dynamic_memory.png" /><br />
-than save the file, <code>File-&gt;save</code></p>
-<p><strong>4)</strong> Now we need to allocate space in the RAM for the memory, you need to go to project explorer of your project and go to file <code>STM32xxx_FLASH.ld</code> (the xxx will be the name of you MCU model), you need to place new block of ram that have the size of the memory pool and save the size into variable <code>__RAM_segment_used_end__</code> ,  this block should be between the block of <code>bss</code> and <code>_user_heap_check</code>.<br />
-For example let assume that we want to allocate 64000 bytes, than we need to add next block:</p>
+Go to project explorer and double click on the XX.ioc file (XX is the name of your project), This will open the configuration window, and on the right side of the screen select the <code>Middleware and Software Packs</code> and then select <code>X-CUBE-AZURES-H7</code>, it will open two screens, In the bottom screen (<code>Configuration</code>) select the tab <code>AzureRTOS Application</code> inside the tab open the list of <code>Memory Configuration</code>, and set the field <code>Memory allocation</code> to <code>Use Dynamic Allocation</code> <img alt="" src="../../img/Memory_manager/set_dynamic_memory.png" /><br />
+then save the file, <code>File-&gt;save</code></p>
+<p><strong>4)</strong> Now we need to allocate space in the RAM for the memory, you need to go to project explorer of your project and go to file <code>STM32xxx_FLASH.ld</code> (the xxx will be the name of your MCU model), you need to place a new block of ram that has the size of the memory pool and save the size into variable <code>__RAM_segment_used_end__</code>,  this block should be between the block of <code>bss</code> and <code>_user_heap_check</code>.<br />
+For example, let's assume that we want to allocate 64000 bytes, then we need to add the next block:</p>
 <pre><code>._threadx_heap :
 {
     . = ALIGN(8);

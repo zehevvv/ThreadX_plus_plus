@@ -85,7 +85,7 @@
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#sleep-function">Sleep function</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#wait-for-message">Wait for message</a>
+    <li class="toctree-l3"><a class="reference internal" href="#wait-for-a-message">Wait for a message</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#threadx-api">ThreadX API</a>
     </li>
@@ -148,10 +148,10 @@
               
                 <h1 id="task">Task</h1>
 <h2 id="introduction">Introduction</h2>
-<p>In ThreadX++ the <code>thread</code> are <code>task</code>, so when you create task you actually create thread of ThreadX and how run code by task and send data between data and of course sleep.<br />
-Every task created with queue of messages, the messages use for invoke the task by event and send data between tasks.</p>
+<p>In ThreadX++ the <code>thread</code> are <code>task</code>, so when you create a task you create a thread of ThreadX, in this tutorial you will learn how to create and how to run code by task and send data between data and of course how to go to sleep.<br />
+Every task is created with a queue of messages, the messages are used to invoke the task by event and send data between tasks.</p>
 <h2 id="create-task">Create Task</h2>
-<p>In this example we will create LedTask that blink the led every 1 second.
+<p>In this example, we will create LedTask that blinks the led every 1 second.
 e
 <strong>1)</strong> Add the include </p>
 <pre><code>#include &quot;Task.h&quot;
@@ -159,12 +159,12 @@ e
 <p><strong>2)</strong> Create a class that inherits from a Task class:</p>
 <pre><code class="language-e">class LedTask : public Task
 </code></pre>
-<p><strong>3)</strong> In the implementation of the constructor you will need to call to constructor of the Task class and enter 3 parameter:<br />
+<p><strong>3)</strong> In the implementation of the constructor you will need to call to the constructor of the Task class and enter 3 parameters:<br />
 <strong>name:</strong> The name of the task.<br />
 <strong>priority:</strong> The priority of the task.<br />
 <strong>stack size:</strong> The size of the stack of the task.<br />
 <strong>num_message:</strong> The number of messages that the task will hold in the queue, the default argument value is 10.</p>
-<p><strong>Example:</strong> We will create task with priority <code>10</code> and stack size <code>1024</code>:</p>
+<p><strong>Example:</strong> We will create a task with priority <code>10</code> and stack size <code>1024</code>:</p>
 <pre><code>LedTask::LedTask() : Task(&quot;LedTask&quot;, 10, 1024) { }
 </code></pre>
 <p><strong>4)</strong> Add the LedTask to <code>TaskManager.cpp</code> to function <code>Tasks_manager_start()</code>:</p>
@@ -176,13 +176,13 @@ e
 }
 </code></pre>
 <h2 id="run-code-by-task">Run code by task</h2>
-<p>We have 4 way to run code from the created task:<br />
+<p>We have 4 ways to run code from the created task:<br />
 1. <a href="#polling">Polling:</a> Function that have endless loop (<code>while(1){}</code>).<br />
-2. <a href="#get-message">Get message:</a> A message that send by other thread can invoke the current thread to run specific function.<br />
-3. <a href="#event">Event:</a> Event is object that task can register to it by callback, when the event invoke -&gt; every registered thread will run the call back.<br />
-4. <a href="#time-event">Time event:</a> This object that invoke callback of task after specific amount of time.  </p>
+2. <a href="#get-message">Get message:</a> A message that sends by another thread can invoke the current thread to run a specific callback.<br />
+3. <a href="#event">Event:</a> An Event is an object that the task can register to it by callback when the event invokes -&gt; every registered thread will run the callback.<br />
+4. <a href="#time-event">Time event:</a> This object invokes a callback of the task after a specific amount of time.  </p>
 <h3 id="polling">Polling</h3>
-<p>Every task have it's own "main loop", this is a function that have endless loop (<code>while(1){}</code>), in class <strong>Task</strong> you have internal function that call <code>Main_loop()</code>, this function run the endless loop:   </p>
+<p>Every task has its own "main loop", which is a function that has an endless loop (<code>while(1){}</code>), in class <strong>Task</strong> you have an internal function that calls <code>Main_loop()</code>, this function run the endless loop:   </p>
 <pre><code>void Task::Main_loop()
 {
     while(1)
@@ -204,8 +204,8 @@ Example: in the next example the class ledTask will toggle the led every 500ms:<
 }
 </code></pre>
 <h3 id="get-message">Get message</h3>
-<p>The message is the ability to send message from one task to second task, for example, let's assume that we have two task: <strong>LedTask</strong> and <strong>TestTask</strong>, we want that TestTask will send to LedTask message every seconds, in order to preform it we will need to do two things:<br />
-<strong>1)</strong> The TestTask need to call to member function <code>bool NotifyMessage()</code> of the LedTask every second, the function return if the message get into queue of message of LedTask successfully,  Example:  </p>
+<p>The message is the ability to send messages from one task to a second task, for example, let's assume that we have two tasks: <strong>LedTask</strong> and <strong>TestTask</strong>, we want that TestTask will send to a LedTask message every second, to perform it we will need to do two things:<br />
+<strong>1)</strong> The TestTask needs to call to member function <code>bool NotifyMessage()</code> of the LedTask every second, the function returns if the message gets into a queue of the messages of LedTask successfully,  Example:  </p>
 <pre><code>void TestTask::Main_loop() 
 {
     while(1)
@@ -221,15 +221,15 @@ Example: in the next example the class ledTask will toggle the led every 500ms:<
     printf(&quot;Get message \n&quot;,);
 }
 </code></pre>
-<p>The result of code above is: every second the LedTask will print "Get message"</p>
+<p>The result of the code above is every second the LedTask will print "Get message"</p>
 <p><strong>Important Point:</strong>  </p>
 <ul>
-<li>Get different messages: If you get more than one type of message (for example: if you have led and you want that LedTask can get message that turn on the led and message that turn off the led) it can be a problem because you can't know with type of message you get, to solve that problem you will need to send data in this message and the LedTask need to know to parse the data, I will explain it in section <a href="#send-data-between-tasks">Send data between tasks</a>.</li>
+<li>Get different messages: If you get more than one type of message (for example: if you have led and you want that LedTask can get a message that turns on the led and a message that turns off the led) it can be a problem because you can't know with type of message you get, to solve that problem you will need to send data in this message and the LedTask need to know to parse the data, I will explain it in section <a href="#send-data-between-tasks">Send data between tasks</a>.</li>
 </ul>
 <h3 id="event">Event</h3>
-<p>Event is object that task can register to it by callback, when the event invoke -&gt; every registered thread will run the call back,<br />
-For the next example let assume that we have 2 task: <strong>LedTask</strong> and <strong>TestTask</strong>, we want that TestTask have event that LedTask can register to it and every one second the TestTask will invoke the Event.<br />
-Todo that we need 4 steps:<br />
+<p>An event is an object that the task can register to it by callback, when the event invokes -&gt; every registered thread will run the callback,<br />
+For the next example let's assume that we have 2 tasks: <strong>LedTask</strong> and <strong>TestTask</strong>, we want that TestTask has an event that LedTask can register to it and every second the TestTask will invoke the Event.<br />
+To do that we need 4 steps:<br />
 <strong>1)</strong> Create the event object in TestTask:  </p>
 <pre><code>#include &quot;Event.h&quot;
 
@@ -242,7 +242,7 @@ public:
     Event event;
 };
 </code></pre>
-<p><strong>2)</strong> Create callback in the LedTask:</p>
+<p><strong>2)</strong> Create a callback in the LedTask:</p>
 <pre><code>class LedTask : public Task
 {
 public:
@@ -255,7 +255,7 @@ public:
 };
 </code></pre>
 <p><strong>Note:</strong> You can change the name of the callback as you like but it must be in the next pattern <code>void &lt;Function name&gt;(void* pointer)</code>  <br />
-<strong>3)</strong> Register the LedTask to event of TestTask:</p>
+<strong>3)</strong> Register the LedTask to the event of TestTask:</p>
 <pre><code>void LedTask::Main_loop()
 {
     TestTaskPointer-&gt;event.Register(&amp;LedTask::Callback, this, this);
@@ -265,25 +265,24 @@ public:
 }
 </code></pre>
 <p><strong>Parameter explain:</strong><br />
-The register function of the event get 3 parameters:<br />
+The register function of the event gets 3 parameters:<br />
 <strong>Function:</strong> Pointer to function.<br />
-<strong>Class pointer:</strong> Pointer to class that have the callback (in my example is pointer to LedTask)<br />
-<strong>Task pointer:</strong> Pointer to class that inherited from task class (in my example is pointer to LedTask)  </p>
-<p><strong>4)</strong> Invoke the event every one second:</p>
+<strong>Class pointer:</strong> Pointer to the class that has the callback (in my example is a pointer to LedTask)<br />
+<strong>Task pointer:</strong> Pointer to the class that is inherited from the task class (in my example is a pointer to LedTask)  </p>
+<p><strong>4)</strong> Invoke the event every second:</p>
 <pre><code>void TestTask::Main_loop()
 {    
     while(1)
     {
         event.Invoke();
         Sleep_ms(1000);
-    }
-
+    }        
 }
 </code></pre>
 <p>The result of the code is every second the LedTask will print "Event invoke"</p>
 <h3 id="time-event">Time event</h3>
-<p>This object that invoke callback of task after specific amount of time,
-For next example let's assume that we had one task: <strong>LedTask</strong> and we want to toggle the led every 100ms, to do that we need to preform 2 steps:
+<p>This object invokes a callback of a task after a specific amount of time,
+For the next example let's assume that we had one task: <strong>LedTask</strong> and we want to toggle the led every 100ms, to do that we need to perform 2 steps:
 <strong>1)</strong> Create callback:</p>
 <pre><code>void LedTask::Callback(void* param)
 {
@@ -302,22 +301,22 @@ void LedTask::Main_loop()
 }
 </code></pre>
 <p><strong>Parameter explain:</strong><br />
-The register function of the time event get 5 parameters:<br />
+The register function of the time event gets 5 parameters:<br />
 <strong>Function:</strong> Pointer to function.<br />
-<strong>Class pointer:</strong> Pointer to class that have the callback (in my example is pointer to LedTask)<br />
-<strong>Task pointer:</strong> Pointer to class that inherited from task class (in my example is pointer to LedTask)<br />
-<strong>Time to execute:</strong> The number of milliseconds until call to callback.<br />
+<strong>Class pointer:</strong> Pointer to the class that has the callback (in my example is a pointer to LedTask)<br />
+<strong>Task pointer:</strong> Pointer to the class that is inherited from task class (in my example is a pointer to LedTask)<br />
+<strong>Time to execute:</strong> The number of milliseconds until the call to callback.<br />
 <strong>Is periodic:</strong> Boolean, false - The callback call once, true - call periodic (forever).</p>
 <h2 id="send-data-between-tasks">Send data between tasks</h2>
 <p>To send data between tasks you have 2 ways:<br />
 1. <a href="#send-data-by-message">Message:</a> Send message from one task to other.<br />
-2. <a href="#send-data-by-event">Event:</a> Create event that every task get register by callback, when invoke the event you can also add data and every callback will get the data.</p>
-<p>As you can see the both method also used to run code by other task.
-Here the example how to implement them:</p>
+2. <a href="#send-data-by-event">Event:</a> Create an event that every task that gets registered by callback, when invoking the event you can also add data and every callback will get the data.</p>
+<p>As you can see both methods are also used to run the code by another task.
+Here the example of how to implement them:</p>
 <h3 id="send-data-by-message">Send data by message</h3>
-<p>Send message from one task to other.
-For example, let's assume that we have two task: <strong>LedTask</strong> and <strong>TestTask</strong>, we want that TestTask will send to LedTask message every seconds, the message will include counter and the LedTask will print it in order to preform it we will need to do two things:<br />
-<strong>1)</strong> The TestTask need to call to member function <code>bool NotifyMessage(void* pointer)</code> of the LedTask every second, the function return if the message get into queue of message of LedTask successfully,  Example:  </p>
+<p>Send messages from one task to other.
+For example, let's assume that we have two tasks: <strong>LedTask</strong> and <strong>TestTask</strong>, we want that TestTask will send to a LedTask message every second, the message will include a counter and the LedTask will print it to perform it we will need to do two things:<br />
+<strong>1)</strong> The TestTask need to call to member function <code>bool NotifyMessage(void* pointer)</code> of the LedTask every second, the function returns if the message gets into the queue of the message of LedTask successfully,  Example:  </p>
 <pre><code>void TestTask::Main_loop() 
 {
     int counter = 0;
@@ -335,11 +334,11 @@ For example, let's assume that we have two task: <strong>LedTask</strong> and <s
     printf(&quot;Counter %d \n&quot;, *(int*)param);
 }
 </code></pre>
-<p>The result of code above is: every second the LedTask will print "Counter X" where X is the counter.</p>
+<p>The result of the code above is: every second the LedTask will print "Counter X" where X is the counter.</p>
 <h3 id="send-data-by-event">Send data by event</h3>
-<p>Create event that every task get register by callback, when invoke the event you can also add data and every callback will get the data.
-For the next example let assume that we have 2 task: <strong>LedTask</strong> and <strong>TestTask</strong>, we want that TestTask have event that LedTask can register to it and every one second the TestTask will invoke the Event, and also send counter over the event.<br />
-Todo that we need 4 steps:  </p>
+<p>Create an event that every task that gets registered by callback, when invoking the event you can also add data and every callback will get the data.
+For the next example let's assume that we have 2 tasks: <strong>LedTask</strong> and <strong>TestTask</strong>, we want that TestTask has an event that LedTask can register to it and every second the TestTask will invoke the Event, and also send a counter over the event.<br />
+To do that we need 4 steps:  </p>
 <p><strong>1)</strong> Create the event object in TestTask:  </p>
 <pre><code>#include &quot;Event.h&quot;
 
@@ -352,7 +351,7 @@ public:
     Event event;
 };
 </code></pre>
-<p><strong>2)</strong> Create callback in the LedTask:</p>
+<p><strong>2)</strong> Create a callback in the LedTask:</p>
 <pre><code>class LedTask : public Task
 {
 public:
@@ -365,7 +364,7 @@ public:
 };
 </code></pre>
 <p><strong>Note:</strong> You can change the name of the callback as you like but it must be in the next pattern <code>void &lt;Function name&gt;(void* pointer)</code> </p>
-<p><strong>3)</strong> Register the LedTask to event of TestTask:</p>
+<p><strong>3)</strong> Register the LedTask to an event of TestTask:</p>
 <pre><code>void LedTask::Main_loop()
 {
     TestTaskPointer-&gt;event.Register(&amp;LedTask::Callback, this, this);
@@ -375,11 +374,11 @@ public:
 }
 </code></pre>
 <p><strong>Parameter explain:</strong><br />
-The register function of the event get 3 parameters:<br />
+The register function of the event gets 3 parameters:<br />
 <strong>Function:</strong> Pointer to function.<br />
-<strong>Class pointer:</strong> Pointer to class that have the callback (in my example is pointer to LedTask)<br />
-<strong>Task pointer:</strong> Pointer to class that inherited from task class (in my example is pointer to LedTask)  </p>
-<p><strong>4)</strong> Invoke the event every one second and send the value of the counter:</p>
+<strong>Class pointer:</strong> Pointer to the class that has the callback (in my example is a pointer to LedTask)<br />
+<strong>Task pointer:</strong> Pointer to the class that is inherited from task class (in my example is a pointer to LedTask)  </p>
+<p><strong>4)</strong> Invoke the event every second and send the value of the counter:</p>
 <pre><code>void TestTask::Main_loop()
 {    
     int counter = 0;
@@ -394,9 +393,9 @@ The register function of the event get 3 parameters:<br />
 </code></pre>
 <p>The result of the code is every second the LedTask will print "Counter X" where X is the counter</p>
 <h2 id="sleep-suspend">Sleep (Suspend)</h2>
-<p>Most of the time we want that the task will be suspend so the others task can run, in ThreadX++ you have serval way to set the task to sleep.<br />
+<p>Most of the time we want that the task will be suspended so the others task can run, in ThreadX++ you have serval ways to set the task to sleep.<br />
 1. <a href="#sleep-function">Sleep function:</a> Call the function <code>Sleep_ms</code> of class Task.<br />
-2. <a href="#wait-for-message">Wait for message:</a> When you wait to new message to arrive the task is sleep.<br />
+2. <a href="#wait-for-message">Wait for a message:</a> When you wait for a new message to arrive the task is sleep.<br />
 3. <a href="#threadx-api">ThreadX API:</a> mutex, semaphore, queue.</p>
 <h3 id="sleep-function">Sleep function</h3>
 <p>Call the function <code>Sleep_ms</code> of class Task.</p>
@@ -409,9 +408,9 @@ The register function of the event get 3 parameters:<br />
     }        
 }
 </code></pre>
-<p>Because we override the <code>Main_loop()</code> function we must call to function <code>Sleep_ms()</code>, if we not call it -&gt; we don't get message from other task and the event will not invoke the callback of this task.</p>
-<h3 id="wait-for-message">Wait for message</h3>
-<p>When you wait to new message to arrive the task is sleep.</p>
+<p>Because we override the <code>Main_loop()</code> function we must call to function <code>Sleep_ms()</code>, if we do not call it -&gt; we don't get any message from the other task and the event will not invoke the callback of this task.</p>
+<h3 id="wait-for-a-message">Wait for a message</h3>
+<p>When you wait for a new message to arrive the task is sleep.</p>
 <pre><code>void LedTask::Main_loop()
 {
     while(1)
@@ -420,24 +419,24 @@ The register function of the event get 3 parameters:<br />
     }        
 }
 </code></pre>
-<p>When we call to function <code>Sleep_ms()</code> the task will sleep until it get message or invoke by event, the function also can get parameter of timeout in millisecond and when the timeout occur the task will resume.  </p>
+<p>When we call to function <code>Sleep_ms()</code> the task will sleep until it gets a message or invoke by an event, the function also can get the parameter of timeout in milliseconds and when the timeout occurs the task will resume.  </p>
 <h3 id="threadx-api">ThreadX API</h3>
 <p>When using the API locking mechanism of ThreadX the task will go to sleep:  </p>
 <ul>
 <li><strong>Mutex:</strong> If we have two task, task1 lock the mutex, than the task2 try to lock, the task2 will sleep until the task1 will unlock the mutex.  </li>
 <li><strong>Semaphore:</strong> When we have two task, task1 Put the semaphore, the task1 will sleep until the task2 Get the semaphore.</li>
-<li><strong>Queue</strong> When pull from queue the task go to sleep</li>
+<li><strong>Queue</strong> When pull from a queue the task goes to sleep</li>
 </ul>
 <h2 id="singleton">Singleton</h2>
-<p>Singleton is a design pattern, if you don't now what is you can look <a href="https://www.tutorialspoint.com/Explain-Cplusplus-Singleton-design-pattern">here</a>.<br />
-This not really part of <code>task</code> but for my opinion it very helpful because most of task if not all of them you will be want to be only single of them and easy access from every ever,
-So i create class <code>Singleton</code> that can inherited:</p>
+<p>Singleton is a design pattern, if you don't know what is, you can look <a href="https://www.tutorialspoint.com/Explain-Cplusplus-Singleton-design-pattern">here</a>.<br />
+This not really part of the <code>task</code> but in my opinion it very helpful because for most of the tasks if not all of them you will be want to be only single of them and have easy access from everywhere,
+So I create a class <code>Singleton</code> that can be inherited:</p>
 <h3 id="how-to-create">How to create</h3>
-<p>In the class that you want to inherited you need to do 3 thing:
+<p>In the class that you want to inherit you need to do 3 things:
 1. Add <code>#include "Singleton.h"</code>.<br />
 2. Inheriting from singleton class: <code>class &lt;class name&gt; : public Singleton&lt;class name&gt;</code>.<br />
 3. In the class definition add <code>friend Singleton&lt;class name&gt;</code></p>
-<p><strong>Example:</strong> If you want to create task <code>LedTask</code> and you want him to be singleton, the declaration of the class look like that:</p>
+<p><strong>Example:</strong> If you want to create task <code>LedTask</code> and you want him to be a singleton, the declaration of the class looks like that:</p>
 <pre><code>#include &quot;Task.h&quot;
 #include &quot;Singleton.h&quot;
 
@@ -453,10 +452,9 @@ private:
 protected:
     virtual void ReceiveMsg(void* pointer);
 };
-
 </code></pre>
 <h3 id="how-to-use">How to use</h3>
-<p>When you want to call to class that also singleton you need to do only 2 steps:
+<p>When you want to call to a class that is also singleton you need to do only 2 steps:
 1. Add the include of the class.<br />
 2. Call to class like that <code>&lt;class name&gt;::Instance-&gt;&lt;someFunction&gt;</code>.</p>
 <p><strong>Example:</strong> If we want to call to function <code>NotifyMessage()</code> of the task <code>LedTask</code>:</p>
