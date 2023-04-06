@@ -16,6 +16,7 @@ class Event;
 class Class_invoker_base
 {
 public:
+	/// @brief Set the parameter that should send to callback that will invoke.
 	void SetParam(void* param)
 	{
 		m_param = param;
@@ -34,17 +35,27 @@ class Task_invoker : public Class_invoker_base
 {
 friend Event;
 public:
+	/// @brief C'tor, set the pointers so the callback function can invoke
+	///
+	/// @param pfunction		- Pointer to function that will calls when the event invokes.
+	/// @param class_pointer 	- Class pointer that have the "pfunction" parameter as member function.
+	/// @param msg_handler		- Pointer to class of "MessageHandler" (most of the time it will be pointer to Task class), this
+	/// 						  the thread that will be run the callback "pfunction"
 	Task_invoker(void (T::*pfunction)(void* param), T* class_pointer, MessageHandler* msgHandler) :
 		m_functionn(pfunction),
 		m_class_pointer(class_pointer),
 		m_msgHandler(msgHandler)
 	{}
 
+	/// @brief invoke the callback with the parameter.
 	void Invoke()
 	{
 		(*m_class_pointer.*m_functionn)(m_param);
 	}
 
+	/// @brief 	Send message of type "event" that have the pointer of the invoker, the message send to message handler that should
+	/// 		be task, the message push to queue of the task, when the task pull the message it will invoke the callback of the
+	/// 		invokers
 	void SendMsg()
 	{
 		MESSAGE msg;
@@ -66,6 +77,12 @@ public:
 	{
 	}
 
+	/// @brief C'tor, Create the invokers object and push it to queue of invokers.
+	///
+	/// @param pfunction		- Pointer to function that will calls when the event invokes.
+	/// @param class_pointer 	- Class pointer that have the "pfunction" parameter as member function.
+	/// @param msg_handler		- Pointer to class of "MessageHandler" (most of the time it will be pointer to Task class), this
+	/// 						  the thread that will be run the callback "pfunction"
 	template <class T>
 	void Register(void (T::*pfunction)(void* param), T* class_pointer, MessageHandler* msg_handler)
 	{
@@ -73,6 +90,10 @@ public:
 		m_invokeres.push_back(invoker);
 	}
 
+	/// @brief C'tor, Remove the invokers from the queue and delete him.
+	///
+	/// @param pfunction		- Pointer to function that will calls when the event invokes.
+	/// @param class_pointer 	- Class pointer that have the "pfunction" parameter as member function.
 	template <class T>
 	void Unregister(void (T::*pfunction)(void* param), T* class_pointer)
 	{
@@ -83,11 +104,15 @@ public:
 				object->m_functionn == pfunction)
 	    	{
 	    		m_invokeres.remove(invoker);
+	    		delete invoker;
 	    		break;
 	    	}
 		}
 	}
 
+	/// @brief Invoke the event, run on all the invoker and active them.
+	///
+	/// @brief param	- The parameter that send to all of the callback of the invokers
 	void Invoke(void* param = NULL)
 	{
 	    for (Class_invoker_base* invoker : m_invokeres)

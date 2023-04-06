@@ -9,7 +9,10 @@
 #include "TasksManager.h"
 #include "HW.h"
 
-
+/// @brief 	This function should call from function "tx_application_define" and also need pass from this function the
+/// 		parameter "first_unused_memory".
+///
+/// @param first_unused_memory	- The address of the start of unused memory that needed for the allocate memory.
 void StartThreadXPlusPlus(void *first_unused_memory)
 {
 #ifdef MEMORY_MANAGER_ENABLE

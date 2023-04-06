@@ -40,6 +40,7 @@
 #define HAL_IWDG_DEFAULT_TIMEOUT        (((6UL * 256UL * 1000UL) / LSI_VALUE) + ((LSI_STARTUP_TIME / 1000UL) + 1UL))
 
 
+/// @brief C'tor, init and enable the IWDG1 watchdog and also set the time event that pet (reload) the watchdog
 Watchdog::Watchdog() : Task("WatchdogTask", TASK_PRIORITY, STACK_SIZE),
 	m_event_petdog(&Watchdog::Refresh, this, this, WATCHDOG_PET_MS, true)
 {
@@ -74,10 +75,14 @@ Watchdog::Watchdog() : Task("WatchdogTask", TASK_PRIORITY, STACK_SIZE),
 	WRITE_REG(IWDG1->KR, IWDG_KEY_RELOAD);
 }
 
+/// @brief D'tor
 Watchdog::~Watchdog()
 {
 }
 
+/// @brief Pet (reload) the watchdog and prevent the reset of the system.
+///
+/// @param pointer	- Ignore.
 void Watchdog::Refresh(void* pointer)
 {
 	/* Reload IWDG counter with value defined in the reload register */

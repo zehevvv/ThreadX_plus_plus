@@ -16,13 +16,13 @@ class DWT_Utility : public Singleton<DWT_Utility>
 friend Singleton<DWT_Utility>;
 
 public:
-	void Delay_us(uint32_t time_to_sleep);
+	void Delay_us(uint32_t time_to_delay);
 	uint32_t GetCurrentTicks();
 	uint32_t ConvrtTiksToUs(uint32_t ticks);
 
 private:
 	DWT_Utility();
-	bool Init_clock_cycle();
+	bool InitClockCycle();
 };
 
 #endif /* INC_DWT_UTILITY_H_ */

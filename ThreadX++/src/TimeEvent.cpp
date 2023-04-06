@@ -17,6 +17,7 @@
 
 #include "TimeEvent.h"
 
+/// @brief D'tor, delete the timer
 TimeEvent::~TimeEvent()
 {
 	UINT status = tx_timer_delete(&m_timer);
@@ -27,6 +28,12 @@ TimeEvent::~TimeEvent()
 	delete m_invoker;
 }
 
+/// @brief 	Register to the event so the event invoke the callback every amount of time and the
+/// 		callback get the invoker object as parameter.
+///
+/// @param invoker			- Pointer to task invoker
+/// @param time_to_execute	- The amount of time between event invokers (milliseconds).
+/// @param is_periodic		- Flag if the event will invoke once or periodic, true - periodic, false - once.
 void TimeEvent::Register(ULONG invoker, uint32_t time_to_execute, bool is_periodic)
 {
 	uint32_t time_to_execute_ticks = CONVERT_MS_TO_TICKS(time_to_execute);
@@ -42,6 +49,9 @@ void TimeEvent::Register(ULONG invoker, uint32_t time_to_execute, bool is_period
 	}
 }
 
+/// @brief The callback that the timer of the ThreadX will invoke every time the event need to invoke.
+///
+/// @param param	- The pointer to invoker object of the register event.
 void TimeEvent::TimerExpired(ULONG param)
 {
 	Class_invoker_base* invoker = (Class_invoker_base*)param;

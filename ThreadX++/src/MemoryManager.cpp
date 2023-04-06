@@ -7,6 +7,9 @@
 
 static TX_BYTE_POOL m_my_pool;
 
+/// @brief Create pool of memory bytes.
+///
+/// @param first_unused_memory	- The start of the memory pool
 void Memory_manager(VOID *first_unused_memory)
 {
 	UINT status;
@@ -22,6 +25,7 @@ void Memory_manager(VOID *first_unused_memory)
 	}
 }
 
+/// @brief override of the new function
 void * operator new(size_t size)
 {
 	void* memory_ptr;
@@ -35,6 +39,7 @@ void * operator new(size_t size)
     return memory_ptr;
 }
 
+/// @brief override of the new function
 void * operator new[](size_t size)
 {
 	void* memory_ptr;
@@ -48,6 +53,7 @@ void * operator new[](size_t size)
     return memory_ptr;
 }
 
+/// @brief override of the delete function
 void operator delete(void * memory_ptr)
 {
 	UINT status = tx_byte_release((VOID *) memory_ptr);
@@ -58,6 +64,7 @@ void operator delete(void * memory_ptr)
 	}
 }
 
+/// @brief override of the delete function
 void operator delete[](void * memory_ptr)
 {
 	UINT status = tx_byte_release((VOID *) memory_ptr);

@@ -9,8 +9,10 @@
 #include <stdio.h>
 #include "Macros.h"
 
-Mutex::Mutex() {
 
+/// @brief C'tor, Create the mutex object
+Mutex::Mutex()
+{
 	UINT status = tx_mutex_create(&m_mutex, (char*)" ", TX_INHERIT);
 	if (status != TX_SUCCESS)
 	{
@@ -18,7 +20,11 @@ Mutex::Mutex() {
 	}
 }
 
-
+/// @brief Lock mutex
+///
+/// @param timeout_MS	- The max time try to locks the mutex (milliseconds).
+///
+/// @return True - lock success
 bool Mutex::Lock(uint32_t timeout_MS)
 {
 	if (timeout_MS != MUTEX_WAIT_FOREVER)
@@ -36,6 +42,7 @@ bool Mutex::Lock(uint32_t timeout_MS)
 	}
 }
 
+/// @brief Unlock the mutex.
 void Mutex::Unlock()
 {
 	UINT status = tx_mutex_put(&m_mutex);
