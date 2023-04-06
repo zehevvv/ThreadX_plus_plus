@@ -7,6 +7,7 @@
 
 #include <Debug.h>
 #include <DWT_Utility.h>
+#include "HW.h"
 
 #ifdef DWT_ENABLE
 
