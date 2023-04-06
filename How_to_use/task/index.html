@@ -148,7 +148,8 @@
               
                 <h1 id="task">Task</h1>
 <h2 id="introduction">Introduction</h2>
-<p>In ThreadX++ the <code>thread</code> are <code>task</code>, so when you create task you actually create thread of ThreadX and how run code by task and send data between data and of course sleep.</p>
+<p>In ThreadX++ the <code>thread</code> are <code>task</code>, so when you create task you actually create thread of ThreadX and how run code by task and send data between data and of course sleep.<br />
+Every task created with queue of messages, the messages use for invoke the task by event and send data between tasks.</p>
 <h2 id="create-task">Create Task</h2>
 <p>In this example we will create LedTask that blink the led every 1 second.
 e
@@ -156,13 +157,14 @@ e
 <pre><code>#include &quot;Task.h&quot;
 </code></pre>
 <p><strong>2)</strong> Create a class that inherits from a Task class:</p>
-<pre><code>class LedTask : public Task
+<pre><code class="language-e">class LedTask : public Task
 </code></pre>
 <p><strong>3)</strong> In the implementation of the constructor you will need to call to constructor of the Task class and enter 3 parameter:<br />
 <strong>name:</strong> The name of the task.<br />
 <strong>priority:</strong> The priority of the task.<br />
 <strong>stack size:</strong> The size of the stack of the task.<br />
-In the next example we will create task with priority <strong>10</strong> and stack size <strong>1024</strong>:</p>
+<strong>num_message:</strong> The number of messages that the task will hold in the queue, the default argument value is 10.</p>
+<p><strong>Example:</strong> We will create task with priority <code>10</code> and stack size <code>1024</code>:</p>
 <pre><code>LedTask::LedTask() : Task(&quot;LedTask&quot;, 10, 1024) { }
 </code></pre>
 <p><strong>4)</strong> Add the LedTask to <code>TaskManager.cpp</code> to function <code>Tasks_manager_start()</code>:</p>
@@ -465,6 +467,7 @@ void Some_function()
     LedTask::Instance()-&gt;NotifyMessage();
 }
 </code></pre>
+<p><strong>Note:</strong> You can use the singleton on any class (and not only the tasks).</p>
               
             </div>
           </div><footer>
