@@ -2,6 +2,7 @@
 #include "Event.h"
 #include "Mutex.h"
 #include "Semaphore.h"
+#include "Singleton.h"
 
 
 class LedTask : public Task, public Singleton<LedTask>
