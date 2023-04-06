@@ -16,9 +16,18 @@
 
 //#define DEBUG_INTERNAL_FLASH
 
-
+/// @brief C'tor
 InternalFlashDriver::InternalFlashDriver() {}
 
+/// @brief 	Read from flash,
+/// 		Check if address is align to 4 (32 bit processor)
+/// @note	Be ware that the function read 32bits and not bytes.
+///
+/// @param address_start	- Address to start to read
+/// @param buffer			- [out] Pointer to buffer that hold the data that read from flash
+/// @param num_words		- The number of words (32bits) that need to read from flash
+///
+/// @return true - read success.
 bool InternalFlashDriver::Read(uint32_t* address_start, uint32_t* buffer, uint32_t num_words)
 {
 #ifdef DEBUG_INTERNAL_FLASH
@@ -39,6 +48,17 @@ bool InternalFlashDriver::Read(uint32_t* address_start, uint32_t* buffer, uint32
 	return true;
 }
 
+/// @brief 	Write to flash
+/// 		Because of the internal flash is must write flash words (8 bytes), we need to check if the start
+/// 		and the end of the buffer is align to flash words size (8 bytes), if not create temp buffer and
+/// 		then write the data.
+/// @note	Be ware that the function write 32bits and not bytes.
+///
+/// @param address_start 	- The first address that the data should store (must align by 4).
+/// @param buffer			- Pointer to buffet that need to copy to flash.
+/// @param num_words		- The number of words (32bits) that need to store on the flash.
+///
+/// @return true - write success.
 bool InternalFlashDriver::Write(uint32_t* address_start, uint32_t* buffer, uint32_t num_words)
 {
 #ifdef DEBUG_INTERNAL_FLASH
@@ -122,6 +142,11 @@ bool InternalFlashDriver::Write(uint32_t* address_start, uint32_t* buffer, uint3
 	return true;
 }
 
+/// @brief Erase one sector
+///
+/// @param address	- The address that include in the range addresses of the flash sector that need to erase.
+///
+/// @return True - erase success.
 bool InternalFlashDriver::Earse(uint32_t address)
 {
 	/* Get the number of sector to erase from 1st sector */
@@ -161,11 +186,19 @@ bool InternalFlashDriver::Earse(uint32_t address)
 	return true;
 }
 
+/// @brief The size of sector in bytes units.
+///
+/// @return The size of sector in bytes units.
 uint32_t InternalFlashDriver::GetSectorSize()
 {
 	return INTERNAL_FLASH_SECTOR_SIZE;
 }
 
+/// @brief Get address and return the logical flash sector value that it belong.
+///
+/// @param Address	- Address in the flash.
+///
+/// @return The logical flash sector value.
 uint16_t InternalFlashDriver::GetSecotr(uint32_t Address)
 {
 	uint32_t sector = HAL_ERROR;

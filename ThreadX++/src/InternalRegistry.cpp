@@ -21,6 +21,7 @@ typedef struct RegisteryObject
 } RegisteryObject;
 
 
+/// @brief C'tor, Read the stored data from flash.
 InternalRegistry::InternalRegistry() : Task("InternalRegistery", TASK_PRIORITY, STACK_SIZE),
 	m_flash(INTERNAL_REGISTRY_START_ADDRESS, INTERNAL_REGISTRY_NUM_SECTOR, INTERNAL_REGISTRY_LOGICAL_BLOCK_SIZE),
 	m_need_update_flash(false),
@@ -34,12 +35,17 @@ InternalRegistry::InternalRegistry() : Task("InternalRegistery", TASK_PRIORITY, 
 	UpdateListObject();
 }
 
+/// @brief D'tor, delete caching buffer.
 InternalRegistry::~InternalRegistry()
 {
 	delete[] m_flash_buffer;
 	delete[] m_shadow_flash_buffer;
 }
 
+/// @brief 	This is a callback of event that jump every second and check if buffer of the cache is change (new value is add
+/// 		Or old value is changed) and if yes, update the flash.
+///
+/// @param pointer	- Ignore
 void InternalRegistry::EventCheckFlash(void* pointer)
 {
 	if (m_need_update_flash)
@@ -48,11 +54,24 @@ void InternalRegistry::EventCheckFlash(void* pointer)
 	}
 }
 
+/// @brief Write registry value of buffer to cache buffer,
+///
+/// @param name			- The name of the value (key).
+/// @param name_size	- The size of the name (bytes).
+/// @param buffer		- Pointer to buffer of values that need to store.
+/// @param buffer_size	- The size of the buffer (bytes).
 void InternalRegistry::WriteBuffer(char* name, uint8_t name_size, uint8_t* buffer, uint8_t buffer_size)
 {
 	Write(name, name_size, (void*)buffer, buffer_size);
 }
 
+/// @brief 	Write registry value to cache buffer, this function just check if the value is already stored in the cache
+/// 		if yes edit the stored value, else write a new value to cache.
+///
+/// @param name			- The name of the value (key).
+/// @param name_size	- The size of the name (bytes).
+/// @param buffer		- Pointer to value that need to store.
+/// @param buffer_size	- The size of the value type (bytes).
 void InternalRegistry::Write(char* name, uint8_t name_size, void* value, uint8_t value_size)
 {
 	m_mutex.Lock();
@@ -85,6 +104,12 @@ void InternalRegistry::Write(char* name, uint8_t name_size, void* value, uint8_t
 	m_mutex.Unlock();
 }
 
+/// @brief Write registry value to cache buffer, write the value in the next order: name size - name - value size - value.
+///
+/// @param name			- The name of the value (key).
+/// @param name_size	- The size of the name (bytes).
+/// @param buffer		- Pointer to value that need to store.
+/// @param buffer_size	- The size of the value type (bytes).
 void InternalRegistry::WriteNewObjectToBuffer(char* name, uint8_t name_size, void* value, uint8_t value_size)
 {
 	uint32_t index = m_flash_buffer_size;
@@ -102,11 +127,28 @@ void InternalRegistry::WriteNewObjectToBuffer(char* name, uint8_t name_size, voi
 	index += value_size;
 }
 
+/// @brief Read registry value of buffer from cache buffer,
+///
+/// @param name			- The name of the value (key).
+/// @param name_size	- The size of the name (bytes).
+/// @param buffer		- Pointer to buffer of values that need to read.
+/// @param buffer_size	- The size of the buffer (bytes).
+///
+/// @return True - read success.
 bool InternalRegistry::ReadBuffer(char* name, uint8_t name_size,  uint8_t* buffer, uint8_t buffer_size)
 {
 	return Read(name, name_size, (void*)buffer, buffer_size);
 }
 
+/// @brief 	Read registry value to cache buffer, this function just check if the value is already stored in the cache
+/// 		if yes read the stored value, else the read failed.
+///
+/// @param name			- The name of the value (key).
+/// @param name_size	- The size of the name (bytes).
+/// @param buffer		- Pointer to value that need to store.
+/// @param buffer_size	- The size of the value type (bytes).
+///
+/// @return True - read success.
 bool InternalRegistry::Read(char* name, uint8_t name_size, void* value, uint8_t value_size)
 {
 	m_mutex.Lock();
@@ -129,6 +171,12 @@ bool InternalRegistry::Read(char* name, uint8_t name_size, void* value, uint8_t 
 	return result;
 }
 
+/// @brief Check if the value is exist in the cache.
+///
+/// @param name			- The name of the value (key).
+/// @param name_size	- The size of the name (bytes)
+///
+/// @return True - the value exist in the cache.
 bool InternalRegistry::IsExist(char* name, uint8_t name_size)
 {
 	m_mutex.Lock();
@@ -140,6 +188,12 @@ bool InternalRegistry::IsExist(char* name, uint8_t name_size)
 	return result;
 }
 
+/// @brief Get the value from the cache.
+///
+/// @param name			- The name of the value (key).
+/// @param name_size	- The size of the name (bytes)
+///
+/// @return Pointer to object, if not found return NULL.
 RegisteryObject* InternalRegistry::GetObject(char* name, uint8_t name_size)
 {
     for (RegisteryObject& object : m_list_objects)
@@ -154,6 +208,9 @@ RegisteryObject* InternalRegistry::GetObject(char* name, uint8_t name_size)
 	return NULL;
 }
 
+/// @brief  Update the list object of the flash.
+/// 		After read the values from the flash call this function that run on the cache buffer and create the list of
+/// 		the objects
 void InternalRegistry::UpdateListObject()
 {
 	if (m_flash_buffer_size == 0)
@@ -167,6 +224,12 @@ void InternalRegistry::UpdateListObject()
 	}
 }
 
+/// @brief  Create object that hold the pointers of the name and the value of registry object from provided index of
+/// 		the cache
+///
+/// @param	index	- Index in the cache buffer where we want to read the index.
+///
+/// @return The end index of the object (the index of the next object).
 uint32_t InternalRegistry::AddObjectToList(uint32_t index)
 {
 	RegisteryObject object;
@@ -186,6 +249,7 @@ uint32_t InternalRegistry::AddObjectToList(uint32_t index)
 	return index;
 }
 
+/// @brief	Copy the flash to shadow buffer than copy the shadow to flash
 void InternalRegistry::UpdateFlash()
 {
 	m_mutex.Lock();
@@ -198,6 +262,7 @@ void InternalRegistry::UpdateFlash()
 	m_flash.Write(m_shadow_flash_buffer, m_flash_buffer_size);
 }
 
+/// @brief Print all the register values.
 void InternalRegistry::PrintAll()
 {
 	m_mutex.Lock();

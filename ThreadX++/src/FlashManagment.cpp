@@ -27,6 +27,11 @@ typedef struct BlockHeaderEnd
 } BlockHeaderEnd;
 
 
+/// @brief C'tor, Read the keys name and the values from the flash and create the cache buffer.
+///
+/// @param start_address		- The start address of the flash where the data store.
+/// @param num_sector			- The number of sectors of the registry.
+/// @param logical_block_size 	- The size of the logical blocks (bytes).
 FlashManagment::FlashManagment(uint32_t start_address, uint32_t num_sector, uint32_t logical_block_size) :
 	m_is_first_block(false),
 	m_start_address(start_address),
@@ -40,11 +45,13 @@ FlashManagment::FlashManagment(uint32_t start_address, uint32_t num_sector, uint
 	FindLastLogicalBlock();
 }
 
+/// @brief D'tor, remove the buffer
 FlashManagment::~FlashManagment()
 {
 	delete[] m_cache_buffer;
 }
 
+/// @brief Find the last block that store the data
 void FlashManagment::FindLastLogicalBlock()
 {
 	uint32_t num_logical_blocks = m_flash_total_size / m_logical_block_size;
@@ -95,6 +102,13 @@ void FlashManagment::FindLastLogicalBlock()
 	}
 }
 
+/// @brief 	Read logical block from the flash, the function check if the size is valid convert the size from bytes to word
+/// 		(32bits), then read from flash and copy to buffer.
+///
+/// @param buffer			- Pointer to buffer that will store the data from the flash.
+/// @param num_byte_to_read	- The number of byte that need to read from the flash.
+///
+/// @return the number of bytes that read from the flash
 uint32_t FlashManagment::Read(uint8_t* buffer, uint32_t num_byte_to_read)
 {
 	// Check if no data saved on the flash.
@@ -120,6 +134,11 @@ uint32_t FlashManagment::Read(uint8_t* buffer, uint32_t num_byte_to_read)
 	return num_byte_to_read;
 }
 
+/// @brief  Write the logical block to flash, this function check if size if fine and find new block and
+/// 		call to function to write to flash and check if need to erase sector.
+///
+/// @param buffer			- Pointer to buffer that will store the data from the flash.
+/// @param num_byte_to_read	- The number of byte that need to read from the flash.
 void FlashManagment::Write(uint8_t* buffer, uint32_t buffer_size)
 {
 	if (buffer_size == 0)
@@ -153,6 +172,9 @@ void FlashManagment::Write(uint8_t* buffer, uint32_t buffer_size)
 	}
 }
 
+/// @brief Find empty block that can store new data.
+///
+/// @return True - find empty block.
 bool FlashManagment::FindGoodBlock()
 {
 	uint32_t first_address = m_current_address;
@@ -189,6 +211,10 @@ bool FlashManagment::FindGoodBlock()
 	return false;
 }
 
+/// @brief Write to flash, prepare the buffer in the next order: magic - data - size - counter.
+///
+/// @param buffer		- Pointer to buffer with data that need to store on the flash.
+/// @param buffer_size	- The size of the buffer that need to write to flash in bytes units.
 void FlashManagment::WriteToFlash(uint8_t* buffer, uint32_t buffer_size)
 {
 	// Mark the block "used"
@@ -214,6 +240,11 @@ void FlashManagment::WriteToFlash(uint8_t* buffer, uint32_t buffer_size)
 	m_is_first_block = false;
 }
 
+/// @brief Check if the 2 address (of block logic) are in the same sector of the flash.
+/// @param address_1	- Address one.
+/// @param address_2	- Address two.
+///
+/// @return true - the addresses are from the same sector.
 bool FlashManagment::IsAdressInSameSector(uint32_t address_1, uint32_t address_2)
 {
 	uint32_t sector_size = m_flash_driver.GetSectorSize();
@@ -242,11 +273,15 @@ bool FlashManagment::IsAdressInSameSector(uint32_t address_1, uint32_t address_2
 	return true;
 }
 
+/// @brief Erase sector of flash
+///
+/// @address	- Address that inside the range of sector addresses.
 void FlashManagment::EraseSector(uint32_t address)
 {
 	m_flash_driver.Earse(address);
 }
 
+/// @brief Erase all the flash sectors of the registry and set the internal variable to defaults values.
 void FlashManagment::RestartFlash()
 {
 	uint32_t sector_size = m_flash_driver.GetSectorSize();
@@ -261,6 +296,9 @@ void FlashManagment::RestartFlash()
 	m_is_first_block = true;
 }
 
+/// @brief Get the size of the max data that can write to logical block.
+///
+/// @return The size of the max data that can write to logical block.
 uint32_t FlashManagment::GetMaxFlashSize()
 {
 	return m_logical_block_size - sizeof(BlockHeaderStart) - sizeof(BlockHeaderEnd);
