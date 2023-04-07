@@ -10,13 +10,16 @@
 
 #include "Types.h"
 
-namespace Debug {
+namespace Debug
+{
 
-class MeasureTime {
+class MeasureTime
+{
 public:
 	MeasureTime();
 	void Start();
 	uint32_t End();
+
 private:
 	uint32_t m_start_time;
 };

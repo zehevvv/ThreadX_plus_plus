@@ -9,7 +9,6 @@
 #define INC_MESSAGEHANDLER_H_
 
 #include "stdint.h"
-#include "tx_api.h"
 #include "Queue.h"
 
 
@@ -30,46 +29,12 @@ typedef struct MESSAGE
 class MessageHandler
 {
 public:
-	/// @brief Push message to queue.
-	///
-	/// @param value	- value that send as parameter in the message that push to queue.
-	///
-	/// @return True - Send message success.
-	bool NotifyMessage(void* value = NULL)
-	{
-		MESSAGE msg;
-		msg.type = MSG_TYPE_NORMAL;
-		msg.value = value;
-		return m_queue.Push(msg);
-	}
-
-	/// @brief Push message to queue.
-	///
-	/// @param msg	- Message that will push to queue.
-	///
-	/// @return True - Send message success.
-	bool NotifyMessage(MESSAGE& msg)
-	{
-		return m_queue.Push(msg);
-	}
+	bool NotifyMessage(void* value = NULL);
+	bool NotifyMessage(MESSAGE& msg);
 
 protected:
-	/// @brief C'tor.
-	///
-	/// @param num_message	- The number of messages that the internal queue can hold
-	MessageHandler(uint32_t num_message) :
-		m_queue(num_message)
-	{
-	}
-
-	/// @brief Pull message from queue, the function will wait until get new message from the queue, you can set timeout.
-	///
-	/// @param msg		- [Out] Message that pull from the queue.
-	/// @param timeout	- Timeout for waiting to new message to push to the queue.
-	bool Pull(MESSAGE& msg, uint64_t timeout)
-	{
-		return m_queue.Pull(msg, timeout);
-	}
+	MessageHandler(uint32_t num_message);
+	bool Pull(MESSAGE& msg, uint64_t timeout);
 
 	/// @brief	The function that need called when pull new message.
 	///
