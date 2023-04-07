@@ -131,7 +131,7 @@ void InternalRegistry::WriteNewObjectToBuffer(char* name, uint8_t name_size, voi
 ///
 /// @param name			- The name of the value (key).
 /// @param name_size	- The size of the name (bytes).
-/// @param buffer		- Pointer to buffer of values that need to read.
+/// @param buffer		- [out] Pointer to buffer of values that need to read.
 /// @param buffer_size	- The size of the buffer (bytes).
 ///
 /// @return True - read success.
@@ -145,7 +145,7 @@ bool InternalRegistry::ReadBuffer(char* name, uint8_t name_size,  uint8_t* buffe
 ///
 /// @param name			- The name of the value (key).
 /// @param name_size	- The size of the name (bytes).
-/// @param buffer		- Pointer to value that need to store.
+/// @param buffer		- [out] Pointer to value that need to store.
 /// @param buffer_size	- The size of the value type (bytes).
 ///
 /// @return True - read success.

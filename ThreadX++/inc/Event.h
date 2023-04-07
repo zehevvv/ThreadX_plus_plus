@@ -59,7 +59,7 @@ public:
 	void SendMsg()
 	{
 		MESSAGE msg;
-		msg.pointer = (void*)this;
+		msg.value = (void*)this;
 		msg.type = MSG_TYPE_EVENT;
 		m_msgHandler->NotifyMessage(msg);
 	}

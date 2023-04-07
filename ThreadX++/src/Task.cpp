@@ -72,11 +72,11 @@ void Task::Sleep_ms(uint64_t time)
 		{
 			if (msg.type == MSG_TYPE_NORMAL)
 			{
-				ReceiveMsg(msg.pointer);
+				ReceiveMsg(msg.value);
 			}
 			else
 			{
-				((Class_invoker_base*)(msg.pointer))->Invoke();
+				((Class_invoker_base*)(msg.value))->Invoke();
 			}
 		}
 

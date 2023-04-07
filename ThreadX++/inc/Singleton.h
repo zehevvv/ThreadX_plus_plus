@@ -2,28 +2,26 @@
 
 #include "Types.h"
 
-template <typename T> class Singleton{
+template <typename T> class Singleton
+{
 public:
-	static T* Instance();
+	/// @brief Return instance of the singleton class, if it not allocated yet, create it.
+	static T* Instance()
+	{
+		if (m_instance == NULL)
+			m_instance = new T();
+
+		return m_instance;
+	}
 
 protected:
-	Singleton();
+	/// C'tor.
+	Singleton()
+	{
+	}
+
 	static T* m_instance;
 };
-
-template <typename T>
-Singleton<T>::Singleton()
-{
-}
-
-template <typename T>
-T* Singleton<T>::Instance()
-{
-	if (m_instance == nullptr)
-		m_instance = new T();
-
-	return m_instance;
-}
 
 template <typename T>
 T* Singleton<T>::m_instance = NULL;

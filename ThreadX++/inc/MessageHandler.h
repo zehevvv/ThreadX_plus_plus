@@ -22,7 +22,7 @@ typedef enum MSG_TYPE : uint8_t
 #pragma pack(1)
 typedef struct MESSAGE
 {
-	void* 		pointer;
+	void* 		value;
 	MSG_TYPE	type;
 } MESSAGE;
 #pragma pack()
@@ -30,31 +30,51 @@ typedef struct MESSAGE
 class MessageHandler
 {
 public:
-	bool NotifyMessage(void* pointer = NULL)
+	/// @brief Push message to queue.
+	///
+	/// @param value	- value that send as parameter in the message that push to queue.
+	///
+	/// @return True - Send message success.
+	bool NotifyMessage(void* value = NULL)
 	{
 		MESSAGE msg;
 		msg.type = MSG_TYPE_NORMAL;
-		msg.pointer = pointer;
+		msg.value = value;
 		return m_queue.Push(msg);
 	}
 
+	/// @brief Push message to queue.
+	///
+	/// @param msg	- Message that will push to queue.
+	///
+	/// @return True - Send message success.
 	bool NotifyMessage(MESSAGE& msg)
 	{
 		return m_queue.Push(msg);
 	}
 
 protected:
+	/// @brief C'tor.
+	///
+	/// @param num_message	- The number of messages that the internal queue can hold
 	MessageHandler(uint32_t num_message) :
 		m_queue(num_message)
 	{
 	}
 
-	bool Pull(MESSAGE& msg, uint64_t time)
+	/// @brief Pull message from queue, the function will wait until get new message from the queue, you can set timeout.
+	///
+	/// @param msg		- [Out] Message that pull from the queue.
+	/// @param timeout	- Timeout for waiting to new message to push to the queue.
+	bool Pull(MESSAGE& msg, uint64_t timeout)
 	{
-		return m_queue.Pull(msg, time);
+		return m_queue.Pull(msg, timeout);
 	}
 
-	virtual void ReceiveMsg(void* pointer) = 0;
+	/// @brief	The function that need called when pull new message.
+	///
+	/// @param value	- The parameter that send over the message.
+	virtual void ReceiveMsg(void* value) = 0;
 
 private:
 

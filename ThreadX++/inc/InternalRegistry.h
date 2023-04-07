@@ -22,12 +22,23 @@ class InternalRegistry : public Task, public Singleton<InternalRegistry>
 {
 friend Singleton<InternalRegistry>;
 public:
+	/// @brief 	Write registry value to cache buffer, this function just check if the value is already stored in the cache
+	/// 		if yes edit the stored value, else write a new value to cache.
+	///
+	/// @param name			- The name of the value (key).
+	/// @param name_size	- The size of the name (bytes).
+	/// @param value		- The value that will store in the flash.
 	template <typename T>
 	void Write(char* name, uint8_t name_size, T value)
 	{
 		Write(name, name_size, (void*)&value, (uint8_t)sizeof(T));
 	}
 
+	/// @brief Read registry value of buffer from cache buffer,
+	///
+	/// @param name			- The name of the value (key).
+	/// @param name_size	- The size of the name (bytes).
+	/// @param buffer		- [out] The value that store in the cache.
 	template <typename T>
 	bool Read(char* name, uint8_t name_size, T& value)
 	{

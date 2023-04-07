@@ -12,24 +12,34 @@
 template <typename T>
 class Queue {
 public:
-	Queue(ULONG num_messages)
+	/// @brief C'tor, create a memory pool for the values and create the queue.
+	///
+	/// @param num_values	- The number values that the queue hold.
+	Queue(ULONG num_values)
 	{
 		UINT msg_size = sizeof(T) / 4;
 		if ((sizeof(T) % 4) != 0)
 			msg_size += 1;
 
-		m_memory = new T[num_messages * msg_size * 4];
-		UINT status = tx_queue_create(&m_queue, (char*)"queue", msg_size, (VOID*)m_memory , num_messages * msg_size * 4);
+		m_memory = new T[num_values * msg_size * 4];
+		UINT status = tx_queue_create(&m_queue, (char*)"queue", msg_size, (VOID*)m_memory , num_values * msg_size * 4);
 
 		if (status != TX_SUCCESS)
 			printf("Error: failed to create queue, error - %d \n", status);
 	}
 
+	/// @brief D'tor, delete the memory pool of the messages.
 	~Queue()
 	{
 		delete[] m_memory;
 	}
 
+	/// @brief Push new value to the queue.
+	///
+	/// @param value		- The value that will push to the queue
+	/// @param timeout_MS	- The max time that threadX will try to push the value to queue.
+	///
+	/// @return True - the push success.
 	bool Push(T& value, uint32_t timeout_MS = QUEUE_NO_WAIT)
 	{
 		if (timeout_MS != QUEUE_WAIT_FOREVER)
@@ -46,6 +56,12 @@ public:
 		}
 	}
 
+	/// @brief Pull value from the queue.
+	///
+	/// @param value		- [out] The value that will pull from to the queue
+	/// @param timeout_MS	- The max time that threadX will wait until new value will push to queue.
+	///
+	/// @return True - the pull success.
 	bool Pull(T& value, uint32_t timeout_MS = 10)
 	{
 		if (timeout_MS != QUEUE_WAIT_FOREVER)

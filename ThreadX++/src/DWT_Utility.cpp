@@ -26,8 +26,8 @@ void DWT_Utility::Delay_us(uint32_t time_to_delay)
 {
 	uint32_t au32_initial_ticks = DWT->CYCCNT;
 	uint32_t au32_ticks = (HAL_RCC_GetHCLKFreq() / 1000000);
-	time_to_sleep *= au32_ticks;
-	while ((DWT->CYCCNT - au32_initial_ticks) < time_to_sleep - au32_ticks)
+	time_to_delay *= au32_ticks;
+	while ((DWT->CYCCNT - au32_initial_ticks) < time_to_delay - au32_ticks)
 		tx_thread_relinquish();
 }
 
