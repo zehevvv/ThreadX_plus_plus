@@ -11,6 +11,7 @@
 #include "InternalFlashDriver.h"
 #include "Macros.h"
 #include "HW.h"
+#include "Watchdog.h"
 
 #ifdef INTERNAL_REGISTRY_ENABLE
 
@@ -287,7 +288,13 @@ void FlashManagment::RestartFlash()
 	uint32_t sector_size = m_flash_driver.GetSectorSize();
 	for (uint32_t i = 0; i < m_num_sector; ++i)
 	{
+#ifdef WATCHDOG_ENABLE
+	Watchdog::Instance()->Refresh(NULL);
+#endif
 		m_flash_driver.Earse(m_start_address + i * sector_size);
+#ifdef WATCHDOG_ENABLE
+	Watchdog::Instance()->Refresh(NULL);
+#endif
 	}
 
 	m_counter = 0;
