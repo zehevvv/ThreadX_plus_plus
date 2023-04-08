@@ -159,6 +159,7 @@ void FlashManagment::Write(uint8_t* buffer, uint32_t buffer_size)
 	{
 		printf("Corrupted magic!, reset the flash!");
 		RestartFlash();
+		m_current_address += m_logical_block_size;
 		last_address = m_start_address;
 	}
 
@@ -182,6 +183,16 @@ bool FlashManagment::FindGoodBlock()
 	// Run on every block and check if the magic is still not write
 	do
 	{
+		// Set the address to next physical block.
+		m_current_address += m_logical_block_size;
+
+		// Check if we to do overlap.
+		uint32_t end_address = m_start_address + m_flash_total_size;
+		if (m_current_address == end_address)
+		{
+			m_current_address = m_start_address;
+		}
+
 		// Read the head of the current block.
 		BlockHeaderStart header;
 		m_flash_driver.Read((uint32_t*)m_current_address, (uint32_t*)&header, sizeof(header) / 4);

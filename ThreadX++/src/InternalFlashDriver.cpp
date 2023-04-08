@@ -173,7 +173,7 @@ bool InternalFlashDriver::Earse(uint32_t address)
 	uint32_t sector_error;
 	if (HAL_FLASHEx_Erase(&erase_init_struct, &sector_error) != HAL_OK)
 	{
-		printf("Failed o erase sector, get error %lu \n", HAL_FLASH_GetError());
+		printf("Failed to erase sector, get error %lu \n", HAL_FLASH_GetError());
 
 		// Lock the flash
 		HAL_FLASH_Lock();
