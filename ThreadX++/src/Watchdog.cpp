@@ -9,6 +9,10 @@
 
 #ifdef WATCHDOG_ENABLE
 
+#if(WATCHDOG_TIMEOUT_MS > 4096)
+#error The max value of "WATCHDOG_TIMEOUT_MS" is 4096
+#endif
+
 #include "stm32h7xx_hal.h"
 
 
@@ -49,11 +53,13 @@ Watchdog::Watchdog() : Task("WatchdogTask", TASK_PRIORITY, STACK_SIZE),
 
 	/* Enable write access to IWDG_PR, IWDG_RLR and IWDG_WINR registers by writing
 	 0x5555 in KR */
-	WRITE_REG(IWDG1->KR, IWDG_KEY_WRITE_ACCESS_DISABLE);
+	WRITE_REG(IWDG1->KR, IWDG_KEY_WRITE_ACCESS_ENABLE);
 
 	/* Write to IWDG registers the Prescaler & Reload values to work with */
-	IWDG1->PR = IWDG_PRESCALER_32;
-	IWDG1->RLR = WATCHDOG_TIMEOUT_MS;
+	WRITE_REG(IWDG1->PR, IWDG_PRESCALER_32);
+
+	// Set the timeout
+	WRITE_REG(IWDG1->RLR, WATCHDOG_TIMEOUT_MS);
 
 	/* Check pending flag, if previous update not done, return timeout */
 	uint32_t tick_start = HAL_GetTick();
