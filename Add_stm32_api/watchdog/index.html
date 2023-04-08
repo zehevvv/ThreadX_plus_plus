@@ -134,6 +134,7 @@ void Tasks_manager_start()
     Watchdog::Instance()-&gt;StartTask();
 
 </code></pre>
+<p><strong>Note:</strong> If you enable the registry you must be aware that the erase of the sector is take a long time (for example in the STM32H7 it takes around 1 second) so you must set the timeout of the watchdog in accordance.</p>
 <h3 id="note">note</h3>
 <ul>
 <li>The watchdog priority is should be the lowest that possible but you need to careful to not be in the same or low priority of the task that will take more time than define <code>WATCHDOG_TIMEOUT_MS</code></li>
