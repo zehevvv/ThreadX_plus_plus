@@ -34,7 +34,6 @@ typedef struct BlockHeaderEnd
 /// @param num_sector			- The number of sectors of the registry.
 /// @param logical_block_size 	- The size of the logical blocks (bytes).
 FlashManagment::FlashManagment(uint32_t start_address, uint32_t num_sector, uint32_t logical_block_size) :
-	m_is_first_block(false),
 	m_start_address(start_address),
 	m_num_sector(num_sector),
 	m_logical_block_size(logical_block_size)
@@ -183,20 +182,6 @@ bool FlashManagment::FindGoodBlock()
 	// Run on every block and check if the magic is still not write
 	do
 	{
-		// Check if it is not the first time we write to flash.
-		if (!m_is_first_block)
-		{
-			// Set the address to next physical block.
-			m_current_address += m_logical_block_size;
-
-			// Check if we to do overlap.
-			uint32_t end_address = m_start_address + m_flash_total_size;
-			if (m_current_address == end_address)
-			{
-				m_current_address = m_start_address;
-			}
-		}
-
 		// Read the head of the current block.
 		BlockHeaderStart header;
 		m_flash_driver.Read((uint32_t*)m_current_address, (uint32_t*)&header, sizeof(header) / 4);
@@ -234,11 +219,10 @@ void FlashManagment::WriteToFlash(uint8_t* buffer, uint32_t buffer_size)
 	memcpy(&m_cache_buffer[index_to_copy], (uint8_t*)&end_header, sizeof(end_header));
 
 	// Write the buffer to flash
-	m_flash_driver.Write((uint32_t*)m_current_address, (uint32_t*)&m_cache_buffer, m_logical_block_size / 4);
+	m_flash_driver.Write((uint32_t*)m_current_address, (uint32_t*)m_cache_buffer, m_logical_block_size / 4);
 
 	m_counter++;
 	m_size = buffer_size;
-	m_is_first_block = false;
 }
 
 /// @brief Check if the 2 address (of block logic) are in the same sector of the flash.
@@ -300,7 +284,7 @@ void FlashManagment::RestartFlash()
 	m_counter = 0;
 	m_current_address = m_start_address;
 	m_size = 0;
-	m_is_first_block = true;
+	WriteToFlash(NULL, 0);
 }
 
 /// @brief Get the size of the max data that can write to logical block.

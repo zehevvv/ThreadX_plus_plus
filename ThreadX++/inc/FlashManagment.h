@@ -37,7 +37,6 @@ private:
 	uint32_t 			m_current_address;
 	uint32_t 			m_size;
 	uint8_t*	 		m_cache_buffer;
-	bool	 			m_is_first_block;
 	InternalFlashDriver	m_flash_driver;
 	uint32_t 			m_start_address;
 	uint32_t 			m_num_sector;
