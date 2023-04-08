@@ -37,12 +37,15 @@ TimeEvent::~TimeEvent()
 void TimeEvent::Register(ULONG invoker, uint32_t time_to_execute, bool is_periodic)
 {
 	uint32_t time_to_execute_ticks = CONVERT_MS_TO_TICKS(time_to_execute);
+	if (time_to_execute_ticks == 0)
+		time_to_execute_ticks = 1;
+
 	uint32_t reschedule_ticks = 0;
 
 	if (is_periodic)
 		reschedule_ticks = time_to_execute_ticks;
 
-	UINT status = tx_timer_create(&m_timer, (char*)" ", TimerExpired, invoker, time_to_execute, reschedule_ticks, TX_AUTO_ACTIVATE);
+	UINT status = tx_timer_create(&m_timer, (char*)" ", TimerExpired, invoker, time_to_execute_ticks, reschedule_ticks, TX_AUTO_ACTIVATE);
 	if (status != TX_SUCCESS)
 	{
 		printf("Error: failed to create timer, error - %d \n", status);
