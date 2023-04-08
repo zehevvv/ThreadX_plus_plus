@@ -165,6 +165,7 @@ void Tasks_manager_start()
     InternalRegistry::Instance()-&gt;StartTask();
 
 </code></pre>
+<p><strong>Note:</strong> If you enable the Watchdog you must be aware that the erase of the sector is take a long time (for example in the STM32H7 it takes around 1 second) so you must set the timeout of the watchdog in accordance</p>
 <h2 id="how-to-use">How to use</h2>
 <p>The registry function:</p>
 <h3 id="write">Write</h3>
