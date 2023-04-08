@@ -10,7 +10,6 @@
 
 #include "Singleton.h"
 #include "FlashManagment.h"
-#include "list"
 #include "Mutex.h"
 #include "Task.h"
 #include "TimeEvent.h"
@@ -47,28 +46,21 @@ public:
 
 	void WriteBuffer(char* name, uint8_t name_size, uint8_t* buffer, uint8_t buffer_size);
 	bool ReadBuffer(char* name, uint8_t name_size,  uint8_t* buffer, uint8_t buffer_size);
-
 	bool IsExist(char* name, uint8_t name_size);
-
 	void PrintAll();
-protected:
-	void OnStart();
 
 private:
 	InternalRegistry();
 	virtual ~InternalRegistry();
 
+	bool FindObject(char* name, uint8_t name_size, RegisteryObject& object);
+	uint32_t GetObjectByIndex(uint32_t index, RegisteryObject& object);
 	void Write(char* name, uint8_t name_size, void* value, uint8_t value_size);
-	bool Read(char* name, uint8_t name_size, void* value, uint8_t value_size);
-	RegisteryObject* GetObject(char* name, uint8_t name_size);
-	void UpdateListObject();
-	void UpdateFlash();
 	void WriteNewObjectToBuffer(char* name, uint8_t name_size, void* value, uint8_t value_size);
-	uint32_t AddObjectToList(uint32_t index);
 	void EventCheckFlash(void* pointer);
+	bool Read(char* name, uint8_t name_size, void* value, uint8_t value_size);
 
 	FlashManagment 				m_flash;
-	std::list<RegisteryObject>	m_list_objects;
 	Mutex						m_mutex;
 	bool						m_need_update_flash;
 	uint8_t*					m_flash_buffer;
