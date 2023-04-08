@@ -22,13 +22,14 @@ public:
 	uint32_t Read(uint8_t* buffer, uint32_t num_byte_to_read);
 	uint32_t GetSize() { return m_size; }
 	uint32_t GetMaxFlashSize();
+	void WriteToFlash();
 
 private:
 	void FindLastLogicalBlock();
 	bool IsAdressInSameSector(uint32_t address_1, uint32_t address_2);
 	void EraseSector(uint32_t address);
 	void RestartFlash();
-	void WriteToFlash(uint8_t* buffer, uint32_t buffer_size);
+	void WriteToCache(uint8_t* buffer, uint32_t buffer_size);
 	bool FindGoodBlock();
 
 	static const uint64_t m_MAGIC_USED_BLOCK = 0x74BDC5A50FEFA13EULL;

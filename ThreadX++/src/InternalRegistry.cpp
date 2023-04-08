@@ -28,7 +28,6 @@ InternalRegistry::InternalRegistry() : Task("InternalRegistery", TASK_PRIORITY, 
 	m_event_flahs_update(&InternalRegistry::EventCheckFlash, this, this, 1000, true)
 {
 	m_flash_buffer = new uint8_t[m_flash.GetMaxFlashSize()];
-	m_shadow_flash_buffer = new uint8_t[m_flash.GetMaxFlashSize()];
 
 	m_flash_buffer_size = m_flash.GetSize();
 	m_flash.Read(m_flash_buffer, m_flash_buffer_size);
@@ -39,7 +38,6 @@ InternalRegistry::InternalRegistry() : Task("InternalRegistery", TASK_PRIORITY, 
 InternalRegistry::~InternalRegistry()
 {
 	delete[] m_flash_buffer;
-	delete[] m_shadow_flash_buffer;
 }
 
 /// @brief 	This is a callback of event that jump every second and check if buffer of the cache is change (new value is add
@@ -255,11 +253,11 @@ void InternalRegistry::UpdateFlash()
 	m_mutex.Lock();
 
     m_need_update_flash = false;
-	memcpy(m_shadow_flash_buffer, m_flash_buffer, m_flash_buffer_size);
+	m_flash.Write(m_flash_buffer, m_flash_buffer_size);
 
 	m_mutex.Unlock();
 
-	m_flash.Write(m_shadow_flash_buffer, m_flash_buffer_size);
+	m_flash.WriteToFlash();
 }
 
 /// @brief Print all the register values.

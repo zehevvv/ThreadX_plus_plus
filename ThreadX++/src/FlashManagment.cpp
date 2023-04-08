@@ -135,7 +135,8 @@ uint32_t FlashManagment::Read(uint8_t* buffer, uint32_t num_byte_to_read)
 }
 
 /// @brief  Write the logical block to flash, this function check if size if fine and find new block and
-/// 		call to function to write to flash and check if need to erase sector.
+/// 		call to function to write to cache buffer and check if need to erase sector.
+/// @note	To write to flash you need to call to function "WriteToFlash()".
 ///
 /// @param buffer			- Pointer to buffer that will store the data from the flash.
 /// @param num_byte_to_read	- The number of byte that need to read from the flash.
@@ -164,7 +165,7 @@ void FlashManagment::Write(uint8_t* buffer, uint32_t buffer_size)
 	}
 
 	// Write the new data to flash.
-	WriteToFlash(buffer, buffer_size);
+	WriteToCache(buffer, buffer_size);
 
 	// Check if we move the other sector and we can erase the used sector.
 	if (!IsAdressInSameSector(last_address, m_current_address))
@@ -208,11 +209,11 @@ bool FlashManagment::FindGoodBlock()
 	return false;
 }
 
-/// @brief Write to flash, prepare the buffer in the next order: magic - data - size - counter.
+/// @brief Write to cache buffer, prepare the buffer in the next order: magic - data - size - counter.
 ///
 /// @param buffer		- Pointer to buffer with data that need to store on the flash.
 /// @param buffer_size	- The size of the buffer that need to write to flash in bytes units.
-void FlashManagment::WriteToFlash(uint8_t* buffer, uint32_t buffer_size)
+void FlashManagment::WriteToCache(uint8_t* buffer, uint32_t buffer_size)
 {
 	// Mark the block "used"
 	static const uint64_t MAGIC_USED_BLOCK = m_MAGIC_USED_BLOCK; // Need this line because the compiler is idiot
@@ -229,11 +230,15 @@ void FlashManagment::WriteToFlash(uint8_t* buffer, uint32_t buffer_size)
 	index_to_copy = m_logical_block_size - sizeof(BlockHeaderEnd);
 	memcpy(&m_cache_buffer[index_to_copy], (uint8_t*)&end_header, sizeof(end_header));
 
-	// Write the buffer to flash
-	m_flash_driver.Write((uint32_t*)m_current_address, (uint32_t*)m_cache_buffer, m_logical_block_size / 4);
-
 	m_counter++;
 	m_size = buffer_size;
+}
+
+/// @brief Write the cache buffer to flash.
+void FlashManagment::WriteToFlash()
+{
+	// Write the buffer to flash
+	m_flash_driver.Write((uint32_t*)m_current_address, (uint32_t*)m_cache_buffer, m_logical_block_size / 4);
 }
 
 /// @brief Check if the 2 address (of block logic) are in the same sector of the flash.
@@ -295,7 +300,7 @@ void FlashManagment::RestartFlash()
 	m_counter = 0;
 	m_current_address = m_start_address;
 	m_size = 0;
-	WriteToFlash(NULL, 0);
+	WriteToCache(NULL, 0);
 }
 
 /// @brief Get the size of the max data that can write to logical block.
