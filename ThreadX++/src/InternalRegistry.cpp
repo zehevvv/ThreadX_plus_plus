@@ -24,7 +24,7 @@ typedef struct RegisteryObject
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 /// @brief C'tor, Read the stored data from flash.
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-InternalRegistry::InternalRegistry() : Task("InternalRegistery", TASK_PRIORITY, STACK_SIZE),
+InternalRegistry::InternalRegistry() : Task("InternalRegistery", TASK_PRIORITY, STACK_SIZE, NUM_MESSAGE),
 	m_flash(INTERNAL_REGISTRY_START_ADDRESS, INTERNAL_REGISTRY_NUM_SECTOR, INTERNAL_REGISTRY_LOGICAL_BLOCK_SIZE),
 	m_need_update_flash(false),
 	m_event_flahs_update(&InternalRegistry::EventCheckFlash, this, this, 1000, true)

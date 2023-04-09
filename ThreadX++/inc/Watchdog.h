@@ -26,7 +26,8 @@ private:
 	TimeEvent 			m_event_petdog;
 
 	static const uint16_t 	TASK_PRIORITY 		= WATCHDOG_TASK_PRIORITY;
-	static const uint16_t 	STACK_SIZE 			= 256;
+	static const uint16_t 	STACK_SIZE 			= 740;
+	static const uint16_t 	NUM_MESSAGE 		= 1;
 };
 
 #endif /* INC_WATCHDOG_H_ */

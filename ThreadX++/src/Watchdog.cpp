@@ -45,7 +45,7 @@
 
 
 /// @brief C'tor, init and enable the IWDG1 watchdog and also set the time event that pet (reload) the watchdog
-Watchdog::Watchdog() : Task("WatchdogTask", TASK_PRIORITY, STACK_SIZE),
+Watchdog::Watchdog() : Task("WatchdogTask", TASK_PRIORITY, STACK_SIZE, NUM_MESSAGE),
 	m_event_petdog(&Watchdog::Refresh, this, this, WATCHDOG_PET_MS, true)
 {
 	/* Enable IWDG. LSI is turned on automatically */

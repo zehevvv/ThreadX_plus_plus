@@ -70,7 +70,8 @@ private:
 	TimeEvent 					m_event_flahs_update;
 
 	static const uint16_t 	TASK_PRIORITY 	= INTERNAL_REGISTRY_TASK_PRIORITY;
-	static const uint16_t 	STACK_SIZE 		= 1024;
+	static const uint16_t 	STACK_SIZE 		= 740;
+	static const uint16_t 	NUM_MESSAGE 	= 1;
 };
 
 
