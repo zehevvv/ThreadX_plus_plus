@@ -84,6 +84,8 @@
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#read-buffer">Read buffer</a>
     </li>
+    <li class="toctree-l3"><a class="reference internal" href="#delete">Delete</a>
+    </li>
     <li class="toctree-l3"><a class="reference internal" href="#is-exist">Is exist</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#print-all">Print all</a>
@@ -134,7 +136,6 @@
 <li><strong>Memory:</strong> Because of the caching the repository hold buffers so it's not cheap, but because of the caching the registry does not need to allocate new memory for every write of the registry.</li>
 <li><strong>Minimum size:</strong> The registry needs a minimum number of 2 sectors.</li>
 <li><strong>Memory efficiency:</strong> The block size reduces by the header of 16 bytes.</li>
-<li><strong>Erase value:</strong> Currently the registry can't erase values... ):</li>
 <li><strong>Write buffer:</strong> The registry support of writing buffer but the size of the buffer must be constant.</li>
 </ul>
 <h2 id="enable-the-registry">Enable the registry</h2>
@@ -229,6 +230,18 @@ InternalRegistry::Instance()-&gt;Read((char*)&quot;val_1&quot;, 5, value);
 <p><strong>Example:</strong> Read buffer of 3 bytes, with key name <code>buf_12</code></p>
 <pre><code>uint8_t buffer[3];
 InternalRegistry::Instance()-&gt;WriteBuffer((char*)&quot;buf_12&quot;, 6, buffer, 3);
+</code></pre>
+<h3 id="delete">Delete</h3>
+<p><strong>Defamation:</strong></p>
+<pre><code>void Delete(char* name, uint8_t name_size);
+</code></pre>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong>name:</strong> The key, a string of the name of the value.  </li>
+<li><strong>name_size:</strong> The size of the string.  </li>
+</ul>
+<p><strong>Example:</strong> Delete the value with the key name <code>buf_12</code></p>
+<pre><code>InternalRegistry::Instance()-&gt;Delete((char*)&quot;buf_12&quot;, 6);
 </code></pre>
 <h3 id="is-exist">Is exist</h3>
 <p>Return if the name of the value (and the value) exist in the flash.</p>
