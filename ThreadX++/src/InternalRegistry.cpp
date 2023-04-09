@@ -191,6 +191,41 @@ bool InternalRegistry::Read(char* name, uint8_t name_size, void* value, uint8_t 
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
+/// @brief 	Remove the value from the cache buffer and set the flag of need to update the flash.
+///
+/// @param name			- The name of the value (key).
+/// @param name_size	- The size of the name (bytes).
+///////////////////////////////////////////////////////////////////////////////////////////////////
+void InternalRegistry::Delete(char* name, uint8_t name_size)
+{
+	m_mutex.Lock();
+
+	RegisteryObject object;
+	uint32_t start_index = 0;
+	uint32_t next_object_index = GetObjectByIndex(start_index, object);
+	while (next_object_index != 0)
+	{
+		if ((name_size == object.name_size) &&
+			(memcmp(name, object.name, name_size) == 0))
+		{
+			for (uint32_t i = 0; i < m_flash_buffer_size - next_object_index; ++i)
+			{
+				m_flash_buffer[start_index + i] = m_flash_buffer[next_object_index + i];
+			}
+
+			m_flash_buffer_size -= next_object_index - start_index;
+			m_need_update_flash = true;
+			break;
+		}
+
+		start_index = next_object_index;
+		next_object_index = GetObjectByIndex(next_object_index, object);
+	}
+
+	m_mutex.Unlock();
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
 /// @brief Check if the value is exist in the cache.
 ///
 /// @param name			- The name of the value (key).

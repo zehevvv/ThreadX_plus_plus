@@ -142,12 +142,6 @@ uint32_t FlashManagment::Read(uint8_t* buffer, uint32_t num_byte_to_read)
 /// @param num_byte_to_read	- The number of byte that need to read from the flash.
 void FlashManagment::Write(uint8_t* buffer, uint32_t buffer_size)
 {
-	if (buffer_size == 0)
-	{
-		printf("Can't write logical logs, get buffer size = 0\n");
-		return;
-	}
-
 	// Check if have enough space in the block without the header.
 	if (buffer_size > (m_logical_block_size - sizeof(BlockHeaderStart) - sizeof(BlockHeaderEnd)))
 	{

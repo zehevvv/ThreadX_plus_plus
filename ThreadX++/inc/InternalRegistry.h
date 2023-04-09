@@ -46,6 +46,7 @@ public:
 
 	void WriteBuffer(char* name, uint8_t name_size, uint8_t* buffer, uint8_t buffer_size);
 	bool ReadBuffer(char* name, uint8_t name_size,  uint8_t* buffer, uint8_t buffer_size);
+	void Delete(char* name, uint8_t name_size);
 	bool IsExist(char* name, uint8_t name_size);
 	void PrintAll();
 
