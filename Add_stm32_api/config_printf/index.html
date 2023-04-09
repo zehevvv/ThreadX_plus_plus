@@ -112,7 +112,7 @@
               
                 <h1 id="config-printf">Config printf</h1>
 <h2 id="introduction">introduction</h2>
-<p>The normal debug print is run over the UART of the debugger, if you want you also can send them over the SWV, the SWV is part of the debugger and it enables several features, one of them being the <code>port</code>, that line that you send data, in this tutorial, you will learn how to config the <code>printf</code> to connect to <code>port 0</code>.  </p>
+<p>The normal debug print is run over the UART of the debugger, if you want you also can send them over the SWV, the SWV is part of the debugger and it enables several features, one of them being the <code>port</code>, it is a line that you can send data over, in this tutorial, you will learn how to config the <code>printf</code> to connect to <code>port 0</code>.  </p>
 <h2 id="key-features">Key features:</h2>
 <ul>
 <li><strong>Speed:</strong> It's much quicker than the UART, (the default UART is 128kb, and the SWV is most of the time the same speed as the system clock). </li>
@@ -137,9 +137,10 @@ PUTCHAR_PROTOTYPE
 }
 </code></pre>
 <p>after the <code>SystemClock_Config</code> function call <img alt="" src="../../img/Config_printf/Add_function.png" /><br />
-2. Go to <code>Run-&gt;Debug Configuration</code>, and a new window opens, go to tab <code>Debugger</code>, and in the frame <code>Serial Wire Viewer (SWv)</code> you will find the check box <code>Enable</code>, set it <img alt="" src="../../img/Config_printf/Enable_swv.png" /><br />
-3. Run the debugger and make him stop on a breakpoint, then go to <code>Window-&gt;Show View-&gt;Other</code>, in the window that opens search <code>SWV ITM Data Console</code>, this will add a new view to your screen <code>SWV ITM Data Console</code>, in this view press on the settings <img alt="" src="../../img/Config_printf/open_setting.png" />  New window will open, in the bottom you see the frame <code>ITM Stimulus Ports</code>, you need to set the right checkbox that is near the <code>0</code> and press <code>OK</code> <img alt="" src="../../img/Config_printf/Enable_port.png" />
-4. in the view <code>SWV ITM Data Console</code> press on the <code>start trace</code> button (it looks like the red or gray ball)  <img alt="" src="../../img/Config_printf/Start_trace.png" />  </p>
+2. Build the project by press on <code>Ctrl</code> + <code>b</code>.<br />
+3. Go to <code>Run-&gt;Debug Configuration</code>, and a new window opens, in the window double click on <code>STM32 C/C++ Application</code>, than go to tab <code>Debugger</code>, and in the frame <code>Serial Wire Viewer (SWv)</code> you will find the check box <code>Enable</code>, set it <img alt="" src="../../img/Config_printf/Enable_swv.png" /><br />
+4. Run the debugger and make him stop on a breakpoint, then go to <code>Window-&gt;Show View-&gt;Other</code>, in the window that opens search <code>SWV ITM Data Console</code>, this will add a new view to your screen <code>SWV ITM Data Console</code>, in this view press on the settings button <img alt="" src="../../img/Config_printf/open_setting.png" />  New window will open, in the bottom you see the frame <code>ITM Stimulus Ports</code>, you need to set the right checkbox that is near the <code>0</code> and press <code>OK</code> <img alt="" src="../../img/Config_printf/Enable_port.png" />
+5. in the view <code>SWV ITM Data Console</code> press on the <code>start trace</code> button (it looks like the red or gray ball)  <img alt="" src="../../img/Config_printf/Start_trace.png" />  </p>
               
             </div>
           </div><footer>
